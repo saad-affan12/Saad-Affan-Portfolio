@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
-
+import { Nav, NavItem, NavLink } from "reactstrap";
 import { socialLinks } from "../portfolio";
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   return (
     <Nav className="align-items-lg-center ml-lg-auto" navbar>
-      {/* Section Navigation */}
       <NavItem>
         <NavLink href="#home">Home</NavLink>
       </NavItem>
@@ -35,15 +29,14 @@ const Navigation: React.FC = () => {
         <NavLink href="#contact">Contact</NavLink>
       </NavItem>
 
-      {/* Social Icons */}
       {socialLinks.github && (
         <NavItem>
           <NavLink
-            rel="noopener"
-            aria-label="GitHub"
-            className="nav-link-icon"
             href={socialLinks.github}
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="nav-link-icon"
           >
             <i className="fa fa-github" />
           </NavLink>
@@ -53,11 +46,11 @@ const Navigation: React.FC = () => {
       {socialLinks.linkedin && (
         <NavItem>
           <NavLink
-            rel="noopener"
-            aria-label="LinkedIn"
-            className="nav-link-icon"
             href={socialLinks.linkedin}
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="nav-link-icon"
           >
             <i className="fa fa-linkedin" />
           </NavLink>
@@ -67,11 +60,11 @@ const Navigation: React.FC = () => {
       {socialLinks.instagram && (
         <NavItem>
           <NavLink
-            rel="noopener"
-            aria-label="Instagram"
-            className="nav-link-icon"
             href={socialLinks.instagram}
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="nav-link-icon"
           >
             <i className="fa fa-instagram" />
           </NavLink>
