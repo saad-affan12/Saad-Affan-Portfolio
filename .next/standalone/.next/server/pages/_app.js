@@ -48,11 +48,8 @@ const Navigation = ()=>{
     const onExiting = ()=>setCollapseClasses("collapsing-out");
     const onExited = ()=>setCollapseClasses("");
     (0,external_react_.useEffect)(()=>{
-        const el = document.getElementById("navbar-main");
-        if (el) {
-            const headroom = new (external_headroom_js_default())(el);
-            headroom.init();
-        }
+        const headroom = new (external_headroom_js_default())(document.getElementById("navbar-main"));
+        headroom.init();
     }, []);
     return /*#__PURE__*/ jsx_runtime_.jsx("header", {
         className: "header-global",
@@ -63,15 +60,16 @@ const Navigation = ()=>{
             children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.Container, {
                 children: [
                     /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavbarBrand, {
-                        href: "#home",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("h4", {
-                            className: "text-white mb-0",
-                            children: portfolio/* greetings.name */.c0.name
+                        href: "/",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("h2", {
+                            className: "text-white",
+                            id: "nav-title",
+                            children: "Mohammed Saad Affan A"
                         })
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx("button", {
                         className: "navbar-toggler",
-                        "aria-label": "Toggle navigation",
+                        "aria-label": "navbar_toggle",
                         id: "navbar_global",
                         children: /*#__PURE__*/ jsx_runtime_.jsx("span", {
                             className: "navbar-toggler-icon"
@@ -90,8 +88,8 @@ const Navigation = ()=>{
                                     children: [
                                         /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.Col, {
                                             xs: "6",
-                                            children: /*#__PURE__*/ jsx_runtime_.jsx("h4", {
-                                                className: "text-black mb-0",
+                                            children: /*#__PURE__*/ jsx_runtime_.jsx("h3", {
+                                                className: "text-black",
                                                 children: portfolio/* greetings.name */.c0.name
                                             })
                                         }),
@@ -114,45 +112,9 @@ const Navigation = ()=>{
                                 className: "align-items-lg-center ml-lg-auto",
                                 navbar: true,
                                 children: [
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#home",
-                                            children: "Home"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#skills",
-                                            children: "Skills"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#education",
-                                            children: "Education"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#experience",
-                                            children: "Experience"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#projects",
-                                            children: "Projects"
-                                        })
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                                            href: "#contact",
-                                            children: "Contact"
-                                        })
-                                    }),
                                     portfolio/* socialLinks.github */.KT.github && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
                                         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.NavLink, {
-                                            rel: "noopener noreferrer",
+                                            rel: "noopener",
                                             "aria-label": "GitHub",
                                             className: "nav-link-icon",
                                             href: portfolio/* socialLinks.github */.KT.github,
@@ -170,7 +132,7 @@ const Navigation = ()=>{
                                     }),
                                     portfolio/* socialLinks.linkedin */.KT.linkedin && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
                                         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.NavLink, {
-                                            rel: "noopener noreferrer",
+                                            rel: "noopener",
                                             "aria-label": "LinkedIn",
                                             className: "nav-link-icon",
                                             href: portfolio/* socialLinks.linkedin */.KT.linkedin,
@@ -188,7 +150,7 @@ const Navigation = ()=>{
                                     }),
                                     portfolio/* socialLinks.instagram */.KT.instagram && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
                                         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.NavLink, {
-                                            rel: "noopener noreferrer",
+                                            rel: "noopener",
                                             "aria-label": "Instagram",
                                             className: "nav-link-icon",
                                             href: portfolio/* socialLinks.instagram */.KT.instagram,

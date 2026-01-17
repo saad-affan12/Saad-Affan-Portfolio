@@ -20,11 +20,10 @@ const Navigation = () => {
   const onExited = () => setCollapseClasses("");
 
   useEffect(() => {
-    const el = document.getElementById("navbar-main");
-    if (el) {
-      const headroom = new Headroom(el);
-      headroom.init();
-    }
+    const headroom = new Headroom(
+      document.getElementById("navbar-main")!
+    );
+    headroom.init();
   }, []);
 
   return (
@@ -35,21 +34,20 @@ const Navigation = () => {
         id="navbar-main"
       >
         <Container>
-          {/* Brand */}
-          <NavbarBrand href="#home">
-            <h4 className="text-white mb-0">{greetings.name}</h4>
+          <NavbarBrand href="/">
+          <h2 className="text-white" id="nav-title">
+            Mohammed Saad Affan A
+          </h2>
           </NavbarBrand>
 
-          {/* Mobile Toggle */}
           <button
             className="navbar-toggler"
-            aria-label="Toggle navigation"
+            aria-label="navbar_toggle"
             id="navbar_global"
           >
             <span className="navbar-toggler-icon" />
           </button>
 
-          {/* Collapse */}
           <UncontrolledCollapse
             toggler="#navbar_global"
             navbar
@@ -57,11 +55,10 @@ const Navigation = () => {
             onExiting={onExiting}
             onExited={onExited}
           >
-            {/* Mobile Header */}
             <div className="navbar-collapse-header">
               <Row>
                 <Col xs="6">
-                  <h4 className="text-black mb-0">{greetings.name}</h4>
+                  <h3 className="text-black">{greetings.name}</h3>
                 </Col>
                 <Col className="collapse-close" xs="6">
                   <button className="navbar-toggler" id="navbar_global">
@@ -72,32 +69,11 @@ const Navigation = () => {
               </Row>
             </div>
 
-            {/* Main Navigation */}
             <Nav className="align-items-lg-center ml-lg-auto" navbar>
-              <NavItem>
-                <NavLink href="#home">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#skills">Skills</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#education">Education</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#experience">Experience</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#projects">Projects</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#contact">Contact</NavLink>
-              </NavItem>
-
-              {/* Social Icons */}
               {socialLinks.github && (
                 <NavItem>
                   <NavLink
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     aria-label="GitHub"
                     className="nav-link-icon"
                     href={socialLinks.github}
@@ -112,7 +88,7 @@ const Navigation = () => {
               {socialLinks.linkedin && (
                 <NavItem>
                   <NavLink
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     aria-label="LinkedIn"
                     className="nav-link-icon"
                     href={socialLinks.linkedin}
@@ -127,7 +103,7 @@ const Navigation = () => {
               {socialLinks.instagram && (
                 <NavItem>
                   <NavLink
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     aria-label="Instagram"
                     className="nav-link-icon"
                     href={socialLinks.instagram}
