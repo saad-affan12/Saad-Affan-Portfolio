@@ -40,83 +40,103 @@ var portfolio = __webpack_require__(122);
 
 
 const Navigation = ()=>{
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.Nav, {
-        className: "align-items-lg-center ml-lg-auto",
-        navbar: true,
-        children: [
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+    const [isOpen, setIsOpen] = (0,external_react_.useState)(false);
+    const toggle = ()=>setIsOpen(!isOpen);
+    return /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.Navbar, {
+        color: "light",
+        light: true,
+        expand: "lg",
+        fixed: "top",
+        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.Container, {
+            children: [
+                /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavbarBrand, {
                     href: "#home",
-                    children: "Home"
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: "#skills",
-                    children: "Skills"
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: "#education",
-                    children: "Education"
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: "#experience",
-                    children: "Experience"
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: "#projects",
-                    children: "Projects"
-                })
-            }),
-            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: "#contact",
-                    children: "Contact"
-                })
-            }),
-            portfolio/* socialLinks.github */.KT.github && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: portfolio/* socialLinks.github */.KT.github,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                    "aria-label": "GitHub",
-                    className: "nav-link-icon",
-                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
-                        className: "fa fa-github"
+                    children: "Saad"
+                }),
+                /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavbarToggler, {
+                    onClick: toggle
+                }),
+                /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.Collapse, {
+                    isOpen: isOpen,
+                    navbar: true,
+                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(external_reactstrap_namespaceObject.Nav, {
+                        className: "ml-auto align-items-lg-center",
+                        navbar: true,
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#home",
+                                    children: "Home"
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#skills",
+                                    children: "Skills"
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#education",
+                                    children: "Education"
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#experience",
+                                    children: "Experience"
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#projects",
+                                    children: "Projects"
+                                })
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: "#contact",
+                                    children: "Contact"
+                                })
+                            }),
+                            portfolio/* socialLinks.github */.KT.github && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: portfolio/* socialLinks.github */.KT.github,
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                    "aria-label": "GitHub",
+                                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
+                                        className: "fa fa-github"
+                                    })
+                                })
+                            }),
+                            portfolio/* socialLinks.linkedin */.KT.linkedin && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: portfolio/* socialLinks.linkedin */.KT.linkedin,
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                    "aria-label": "LinkedIn",
+                                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
+                                        className: "fa fa-linkedin"
+                                    })
+                                })
+                            }),
+                            portfolio/* socialLinks.instagram */.KT.instagram && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
+                                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
+                                    href: portfolio/* socialLinks.instagram */.KT.instagram,
+                                    target: "_blank",
+                                    rel: "noopener noreferrer",
+                                    "aria-label": "Instagram",
+                                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
+                                        className: "fa fa-instagram"
+                                    })
+                                })
+                            })
+                        ]
                     })
                 })
-            }),
-            portfolio/* socialLinks.linkedin */.KT.linkedin && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: portfolio/* socialLinks.linkedin */.KT.linkedin,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                    "aria-label": "LinkedIn",
-                    className: "nav-link-icon",
-                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
-                        className: "fa fa-linkedin"
-                    })
-                })
-            }),
-            portfolio/* socialLinks.instagram */.KT.instagram && /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavItem, {
-                children: /*#__PURE__*/ jsx_runtime_.jsx(external_reactstrap_namespaceObject.NavLink, {
-                    href: portfolio/* socialLinks.instagram */.KT.instagram,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                    "aria-label": "Instagram",
-                    className: "nav-link-icon",
-                    children: /*#__PURE__*/ jsx_runtime_.jsx("i", {
-                        className: "fa fa-instagram"
-                    })
-                })
-            })
-        ]
+            ]
+        })
     });
 };
 /* harmony default export */ const components_Navigation = (Navigation);

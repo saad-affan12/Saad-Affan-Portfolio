@@ -2,24 +2,24 @@
   "index.tsx -> ../components/GithubProfileCard": {
     "id": 8077,
     "files": [
-      "static/chunks/77.049d32a4028d2673.js"
+      "static/chunks/77.6350d7972a78d8c7.js"
     ]
   },
   "index.tsx -> ../components/Navigation": {
-    "id": 9047,
+    "id": 3251,
     "files": []
   },
   "index.tsx -> ../containers/Education": {
     "id": 4318,
     "files": [
-      "static/chunks/741.89f82ef196822d09.js",
+      "static/chunks/498.4df5d46cbd59c419.js",
       "static/chunks/318.e8f6187c5697f84b.js"
     ]
   },
   "index.tsx -> ../containers/Experience": {
     "id": 2694,
     "files": [
-      "static/chunks/741.89f82ef196822d09.js",
+      "static/chunks/498.4df5d46cbd59c419.js",
       "static/chunks/694.fd4dec8152194d43.js"
     ]
   },
@@ -28,13 +28,13 @@
     "files": [
       "static/chunks/ea88be26.c40bfc1af02334c0.js",
       "static/chunks/464.f8a7fd11e7c41083.js",
-      "static/chunks/471.3831e2f746794932.js"
+      "static/chunks/471.009d84bdffabc2d4.js"
     ]
   },
   "index.tsx -> ../containers/Projects": {
     "id": 4668,
     "files": [
-      "static/chunks/741.89f82ef196822d09.js",
+      "static/chunks/498.4df5d46cbd59c419.js",
       "static/chunks/668.0b7e64e164388c98.js"
     ]
   },
@@ -42,10 +42,10 @@
     "id": 7007,
     "files": [
       "static/chunks/ea88be26.c40bfc1af02334c0.js",
-      "static/chunks/741.89f82ef196822d09.js",
+      "static/chunks/498.4df5d46cbd59c419.js",
       "static/chunks/464.f8a7fd11e7c41083.js",
-      "static/chunks/314.d6c4c429e3de9b4d.js",
-      "static/chunks/7.0408e627e2ffd05c.js"
+      "static/chunks/784.7f83263cd713f883.js",
+      "static/chunks/7.b2c3a97fae1992bb.js"
     ]
   }
 }
