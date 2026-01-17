@@ -1,98 +1,148 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { greetings, socialLinks } from "../portfolio";
+import Headroom from "headroom.js";
 import {
-  Navbar,
+  UncontrolledCollapse,
   NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
+  Navbar,
   NavItem,
   NavLink,
-  Container
+  Nav,
+  Container,
+  Row,
+  Col,
 } from "reactstrap";
 
-import { socialLinks } from "../portfolio";
-
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [collapseClasses, setCollapseClasses] = useState("");
 
-  const toggle = () => setIsOpen(!isOpen);
+  const onExiting = () => setCollapseClasses("collapsing-out");
+  const onExited = () => setCollapseClasses("");
+
+  useEffect(() => {
+    const el = document.getElementById("navbar-main");
+    if (el) {
+      const headroom = new Headroom(el);
+      headroom.init();
+    }
+  }, []);
 
   return (
-    <Navbar color="light" light expand="lg" fixed="top">
-      <Container>
-        <NavbarBrand href="#home">Saad</NavbarBrand>
+    <header className="header-global">
+      <Navbar
+        className="navbar-main navbar-transparent navbar-light headroom"
+        expand="lg"
+        id="navbar-main"
+      >
+        <Container>
+          {/* Brand */}
+          <NavbarBrand href="#home">
+            <h4 className="text-white mb-0">{greetings.name}</h4>
+          </NavbarBrand>
 
-        <NavbarToggler onClick={toggle} />
+          {/* Mobile Toggle */}
+          <button
+            className="navbar-toggler"
+            aria-label="Toggle navigation"
+            id="navbar_global"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
 
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto align-items-lg-center" navbar>
-            <NavItem>
-              <NavLink href="#home">Home</NavLink>
-            </NavItem>
+          {/* Collapse */}
+          <UncontrolledCollapse
+            toggler="#navbar_global"
+            navbar
+            className={collapseClasses}
+            onExiting={onExiting}
+            onExited={onExited}
+          >
+            {/* Mobile Header */}
+            <div className="navbar-collapse-header">
+              <Row>
+                <Col xs="6">
+                  <h4 className="text-black mb-0">{greetings.name}</h4>
+                </Col>
+                <Col className="collapse-close" xs="6">
+                  <button className="navbar-toggler" id="navbar_global">
+                    <span />
+                    <span />
+                  </button>
+                </Col>
+              </Row>
+            </div>
 
-            <NavItem>
-              <NavLink href="#skills">Skills</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink href="#education">Education</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink href="#experience">Experience</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink href="#projects">Projects</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink href="#contact">Contact</NavLink>
-            </NavItem>
-
-            {/* Social Icons */}
-            {socialLinks.github && (
+            {/* Main Navigation */}
+            <Nav className="align-items-lg-center ml-lg-auto" navbar>
               <NavItem>
-                <NavLink
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                >
-                  <i className="fa fa-github" />
-                </NavLink>
+                <NavLink href="#home">Home</NavLink>
               </NavItem>
-            )}
-
-            {socialLinks.linkedin && (
               <NavItem>
-                <NavLink
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <i className="fa fa-linkedin" />
-                </NavLink>
+                <NavLink href="#skills">Skills</NavLink>
               </NavItem>
-            )}
-
-            {socialLinks.instagram && (
               <NavItem>
-                <NavLink
-                  href={socialLinks.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                >
-                  <i className="fa fa-instagram" />
-                </NavLink>
+                <NavLink href="#education">Education</NavLink>
               </NavItem>
-            )}
-          </Nav>
-        </Collapse>
-      </Container>
-    </Navbar>
+              <NavItem>
+                <NavLink href="#experience">Experience</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#projects">Projects</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#contact">Contact</NavLink>
+              </NavItem>
+
+              {/* Social Icons */}
+              {socialLinks.github && (
+                <NavItem>
+                  <NavLink
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="nav-link-icon"
+                    href={socialLinks.github}
+                    target="_blank"
+                  >
+                    <i className="fa fa-github" />
+                    <span className="d-lg-none ml-2">GitHub</span>
+                  </NavLink>
+                </NavItem>
+              )}
+
+              {socialLinks.linkedin && (
+                <NavItem>
+                  <NavLink
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="nav-link-icon"
+                    href={socialLinks.linkedin}
+                    target="_blank"
+                  >
+                    <i className="fa fa-linkedin" />
+                    <span className="d-lg-none ml-2">LinkedIn</span>
+                  </NavLink>
+                </NavItem>
+              )}
+
+              {socialLinks.instagram && (
+                <NavItem>
+                  <NavLink
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="nav-link-icon"
+                    href={socialLinks.instagram}
+                    target="_blank"
+                  >
+                    <i className="fa fa-instagram" />
+                    <span className="d-lg-none ml-2">Instagram</span>
+                  </NavLink>
+                </NavItem>
+              )}
+            </Nav>
+          </UncontrolledCollapse>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
 

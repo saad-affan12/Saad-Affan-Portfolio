@@ -8,10 +8,11 @@ exports.modules = {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "KT": () => (/* binding */ socialLinks),
+/* harmony export */   "c0": () => (/* binding */ greetings),
 /* harmony export */   "hD": () => (/* binding */ seoData),
 /* harmony export */   "qL": () => (/* binding */ openSource)
 /* harmony export */ });
-/* unused harmony exports greetings, contact, skillsSection, SkillBars, educationInfo, experience, projects */
+/* unused harmony exports contact, skillsSection, SkillBars, educationInfo, experience, projects */
 /* harmony import */ var react_easy_emoji__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(450);
 /* harmony import */ var react_easy_emoji__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_easy_emoji__WEBPACK_IMPORTED_MODULE_0__);
 
