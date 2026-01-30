@@ -48,20 +48,6 @@ The goal of this portfolio is simple:
 
 ---
 
-## 📁 Project Structure (Simplified)
-
-.
-├── components/        # Reusable UI components
-├── containers/        # Page sections (Greetings, Skills, Projects)
-├── pages/             # Next.js pages
-├── public/
-│   ├── fonts/
-│   ├── lottie/
-│   └── resume.pdf
-├── styles/            # Global and component styles
-├── portfolio.ts       # Portfolio content configuration
-└── package.json
-
 <div align="center">
 Prepared by
 
