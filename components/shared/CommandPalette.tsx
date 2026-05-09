@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { searchData, type SearchItem } from "@/lib/search-data";
 
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.16, 1, 0.3, 1] as const;
 
 function fuzzyMatch(text: string, query: string): boolean {
   const lower = text.toLowerCase();

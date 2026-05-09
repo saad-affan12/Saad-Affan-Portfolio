@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { getLenis } from "@/lib/lenis";
 
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
