@@ -47,7 +47,19 @@ The goal of this portfolio is simple:
 - **Resume download** (`/resume.pdf`)
 
 ---
+## ❤️ Support My Work
 
+<p align="center">
+  <a href="https://buymeacoffee.com/YOUR_USERNAME">
+    <img src="https://img.shields.io/badge/☕%20Buy%20Me%20A%20Coffee-yellow?style=for-the-badge" />
+  </a>
+
+  <a href="https://github.com/sponsors/YOUR_GITHUB_USERNAME">
+    <img src="https://img.shields.io/badge/Sponsor-GitHub-pink?style=for-the-badge&logo=github" />
+  </a>
+</p>
+
+---
 <div align="center">
 Prepared by
 
