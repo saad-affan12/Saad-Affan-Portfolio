@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#0a1a2e"/>
+      <stop offset="100%" stop-color="#06203e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g transform="translate(400,225)">
+    <!-- Camera body -->
+    <path d="M-60,-20 h120 v-15 a5,5 0 0 0 -5,-5 h-20 l-10,-20 h-50 l-10,20 h-20 a5,5 0 0 0 -5,5Z" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+    <circle cx="0" cy="-15" r="8" fill="#06b6d4" opacity="0.3"/>
+    <!-- Lens -->
+    <circle cx="0" cy="10" r="35" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
+    <circle cx="0" cy="10" r="25" fill="#1e293b"/>
+    <circle cx="0" cy="10" r="15" fill="#0a1a2e" stroke="#06b6d4" stroke-width="0.5" opacity="0.5"/>
+    <circle cx="5" cy="5" r="3" fill="#06b6d4" opacity="0.6"/>
+    <!-- Face detection box -->
+    <rect x="-18" y="-4" width="36" height="28" rx="2" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.6"/>
+    <line x1="-18" y1="-4" x2="-10" y2="-4" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="18" y1="-4" x2="10" y2="-4" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="-18" y1="24" x2="-10" y2="24" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="18" y1="24" x2="10" y2="24" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="-18" y1="-4" x2="-18" y2="4" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="-18" y1="24" x2="-18" y2="16" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="18" y1="-4" x2="18" y2="4" stroke="#22d3ee" stroke-width="2"/>
+    <line x1="18" y1="24" x2="18" y2="16" stroke="#22d3ee" stroke-width="2"/>
+    <!-- LED indicators -->
+    <circle cx="-80" cy="-50" r="4" fill="#10b981">
+      <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="-65" cy="-50" r="4" fill="#ef4444"/>
+    <!-- Signal bars -->
+    <rect x="-100" cy="60" width="4" height="8" rx="1" fill="#06b6d4" opacity="0.4"/>
+    <rect x="-92" cy="55" width="4" height="13" rx="1" fill="#06b6d4" opacity="0.5"/>
+    <rect x="-84" cy="50" width="4" height="18" rx="1" fill="#06b6d4" opacity="0.6"/>
+    <rect x="-76" cy="45" width="4" height="23" rx="1" fill="#06b6d4" opacity="0.7"/>
+  </g>
+  <!-- decorative dots -->
+  <circle cx="100" cy="60" r="2" fill="#06b6d4" opacity="0.3"/>
+  <circle cx="680" cy="380" r="2" fill="#22d3ee" opacity="0.2"/>
+  <circle cx="150" cy="380" r="1.5" fill="#06b6d4" opacity="0.2"/>
+  <circle cx="700" cy="80" r="2" fill="#22d3ee" opacity="0.2"/>
+</svg>
