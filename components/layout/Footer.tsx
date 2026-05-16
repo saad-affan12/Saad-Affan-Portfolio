@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
 import { personalInfo, footerLinks } from "@/lib/data";
-import VisitorCount from "@/components/shared/VisitorCount";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -12,21 +11,17 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-border/60 pb-12 pt-16">
+    <footer className="footer-bg border-t border-border/60 pb-4 pt-16">
       <div className="cinematic-container">
-        <div className="grid grid-cols-1 gap-8 sm:gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           <div className="space-y-3">
             <Link
               href="/"
-              className="text-lg font-bold tracking-tight text-foreground"
+              className="text-xl font-mono font-bold tracking-tight text-foreground"
             >
               {personalInfo.initials}
             </Link>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {personalInfo.shortName}
-              <br />
-              Full-Stack & AI Developer from India.
-              <br />
+            <p className="text-sm leading-relaxed text-muted-foreground max-w-xs">
               {personalInfo.tagline}
             </p>
           </div>
@@ -40,44 +35,19 @@ export default function Footer() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
                 >
                   {link.label}
                 </Link>
               ))}
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-subtle">
-              Meta
-            </h3>
-            <div className="flex flex-col gap-2.5">
-              {footerLinks.meta.map((item) => {
-                const external = item.href.startsWith("http");
-                if (external) {
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  );
-                }
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+              <a
+                href="https://github.com/saad-affan12/Saad-Affan-Portfolio"
+                target="_blank"
+                rel="noreferrer"
+                className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
+              >
+                Source Code
+              </a>
             </div>
           </div>
 
@@ -86,53 +56,58 @@ export default function Footer() {
               Contact
             </h3>
             <div className="flex flex-col gap-2.5">
-              {footerLinks.contact.map((item) => {
-                const external = item.href.startsWith("http") || item.href.startsWith("mailto");
-                if (external) {
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                    </a>
-                  );
-                }
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
+              >
+                Email
+              </a>
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
+              >
+                LinkedIn
+              </a>
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noreferrer"
+                className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
+              >
+                GitHub
+              </a>
+              <a
+                href={personalInfo.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="w-fit text-sm text-muted-foreground transition-colors hover:text-foreground link-underline min-h-[44px] flex items-center"
+              >
+                Instagram
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-6 sm:flex-row">
+          <p className="text-xs text-subtle">
+            &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+          </p>
           <div className="flex items-center gap-4">
             <p className="text-xs text-subtle">
-              &copy; {new Date().getFullYear()} {personalInfo.name}. All rights
-              reserved.
+              Made with Next.js &amp; <span className="text-red-500/80">&hearts;</span>
             </p>
-            <span className="text-xs text-subtle/20 hidden sm:inline">&middot;</span>
-            <VisitorCount />
+            <motion.button
+              onClick={scrollToTop}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Back to top
+              <ArrowUp size={11} />
+            </motion.button>
           </div>
-          <motion.button
-            onClick={scrollToTop}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="flex items-center gap-2 text-xs text-subtle transition-colors hover:text-foreground"
-          >
-            Back to top
-            <ArrowUp size={12} />
-          </motion.button>
         </div>
       </div>
     </footer>

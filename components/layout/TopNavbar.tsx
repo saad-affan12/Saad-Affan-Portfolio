@@ -4,20 +4,15 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { topNavLinks, personalInfo } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { Menu, X, Terminal, Sun, Moon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 export default function TopNavbar() {
-  const { progress, scrolled } = useScrollProgress();
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isDark = theme === "dark";
 
   useEffect(() => setMounted(true), []);
 
@@ -37,95 +32,69 @@ export default function TopNavbar() {
 
   return (
     <>
-      <div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#3b82f6] origin-left z-[60]"
-        style={{ transform: `scaleX(${progress})` }}
-      />
-      <nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "glass-nav shadow-[var(--nav-shadow)]"
-            : "bg-transparent"
-        )}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-3 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <Link
-              href="/"
-              className="relative text-lg font-bold tracking-tight text-foreground group"
-            >
-              <span className="relative z-10">{personalInfo.initials}</span>
-              <span className="absolute -inset-2 bg-accent/0 group-hover:bg-accent/5 rounded-lg transition-all duration-300" />
-            </Link>
-
-            {/* Centered desktop pill */}
-            <div className="hidden md:flex items-center gap-1 bg-card/80 backdrop-blur-xl border border-border/60 rounded-full px-3 py-1.5 shadow-xl">
-              {topNavLinks.map((link) => {
-                const active = isActive(link.href);
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={cn(
-                      "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-300",
-                      active
-                        ? "text-foreground bg-accent/10 shadow-[0_0_12px_rgba(59,130,246,0.08)]"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
-                    )}
-                  >
-                    {link.label}
-                    {active && (
-                      <motion.span
-                        layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full bg-gradient-to-r from-accent/8 to-accent/12 -z-10"
-                        transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.8 }}
-                      />
-                    )}
-                  </Link>
-                );
-              })}
-              <span className="w-px h-4 bg-border mx-1" />
+        <div className="glass-nav rounded-full px-5 py-2 shadow-xl flex items-center gap-5">
+          <Link
+            href="/"
+            className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors"
+          >
+            {personalInfo.initials}
+          </Link>
+          <div className="w-px h-4 bg-border" />
+          {topNavLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
               <Link
-                href="/cli"
-                className="flex size-7 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all"
-                aria-label="Terminal"
+                key={link.label}
+                href={link.href}
+                className={cn(
+                  "relative text-sm font-medium transition-colors duration-200 py-1",
+                  active
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
               >
-                <Terminal size={13} />
+                {link.label}
+                {active && mounted && (
+                  <motion.span
+                    layoutId="nav-dot"
+                    className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 size-1 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.8 }}
+                  />
+                )}
               </Link>
-              <ThemeToggle />
-            </div>
+            );
+          })}
+          <div className="w-px h-4 bg-border" />
+          <ThemeToggle />
+        </div>
+      </motion.nav>
 
-            <div className="md:hidden flex items-center gap-1.5">
-              {mounted && (
-                <button
-                  onClick={() => setTheme(isDark ? "light" : "dark")}
-                  className="flex size-9 items-center justify-center rounded-full bg-card/80 backdrop-blur-xl border border-border/60 shadow-lg transition-all duration-300 active:scale-90 hover:border-accent/30"
-                  aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-                >
-                  <motion.div
-                    key={isDark ? "moon" : "sun"}
-                    initial={{ rotate: -45, scale: 0.5, opacity: 0 }}
-                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-                  >
-                    {isDark ? (
-                      <Moon size={14} className="text-foreground" />
-                    ) : (
-                      <Sun size={14} className="text-amber-500" />
-                    )}
-                  </motion.div>
-                </button>
-              )}
-              {!mounted && <div className="size-9" />}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all"
-                aria-label="Toggle menu"
-              >
-                {mobileOpen ? <X size={16} /> : <Menu size={16} />}
-              </button>
-            </div>
+      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden">
+        <div className={cn(
+          "flex items-center justify-between h-14 px-4 transition-all duration-300",
+          "bg-background/80 backdrop-blur-xl border-b border-border"
+        )}>
+          <Link
+            href="/"
+            className="text-base font-mono font-bold tracking-tight text-foreground"
+          >
+            {personalInfo.initials}
+          </Link>
+          <div className="flex items-center gap-1.5">
+            {mounted && <ThemeToggle />}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-accent/5 transition-all"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
           </div>
         </div>
       </nav>
@@ -181,15 +150,6 @@ export default function TopNavbar() {
                 >
                   &gt;_ CLI
                 </Link>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.4, delay: (topNavLinks.length + 1) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-16"
-              >
-                <ThemeToggle />
               </motion.div>
             </div>
           </motion.div>

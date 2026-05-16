@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import SectionHeading from "@/components/shared/SectionHeading";
+import MeshGradient from "@/components/backgrounds/MeshGradient";
+import CircuitGrid from "@/components/backgrounds/dark/CircuitGrid";
 import { stackCategories } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
@@ -33,69 +36,71 @@ function SkillIcon({ name }: { name: string }) {
     <img
       src={`https://skillicons.dev/icons?i=${iconSlug}&theme=${themeParam}`}
       alt={name}
-      className="size-4"
+      className="size-4 sm:size-5"
       loading="lazy"
     />
   );
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] as const },
-  }),
-};
-
 export default function Skills() {
+  const categories = [
+    { id: "all", title: "All" },
+    ...stackCategories.map((c) => ({ id: c.id, title: c.title })),
+  ];
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filteredItems =
+    activeCategory === "all"
+      ? stackCategories.flatMap((c) => c.items)
+      : stackCategories.find((c) => c.id === activeCategory)?.items ?? [];
+
   return (
     <section id="stack" className="py-24 relative">
+      <MeshGradient />
+      <CircuitGrid />
       <div className="cinematic-container">
         <SectionHeading
-          eyebrow="Tech Stack"
+          eyebrow="My Arsenal"
           title="Tools & Technologies"
           description="The technologies I work with to build scalable systems and intelligent interfaces."
         />
 
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 flex flex-nowrap sm:flex-wrap gap-2 justify-start sm:justify-center overflow-x-auto scrollbar-none pb-2"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 border ${
+                activeCategory === cat.id
+                  ? "bg-accent/10 border-accent/30 text-accent"
+                  : "border-border text-muted-foreground hover:border-accent/30 hover:text-foreground"
+              }`}
+            >
+              {cat.title}
+            </button>
+          ))}
+        </motion.div>
+
+        <motion.div
+          key={activeCategory}
           variants={staggerContainer}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+          animate="visible"
+          className="mt-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"
         >
-          {stackCategories.map((category, index) => (
+          {filteredItems.map((item, i) => (
             <motion.div
-              key={category.id}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="group relative"
+              key={item}
+              variants={fadeInUp}
+              className="group flex items-center gap-1.5 sm:gap-2 bg-white/[0.04] border border-white/[0.08] rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-white/8 hover:scale-105 hover:border-accent/30 cursor-default"
             >
-              <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-              <div className="relative glass-card p-5 space-y-4 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#3b82f6]/[0.03] to-transparent rounded-bl-full" />
-                <div className="flex items-center gap-3 relative">
-                  <span className="glow-dot" />
-                  <h3 className="text-sm font-semibold text-foreground">{category.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2 relative">
-                  {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-accent/20 hover:text-foreground hover:bg-accent/5 hover:shadow-[0_0_20px_rgba(59,130,246,0.06)]"
-                    >
-                      <SkillIcon name={item} />
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <SkillIcon name={item} />
+              <span className="truncate">{item}</span>
             </motion.div>
           ))}
         </motion.div>

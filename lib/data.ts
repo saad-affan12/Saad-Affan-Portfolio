@@ -8,7 +8,7 @@ export const personalInfo = {
     "I\u2019m Mohammed Saad Affan A, a Computer Science student at Vellore Institute of Technology (VIT), focused on building scalable full-stack applications and intelligent AI-driven systems.\n\nI work on modern web technologies, backend engineering, machine learning, and futuristic user experiences with a strong focus on performance, architecture, and clean design.\n\nCurrently exploring AI systems, advanced full-stack engineering, and modern software practices while building impactful real-world projects.",
   email: "saadaffan129@gmail.com",
   location: "Vellore, India",
-  birthDate: "2006-06-15",
+  birthDate: "2006-12-09",
   github: "https://github.com/saad-affan12",
   linkedin: "https://www.linkedin.com/in/saad-affan-566553319",
   instagram: "https://www.instagram.com/saad_affan12/",
@@ -158,6 +158,62 @@ export const roadmap = [
       "Collaborative creative project development",
       "Technical event coordination and participation",
       "Cross-team communication and creative ideation",
+    ],
+  },
+  {
+    role: "Builder / Developer",
+    company: "Smart AI Attendance System",
+    type: "project",
+    period: "2025",
+    badge: "IoT + AI",
+    description:
+      "IoT-powered intelligent attendance system combining ESP32-CAM real-time face capture, deep learning face recognition, anti-spoofing detection, and automated attendance logging with LED/buzzer feedback.",
+    highlights: [
+      "Real-time face detection and recognition via ESP32-CAM hardware",
+      "Anti-spoofing CNN model detecting live vs photo/screen attempts",
+      "Automated Excel attendance logging with timestamp",
+    ],
+  },
+  {
+    role: "Builder / Developer",
+    company: "SecureVote",
+    type: "project",
+    period: "2025",
+    badge: "Full-Stack",
+    description:
+      "Enterprise-grade online voting platform with role-based access, JWT authentication, one-vote enforcement, and secure MongoDB-backed election management.",
+    highlights: [
+      "Role-Based Access Control (RBAC) with admin/voter separation",
+      "JWT-authenticated secure sessions with duplicate vote prevention",
+      "Real-time election result tracking and management",
+    ],
+  },
+  {
+    role: "Builder / Developer",
+    company: "NeuroAdaptive UX",
+    type: "project",
+    period: "2025",
+    badge: "Frontend",
+    description:
+      "Client-side intelligent interface system that adapts in real-time to user interaction patterns without any backend or data storage.",
+    highlights: [
+      "Real-time behavioral pattern analysis (typing, mouse, corrections)",
+      "Dynamic UI state adaptation across four behavioral modes",
+      "Zero backend — fully client-side with complete privacy",
+    ],
+  },
+  {
+    role: "Builder / Developer",
+    company: "Student Stress Prediction",
+    type: "project",
+    period: "2026",
+    badge: "ML",
+    description:
+      "Machine learning system predicting student stress levels from lifestyle and academic factors using optimized feature engineering achieving ~85% accuracy.",
+    highlights: [
+      "Multi-model comparison: Logistic Regression, RF, SVM+PCA, XGBoost",
+      "Feature engineering and hyperparameter tuning across models",
+      "XGBoost achieved ~85% prediction accuracy",
     ],
   },
 ];

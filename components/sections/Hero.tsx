@@ -4,15 +4,27 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Download, ChevronDown } from "lucide-react";
-import ProfileImage from "@/components/shared/ProfileImage";
 import SocialLinks from "@/components/shared/SocialLinks";
+import HeroStatusBadge from "@/components/ui/HeroStatusBadge";
+import ProfileCard from "@/components/ui/ProfileCard";
+import AuroraBackground from "@/components/backgrounds/AuroraBackground";
+import Starfield from "@/components/backgrounds/dark/Starfield";
 import { personalInfo } from "@/lib/data";
 import { fadeInUp, staggerContainer, scaleIn } from "@/lib/utils";
+import type { GitHubProfile, ContributionsResponse } from "@/lib/github";
 
-export default function Hero() {
+export default function Hero({
+  profile,
+  contributions,
+}: {
+  profile?: GitHubProfile | null;
+  contributions?: ContributionsResponse | null;
+}) {
+  const [mounted, setMounted] = useState(false);
   const [age, setAge] = useState({ years: 0, decimal: "000000000" });
 
   useEffect(() => {
+    setMounted(true);
     const birth = new Date(personalInfo.birthDate);
     const update = () => {
       const now = new Date();
@@ -29,82 +41,65 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-[90dvh] flex items-center overflow-hidden">
+      <AuroraBackground />
+      <Starfield />
       <div className="w-full cinematic-container">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="space-y-10"
+          className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-center"
         >
-          <div className="flex flex-col-reverse items-start gap-6 sm:gap-8 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-1 flex-col space-y-3 sm:space-y-4">
-              <motion.div variants={fadeInUp} className="space-y-1">
-                <div className="flex items-center gap-3">
-                  <span className="inline-block text-2xl sm:text-3xl md:text-5xl xl:text-6xl/none font-bold tracking-tight text-foreground">
-                    hey, Saad here
-                  </span>
-                </div>
-                <motion.div
-                  initial={{ opacity: 0, filter: "blur(6px)", y: 6 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                  className="text-sm font-bold min-h-[24px]"
-                >
-                  <span className="tabular-nums text-gradient-blue">
-                    been on earth for {age.years}.{age.decimal} years
-                  </span>
-                </motion.div>
-              </motion.div>
-              <motion.p
-                variants={fadeInUp}
-                className="max-w-[600px] text-xs sm:text-sm leading-relaxed text-muted-foreground md:text-base"
-              >
-                {personalInfo.role}
-              </motion.p>
+          <motion.div variants={fadeInUp} className="lg:col-span-3 space-y-6 order-2 lg:order-1">
+            <div className="flex justify-center sm:justify-start">
+              <HeroStatusBadge />
             </div>
-            <motion.div variants={scaleIn}>
-              <ProfileImage />
+
+            <div className="space-y-2">
+              <h1 className="hero-name text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none bg-gradient-to-br from-[#F5F5F5] via-[#F5F5F5]/90 to-[#A1A1AA] bg-clip-text text-transparent">
+                {personalInfo.shortName}
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground font-medium">
+                {personalInfo.role}
+              </p>
+              {mounted && (
+                <p className="text-xs tabular-nums text-accent font-mono truncate max-w-full">
+                  been on earth for {age.years}.{age.decimal} years
+                </p>
+              )}
+            </div>
+
+            <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
+              {personalInfo.description.split("\n\n")[0]}
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+              <Link
+                href="/projects"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px rgba(99,102,241,0.25)]"
+              >
+                View Projects
+                <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <a
+                href={personalInfo.resume}
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98]"
+              >
+                Resume
+                <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
+              </a>
+            </div>
+
+            <motion.div variants={fadeInUp} className="flex justify-center sm:justify-start">
+              <SocialLinks />
             </motion.div>
-          </div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="max-w-2xl space-y-4 text-sm text-muted-foreground leading-relaxed"
-          >
-            <p>
-              I&apos;m Mohammed Saad Affan A, a Computer Science student at{" "}
-              <span className="text-foreground/80">Vellore Institute of Technology (VIT)</span>,
-              focused on building scalable full-stack applications and intelligent AI-driven systems.
-            </p>
-            <p>
-              I work on modern web technologies, backend engineering, machine learning, and
-              futuristic user experiences with a strong focus on performance, architecture, and clean design.
-            </p>
-            <p>
-              Currently exploring AI systems, advanced full-stack engineering, and modern software
-              practices while building impactful real-world projects.
-            </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/projects"
-              className="group relative inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-accent/80 shadow-lg shadow-accent/20 hover:shadow-accent/30"
-            >
-              View Projects
-              <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-            <a
-              href={personalInfo.resume}
-              className="group relative inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-foreground hover:bg-accent/5"
-            >
-              Resume
-              <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
-            </a>
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <SocialLinks />
+          <motion.div variants={scaleIn} className="lg:col-span-2 order-1 lg:order-2">
+            <ProfileCard
+              profile={profile ?? null}
+              contributions={contributions ?? null}
+            />
           </motion.div>
         </motion.div>
 

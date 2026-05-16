@@ -43,7 +43,7 @@ export default function Setup() {
                 className="group relative"
               >
                 <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-                <div className="relative glass-card p-5 flex items-center gap-4">
+                <div className="relative glass-card glass-card-border-accent p-5 flex items-center gap-4">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-accent group-hover:border-accent/20 group-hover:bg-accent/5 transition-all duration-300">
                     <Icon size={18} />
                   </div>

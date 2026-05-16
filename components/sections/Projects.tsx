@@ -4,19 +4,23 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import SectionHeading from "@/components/shared/SectionHeading";
+import ParticleNetwork from "@/components/backgrounds/ParticleNetwork";
+import DarkParticleNetwork from "@/components/backgrounds/dark/DarkParticleNetwork";
 import { projects } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
 const projectColors = [
-  "from-[#3b82f6]/20 via-[#2563eb]/10 to-[#1d4ed8]/5",
-  "from-[#8b5cf6]/20 via-[#7c3aed]/10 to-[#6d28d9]/5",
-  "from-[#06b6d4]/20 via-[#0891b2]/10 to-[#0e7490]/5",
-  "from-[#f59e0b]/20 via-[#d97706]/10 to-[#b45309]/5",
+  "from-[#6366F1]/20 via-[#4F46E5]/10 to-[#4338CA]/5",
+  "from-[#8B5CF6]/20 via-[#7C3AED]/10 to-[#6D28D9]/5",
+  "from-[#06B6D4]/20 via-[#0891B2]/10 to-[#0E7490]/5",
+  "from-[#F59E0B]/20 via-[#D97706]/10 to-[#B45309]/5",
 ];
 
 export default function Projects() {
   return (
     <section id="projects" className="py-24 relative">
+      <ParticleNetwork />
+      <DarkParticleNetwork />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="Projects"
@@ -33,25 +37,15 @@ export default function Projects() {
         >
           {projects.map((project, index) => {
             const initials = project.name.split(" ").map((w) => w[0]).join("").slice(0, 3);
+            const isFeatured = index === 0;
 
             return (
               <motion.div
                 key={project.name}
                 variants={fadeInUp}
-                className="group relative"
+                className={isFeatured ? "md:col-span-2" : ""}
               >
-                <div className="absolute -inset-[0.5px] rounded-xl overflow-hidden pointer-events-none opacity-15 group-hover:opacity-45 transition-opacity duration-700">
-                  <motion.div
-                    className="absolute -inset-8"
-                    style={{
-                      background: "conic-gradient(from 0deg, transparent 0deg, #3b82f6 60deg, #8b5cf6 120deg, #06b6d4 180deg, transparent 240deg)",
-                    }}
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-                  />
-                </div>
-                <div className="relative glass-card overflow-hidden">
-                  {/* Project Image Banner - 16:9 aspect ratio */}
+                <div className="group relative bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.12] hover:shadow-[0_0_20px_rgba(99,102,241,0.08)]">
                   <div className="relative w-full aspect-video bg-card overflow-hidden">
                     {project.image ? (
                       <Image
@@ -72,23 +66,22 @@ export default function Projects() {
                         </div>
                       </div>
                     )}
+                    <div className="absolute top-2 right-2 bg-card/80 backdrop-blur-sm rounded-full px-2 py-0.5 text-[10px] font-mono text-muted-foreground border border-border">
+                      {project.date}
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-lg font-semibold text-foreground">
-                        {project.name}
-                      </h3>
-                      <span className="text-xs text-subtle whitespace-nowrap mt-1">{project.date}</span>
-                    </div>
+                  <div className="p-4 sm:p-5 space-y-3">
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {project.name}
+                    </h3>
 
-                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
                       {project.description}
                     </p>
 
                     <div className="flex flex-wrap gap-1.5">
-                      {project.tags.slice(0, 4).map((tag) => (
+                      {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
                           className="inline-flex items-center rounded-full bg-accent/8 px-2.5 py-1 text-[10px] font-medium text-accent border border-accent/10"
@@ -96,20 +89,20 @@ export default function Projects() {
                           {tag}
                         </span>
                       ))}
-                      {project.tags.length > 4 && (
+                      {project.tags.length > 3 && (
                         <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-[10px] font-medium text-subtle">
-                          +{project.tags.length - 4}
+                          +{project.tags.length - 3}
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-3 pt-2">
+                    <div className="flex items-center gap-3 pt-1">
                       {project.live && (
                         <a
                           href={project.live}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] flex-1 sm:flex-none"
                         >
                           <ExternalLink size={12} />
                           Live
@@ -119,7 +112,7 @@ export default function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
+                        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98] flex-1 sm:flex-none"
                       >
                         <Github size={12} />
                         Source

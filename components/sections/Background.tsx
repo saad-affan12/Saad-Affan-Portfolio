@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import GalaxyBackground from "@/components/background/galaxy-background";
 import DotGridBackground from "@/components/background/dot-grid-background";
+import BackgroundAnimation from "@/components/ui/BackgroundAnimation";
 
 const CursorSpotlight = dynamic(() => import("@/components/effects/CursorSpotlight"), { ssr: false });
 
@@ -17,6 +18,7 @@ export default function Background() {
         <GalaxyBackground />
       ) : (
         <>
+          <BackgroundAnimation />
           <GalaxyBackground />
           <DotGridBackground />
         </>

@@ -2,18 +2,31 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { Github, ExternalLink, BookOpen } from "lucide-react";
-import SectionHeading from "@/components/shared/SectionHeading";
-import { fadeInUp, staggerContainer } from "@/lib/utils";
+import { fadeInUp, staggerContainer, cn } from "@/lib/utils";
 import type { GitHubProfile, ContributionsResponse, ContributionDay } from "@/lib/github";
 
-const levelColors: Record<number, string> = {
-  0: "bg-muted",
-  1: "bg-accent/20",
-  2: "bg-accent/35",
-  3: "bg-accent/55",
-  4: "bg-accent/80",
-};
+function useLevelColor(level: number, isLight: boolean): string {
+  if (isLight) {
+    const lightColors: Record<number, string> = {
+      0: "bg-[#E8E8E8]",
+      1: "bg-[#A5B4FC]",
+      2: "bg-[#818CF8]",
+      3: "bg-[#6366F1]",
+      4: "bg-[#4F46E5]",
+    };
+    return lightColors[level] ?? lightColors[0];
+  }
+  const darkColors: Record<number, string> = {
+    0: "bg-muted",
+    1: "bg-[#312E81]/60",
+    2: "bg-[#4338CA]/50",
+    3: "bg-[#6366F1]/50",
+    4: "bg-[#818CF8]/60",
+  };
+  return darkColors[level] ?? darkColors[0];
+}
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -78,6 +91,8 @@ export default function GitHubContributions({
   profile: GitHubProfile | null;
   contributions: ContributionsResponse | null;
 }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
@@ -118,32 +133,58 @@ export default function GitHubContributions({
     pulseColor = "bg-subtle";
   }
 
-  const latestActiveLabel = lastActive
-    ? `${months[new Date(lastActive.date).getMonth()]} ${new Date(lastActive.date).getFullYear()}`
-    : null;
-
   return (
     <section id="github" className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3b82f6]/[0.01] to-transparent pointer-events-none" />
       <div className="cinematic-container">
-        <SectionHeading
-          eyebrow="Activity"
-          title="GitHub Contributions"
-          description="Open source activity and project development timeline."
-        />
-
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="mt-14 space-y-8"
+          className="space-y-6"
         >
+          <motion.div variants={fadeInUp} className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Github size={16} className="text-foreground" />
+              <h2 className="text-lg font-semibold text-foreground">GitHub Activity</h2>
+            </div>
+            <a
+              href="https://github.com/saad-affan12"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View Profile
+              <ExternalLink size={10} />
+            </a>
+          </motion.div>
+
           {weeks.length > 0 ? (
             <>
+              <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-2">
+                <div className="bg-card border border-border rounded-lg px-2 sm:px-4 py-3 text-center">
+                  <div className="text-base sm:text-lg font-bold text-foreground">{total}</div>
+                  <div className="text-[10px] sm:text-[11px] text-muted-foreground mt-0.5">Contributions</div>
+                </div>
+                <div className="bg-card border border-border rounded-lg px-2 sm:px-4 py-3 text-center">
+                  <div className="text-base sm:text-lg font-bold text-foreground">{repos}</div>
+                  <div className="text-[10px] sm:text-[11px] text-muted-foreground mt-0.5">Repositories</div>
+                </div>
+                <div className="bg-card border border-border rounded-lg px-2 sm:px-4 py-3 text-center flex items-center justify-center gap-2">
+                  <span className="relative flex size-2">
+                    <span className={`animate-ping absolute inline-flex size-full rounded-full ${pulseColor} opacity-75`} />
+                    <span className={`relative inline-flex size-2 rounded-full ${pulseColor}`} />
+                  </span>
+                  <div>
+                    <div className="text-xs sm:text-sm font-bold text-foreground">{activityStatus}</div>
+                    <div className="text-[10px] sm:text-[11px] text-muted-foreground mt-0.5">Status</div>
+                  </div>
+                </div>
+              </motion.div>
+
               <motion.div
                 variants={fadeInUp}
-                className="glass-card p-4 sm:p-6 overflow-x-auto relative"
+                className="bg-card border border-border rounded-xl p-4 sm:p-5 overflow-x-auto"
               >
                 <div className="min-w-[760px]">
                   <div className="flex text-[10px] text-subtle ml-8 mb-1 h-4">
@@ -197,7 +238,7 @@ export default function GitHubContributions({
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: (wi * 7 + di) * 0.0015 }}
-                                                className={`size-[10px] rounded-[2px] ${levelColors[day.level] ?? levelColors[0]} transition-colors duration-200 hover:ring-1 hover:ring-accent/50 cursor-pointer`}
+                                                className={`size-[10px] rounded-[2px] ${useLevelColor(day.level, isLight)} transition-colors duration-200 hover:ring-1 hover:ring-accent/50 cursor-pointer`}
                               />
                             ) : (
                               <div className="size-[10px]" />
@@ -211,84 +252,17 @@ export default function GitHubContributions({
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] text-subtle">Less</span>
                       {[0, 1, 2, 3, 4].map((level) => (
-                        <div key={level} className={`size-[10px] rounded-[2px] ${levelColors[level]}`} />
+                        <div key={level} className={`size-[10px] rounded-[2px] ${useLevelColor(level, isLight)}`} />
                       ))}
                       <span className="text-[10px] text-subtle">More</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-subtle">{total} contributions in {year}</span>
-                      {latestActiveLabel && (
-                        <span className="text-[10px] text-subtle hidden sm:inline">
-                          Latest: {latestActiveLabel}
-                        </span>
-                      )}
-                    </div>
+                    <span className="text-[10px] text-subtle">{total} contributions in {year}</span>
                   </div>
                 </div>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                <div className="group glass-card p-5 text-center hover:border-accent/20 transition-all">
-                  <motion.div
-                    className="text-2xl font-bold text-foreground group-hover:text-gradient-blue transition-all"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                  >
-                    {repos}
-                  </motion.div>
-                  <div className="text-xs text-subtle mt-1.5 flex items-center justify-center gap-1.5">
-                    <BookOpen size={12} />
-                    Repositories
-                  </div>
-                </div>
-
-                <div className="group glass-card p-5 text-center hover:border-accent/20 transition-all">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="relative flex size-2">
-                      <span className={`animate-ping absolute inline-flex size-full rounded-full ${pulseColor} opacity-75`} />
-                      <span className={`relative inline-flex size-2 rounded-full ${pulseColor}`} />
-                    </span>
-                    <motion.span
-                      className="text-lg font-bold text-foreground group-hover:text-gradient-blue transition-all"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                      {activityStatus}
-                    </motion.span>
-                  </div>
-                  <div className="text-xs text-subtle mt-1.5 flex items-center justify-center gap-1.5">
-                    <Github size={12} />
-                    Status
-                  </div>
-                </div>
-
-                <a
-                  href="https://github.com/saad-affan12"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group glass-card p-5 text-center hover:border-accent/20 transition-all"
-                >
-                  <div className="flex items-center justify-center gap-2">
-                    <motion.span
-                      className="text-lg font-bold text-foreground group-hover:text-gradient-blue transition-all flex items-center gap-2"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.3 }}
-                    >
-                      <ExternalLink size={16} />
-                      View Profile
-                    </motion.span>
-                  </div>
-                  <div className="text-xs text-subtle mt-1.5">
-                    github.com/saad-affan12
-                  </div>
-                </a>
               </motion.div>
             </>
           ) : (
-            <motion.div variants={fadeInUp} className="glass-card p-10 text-center">
+            <motion.div variants={fadeInUp} className="bg-card border border-border rounded-xl p-10 text-center">
               <div className="flex flex-col items-center gap-4">
                 <Github size={32} className="text-subtle" />
                 <p className="text-sm text-subtle">Unable to load contribution activity.</p>
