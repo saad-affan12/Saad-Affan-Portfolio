@@ -64,7 +64,7 @@ export const searchData: SearchItem[] = [
   { id: "ext-github", title: "GitHub Profile", description: "saad-affan12 — view all repositories", href: "https://github.com/saad-affan12", icon: "🐙", category: "External" },
   { id: "ext-linkedin", title: "LinkedIn Profile", description: "Connect on LinkedIn", href: "https://www.linkedin.com/in/saad-affan-566553319", icon: "🔗", category: "External" },
   { id: "ext-email", title: "Send Email", description: "saadaffan129@gmail.com", href: "mailto:saadaffan129@gmail.com", icon: "📧", category: "External" },
-  { id: "ext-instagram", title: "Instagram", description: "@saad_affan12", href: "https://www.instagram.com/saad_affan12/", icon: "📸", category: "External" },
+  { id: "ext-instagram", title: "Instagram", description: "@SAADAFFAN_OFFX", href: "https://www.instagram.com/saadaffan_offx?igsh=MWtkbzJnaDlndWx4MA==", icon: "📸", category: "External" },
   { id: "ext-resume", title: "Download Resume", description: "View or download my resume", href: "/resume.pdf", icon: "📄", category: "External" },
 
   // CLI commands
