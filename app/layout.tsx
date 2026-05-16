@@ -45,7 +45,7 @@ const clashDisplay = localFont({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://saadaffan.vercel.app"),
+  metadataBase: new URL("https://saad-portfolio-ashy.vercel.app"),
   title: "Mohammed Saad Affan A | Building Scalable Systems & Intelligent Interfaces",
   description:
     "Full-stack engineer specializing in AI systems, premium frontend experiences, and scalable architectures.",
