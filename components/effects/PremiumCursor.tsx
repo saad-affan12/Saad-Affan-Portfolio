@@ -129,12 +129,9 @@ export default function PremiumCursor() {
       }
 
       if (ringRef.current) {
-        const isLight = mounted && theme !== "dark";
-        if (isLight) {
-          const ringScale = st.current.hidden ? 0 : 0.6 + 0.4 * st.current.scale;
-          ringRef.current.style.transform = `translate3d(${ringPos.current.x - 18}px, ${ringPos.current.y - 18}px, 0) scale(${ringScale})`;
-          ringRef.current.style.opacity = st.current.hidden ? "0" : "0.35";
-        }
+        const ringScale = st.current.hidden ? 0 : 0.6 + 0.4 * st.current.scale;
+        ringRef.current.style.transform = `translate3d(${ringPos.current.x - 18}px, ${ringPos.current.y - 18}px, 0) scale(${ringScale})`;
+        ringRef.current.style.opacity = st.current.hidden ? "0" : "0.35";
       }
 
       rafId.current = requestAnimationFrame(loop);
@@ -165,10 +162,10 @@ export default function PremiumCursor() {
           width: 36,
           height: 36,
           borderRadius: "50%",
-          border: "1.5px solid rgba(59, 130, 246, 0.25)",
+          border: mounted && theme === "dark" ? "1.5px solid rgba(148, 163, 184, 0.3)" : "1.5px solid rgba(15, 23, 42, 0.2)",
           transformOrigin: "18px 18px",
           transition: "opacity 0.4s ease",
-          zIndex: 9998,
+          zIndex: 9997,
         }}
       />
       <svg
@@ -179,7 +176,8 @@ export default function PremiumCursor() {
           height: 20,
           transformOrigin: "10px 10px",
           transition: "opacity 0.25s ease",
-          zIndex: 9999,
+          zIndex: 9998,
+          color: mounted && theme === "dark" ? "#ffffff" : "#0f172a",
         }}
         viewBox="0 0 20 20"
         fill="none"
@@ -191,7 +189,6 @@ export default function PremiumCursor() {
           strokeWidth="1.2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-foreground"
         />
       </svg>
     </>

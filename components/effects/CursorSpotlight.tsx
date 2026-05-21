@@ -5,9 +5,12 @@ import { useMousePosition } from "@/hooks/useMousePosition";
 import { useState, useEffect } from "react";
 
 export default function CursorSpotlight() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const { x, y } = useMousePosition();
-  const isDark = theme !== "light";
+  const isDark = mounted && resolvedTheme === "dark";
+
+  useEffect(() => { setMounted(true); }, []);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

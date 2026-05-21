@@ -1,11 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
 import { personalInfo, footerLinks } from "@/lib/data";
 
 export default function Footer() {
+  const [year, setYear] = useState(2026);
+  useEffect(() => { setYear(new Date().getFullYear()); }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -92,7 +96,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-6 sm:flex-row">
           <p className="text-xs text-subtle">
-            &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+            &copy; {year} {personalInfo.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <p className="text-xs text-subtle">

@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 import GalaxyBackground from "@/components/background/galaxy-background";
 import DotGridBackground from "@/components/background/dot-grid-background";
 import BackgroundAnimation from "@/components/ui/BackgroundAnimation";
@@ -9,8 +10,10 @@ import BackgroundAnimation from "@/components/ui/BackgroundAnimation";
 const CursorSpotlight = dynamic(() => import("@/components/effects/CursorSpotlight"), { ssr: false });
 
 export default function Background() {
-  const { theme } = useTheme();
-  const isDark = theme !== "light";
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <div className="fixed inset-0 -z-10">
@@ -19,7 +22,6 @@ export default function Background() {
       ) : (
         <>
           <BackgroundAnimation />
-          <GalaxyBackground />
           <DotGridBackground />
         </>
       )}

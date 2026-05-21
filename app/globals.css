@@ -104,8 +104,7 @@
     }
   }
 
-  .light body,
-  .light {
+  html.light body {
     background: linear-gradient(180deg, #f8fafc 0%, #f0f4f8 50%, #eef2ff 100%);
   }
 

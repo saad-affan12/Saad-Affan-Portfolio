@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { Github, ExternalLink, BookOpen } from "lucide-react";
@@ -93,6 +93,7 @@ export default function GitHubContributions({
 }) {
   const { theme } = useTheme();
   const isLight = theme === "light";
+  const [mounted, setMounted] = useState(false);
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
@@ -100,6 +101,8 @@ export default function GitHubContributions({
     date: string;
     count: number;
   }>({ visible: false, x: 0, y: 0, date: "", count: 0 });
+
+  useEffect(() => { setMounted(true); }, []);
 
   const year = new Date().getFullYear().toString();
   const processed = contributions?.contributions
@@ -113,7 +116,7 @@ export default function GitHubContributions({
   const allContributions = contributions?.contributions ?? [];
   const activeDays = allContributions.filter((d) => d.count > 0).sort((a, b) => b.date.localeCompare(a.date));
   const lastActive = activeDays[0] ?? null;
-  const daysSinceLastActive = lastActive
+  const daysSinceLastActive = lastActive && mounted
     ? Math.floor((Date.now() - new Date(lastActive.date).getTime()) / 86400000)
     : Infinity;
 

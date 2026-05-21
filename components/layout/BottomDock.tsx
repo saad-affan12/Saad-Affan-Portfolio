@@ -37,7 +37,7 @@ export default function BottomDock() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 20 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center gap-2"
     >
       <motion.button
         onClick={() => setExpanded(!expanded)}
@@ -61,9 +61,9 @@ export default function BottomDock() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-dock rounded-xl sm:rounded-2xl px-2 sm:px-3 py-2 sm:py-2.5"
+            className="glass-dock rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2.5"
           >
-            <div className="flex items-center gap-1 sm:gap-1.5">
+            <div className="flex items-center gap-0.5 sm:gap-1.5">
               {dockLinks.map((link, index) => {
                 const Icon = fallbackIcons[link.icon] || Home;
                 const isHovered = hoveredIndex === index;

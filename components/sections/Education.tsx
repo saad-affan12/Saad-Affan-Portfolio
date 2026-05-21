@@ -152,7 +152,7 @@ export default function Education() {
                             </span>
                           ))}
                           {item.skills.length > 5 && (
-                            <span className="inline-flex items-center rounded-full border border-zinc-200 dark:border-zinc-700 px-3 py-1 text-[11px] font-medium text-muted-foreground whitespace-nowrap">
+                            <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground whitespace-nowrap">
                               +{item.skills.length - 5} more
                             </span>
                           )}

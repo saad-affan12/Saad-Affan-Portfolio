@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Download, ChevronDown } from "lucide-react";
+import { useTheme } from "next-themes";
 import SocialLinks from "@/components/shared/SocialLinks";
 import HeroStatusBadge from "@/components/ui/HeroStatusBadge";
 import ProfileCard from "@/components/ui/ProfileCard";
@@ -21,6 +22,8 @@ export default function Hero({
   contributions?: ContributionsResponse | null;
 }) {
   const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [age, setAge] = useState({ years: 0, decimal: "000000000" });
 
   useEffect(() => {
@@ -56,7 +59,13 @@ export default function Hero({
             </div>
 
             <div className="space-y-2">
-              <h1 className="hero-name text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none bg-gradient-to-br from-[#F5F5F5] via-[#F5F5F5]/90 to-[#A1A1AA] bg-clip-text text-transparent">
+              <h1 className="hero-name text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-none bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: mounted && !isDark
+                    ? "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #475569 100%)"
+                    : "linear-gradient(135deg, #F5F5F5 0%, #F5F5F5 90%, #A1A1AA 100%)"
+                }}
+              >
                 {personalInfo.shortName}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground font-medium">

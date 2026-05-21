@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import { personalInfo } from "@/lib/data";
 
 interface Line {
@@ -158,6 +159,8 @@ function formatTime() {
 
 export default function MsaCli() {
   const router = useRouter();
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const [input, setInput] = useState("");
   const [phase, setPhase] = useState<"auto" | "interactive">("auto");
@@ -170,6 +173,8 @@ export default function MsaCli() {
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const isProcessingRef = useRef(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -275,18 +280,20 @@ export default function MsaCli() {
       className="w-full max-w-3xl"
     >
       <div
-        className="rounded-xl border border-slate-700/40 backdrop-blur-xl overflow-hidden"
+        className="rounded-xl border backdrop-blur-xl overflow-hidden"
         style={{
           background: 'var(--terminal-bg)',
           boxShadow: 'var(--terminal-shadow)',
-          transition: 'background 0.3s ease, box-shadow 0.3s ease',
+          borderColor: mounted && theme === 'light' ? 'rgba(15, 23, 42, 0.15)' : 'rgba(51, 65, 85, 0.4)',
+          transition: 'background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
         }}
       >
         <div
-          className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b border-slate-700/30"
+          className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b"
           style={{
             background: 'var(--terminal-header-bg)',
-            transition: 'background 0.3s ease',
+            borderColor: mounted && theme === 'light' ? 'rgba(15, 23, 42, 0.1)' : 'rgba(51, 65, 85, 0.3)',
+            transition: 'background 0.3s ease, border-color 0.3s ease',
           }}
         >
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
@@ -295,7 +302,7 @@ export default function MsaCli() {
             <div className="size-2 sm:size-2.5 rounded-full bg-[#28c840]" />
           </div>
           <div className="flex-1 text-center min-w-0">
-            <span className="text-[9px] sm:text-[10px] font-medium text-slate-400 tracking-wide truncate block">MSA Terminal</span>
+            <span className="text-[9px] sm:text-[10px] font-medium tracking-wide truncate block" style={{ color: mounted && theme === 'light' ? 'rgba(71, 85, 105, 0.9)' : 'rgb(148, 163, 184)' }}>MSA Terminal</span>
           </div>
           <div className="text-[8px] sm:text-[9px] text-blue-400/60 font-mono tracking-wider shrink-0">ONLINE</div>
         </div>
@@ -305,15 +312,15 @@ export default function MsaCli() {
             {lines.map((line, i) => (
               <div
                 key={i}
-                className={
-                  line.type === "command"
-                    ? "text-blue-400"
-                    : line.type === "system"
-                      ? "text-slate-500 italic"
-                      : "text-slate-200"
-                }
-              >
-                {line.text.split("\n").map((t, j) => (
+                  className={
+                    line.type === "command"
+                      ? "text-blue-400"
+                      : line.type === "system"
+                        ? "text-slate-500 italic"
+                        : "text-gray-300"
+                  }
+                >
+                  {line.text.split("\n").map((t, j) => (
                   <div key={j}>{t}</div>
                 ))}
               </div>
@@ -327,7 +334,7 @@ export default function MsaCli() {
             )}
 
             {typingOutput.map((line, i) => (
-              <div key={`typing-${i}`} className="text-slate-200">
+              <div key={`typing-${i}`} className="text-gray-200">
                 {line}
               </div>
             ))}
@@ -340,7 +347,7 @@ export default function MsaCli() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className="flex-1 bg-transparent border-none outline-none text-slate-200 font-mono text-[13px] placeholder-slate-500"
+                  className="flex-1 bg-transparent border-none outline-none text-gray-200 font-mono text-[13px] placeholder-slate-500"
                   placeholder="Type a command..."
                   spellCheck={false}
                   autoComplete="off"

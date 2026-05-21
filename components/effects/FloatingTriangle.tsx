@@ -18,11 +18,15 @@ interface Triangle {
 export default function FloatingTriangle() {
   const [triangles, setTriangles] = useState<Triangle[]>([]);
   const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
-    const isDark = theme !== "light";
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const isDark = resolvedTheme === "dark";
     const baseOpacity = isDark ? 0.03 : 0.06;
     const items: Triangle[] = Array.from({ length: 6 }, (_, i) => ({
       id: i,
@@ -35,11 +39,11 @@ export default function FloatingTriangle() {
       opacity: baseOpacity + Math.random() * baseOpacity,
     }));
     setTriangles(items);
-  }, [theme]);
+  }, [mounted, resolvedTheme]);
 
   if (!mounted) return null;
 
-  const isDark = theme !== "light";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">

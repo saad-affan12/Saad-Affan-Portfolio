@@ -28,9 +28,9 @@ export default function DotGridBackground() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = window.innerWidth;
     let h = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     ctx.scale(dpr, dpr);
@@ -75,10 +75,10 @@ export default function DotGridBackground() {
     const handleResize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
-      const newDpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = w * newDpr;
-      canvas.height = h * newDpr;
-      ctx.scale(newDpr, newDpr);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       generateDots();
     };
 

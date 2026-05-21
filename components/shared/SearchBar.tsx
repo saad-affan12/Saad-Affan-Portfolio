@@ -37,7 +37,7 @@ export default function SearchBar() {
         animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12, scale: visible ? 1 : 0.9 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-xl border border-border/60 bg-card/80 px-3 py-2.5 text-sm text-muted-foreground shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-accent/20 hover:text-foreground hover:bg-card hover:shadow-xl active:scale-[0.97]"
+        className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-2 rounded-xl border border-border/60 bg-card/80 px-3 py-2.5 text-sm text-muted-foreground shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-accent/20 hover:text-foreground hover:bg-card hover:shadow-xl active:scale-[0.97]"
         aria-label="Search"
       >
         <Search size={14} />
