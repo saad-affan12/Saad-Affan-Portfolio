@@ -12,7 +12,7 @@ export const personalInfo = {
   github: "https://github.com/saad-affan12",
   linkedin: "https://www.linkedin.com/in/saad-affan-566553319",
   instagram: "https://www.instagram.com/saad_affan12/",
-  portfolio: "https://saad-portfolio-ashy.vercel.app",
+  portfolio: "https://saad-affan.vercel.app",
   repo: "https://github.com/saad-affan12/Saad-Affan-Portfolio",
   resume: "/resume.pdf",
   image: "/img/saad.png",

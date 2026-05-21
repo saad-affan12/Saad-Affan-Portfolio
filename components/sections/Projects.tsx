@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import SectionHeading from "@/components/shared/SectionHeading";
 import ParticleNetwork from "@/components/backgrounds/ParticleNetwork";
 import DarkParticleNetwork from "@/components/backgrounds/dark/DarkParticleNetwork";
@@ -48,13 +47,11 @@ export default function Projects() {
                 <div className="group relative bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.12] hover:shadow-[0_0_20px_rgba(99,102,241,0.08)]">
                   <div className="relative w-full aspect-video bg-card overflow-hidden">
                     {project.image ? (
-                      <Image
+                      <img
                         src={project.image}
                         alt={`${project.name} preview`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority={index < 2}
-                        className="object-cover"
+                        className="absolute inset-0 size-full object-cover"
+                        loading={index < 2 ? "eager" : "lazy"}
                       />
                     ) : (
                       <div className={`absolute inset-0 bg-gradient-to-br ${projectColors[index % projectColors.length]}`} />
