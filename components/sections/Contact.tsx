@@ -15,14 +15,13 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-950 to-violet-950 border border-white/[0.06]">
+          <div className="relative overflow-hidden rounded-2xl bg-card/90 border border-border/60 backdrop-blur-xl">
             <div className="dotted-grid pointer-events-none absolute inset-0 opacity-30" />
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-[120px]" />
 
             <div className="relative z-10 px-6 py-12 sm:px-10 sm:py-16 md:px-16">
               <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                   <motion.div variants={fadeInUp} className="shrink-0 flex justify-center sm:justify-start">
-                  <div className="size-16 sm:size-20 rounded-full overflow-hidden ring-2 ring-accent/30 border-2 border-white/[0.08]">
+                  <div className="size-16 sm:size-20 rounded-full overflow-hidden ring-2 ring-accent/30 border-2 border-card">
                     <img
                       src={personalInfo.image}
                       alt={personalInfo.name}
@@ -34,13 +33,13 @@ export default function Contact() {
                 <div className="flex-1 text-center md:text-left space-y-4">
                   <motion.h2
                     variants={fadeInUp}
-                    className="text-3xl sm:text-4xl font-bold tracking-tight text-white md:text-5xl"
+                    className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground md:text-5xl"
                   >
                     Let&apos;s Build Something
                   </motion.h2>
                   <motion.p
                     variants={fadeInUp}
-                    className="text-sm leading-relaxed text-zinc-400 md:text-base max-w-xl"
+                    className="text-sm leading-relaxed text-muted-foreground md:text-base max-w-xl"
                   >
                     {personalInfo.availability}
                   </motion.p>
@@ -56,7 +55,7 @@ export default function Contact() {
                       href={personalInfo.linkedin}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-white/[0.12] px-5 py-2.5 text-sm font-medium text-zinc-300 transition-all duration-200 hover:border-white/[0.25] hover:text-white hover:bg-white/5 active:scale-[0.98]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98]"
                     >
                       <Linkedin size={14} />
                       View LinkedIn

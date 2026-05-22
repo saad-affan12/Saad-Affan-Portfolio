@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { projects } from "@/lib/data";
 
 interface ProjectImageProps {
   src: string | null;
@@ -53,7 +54,7 @@ export default function ProjectImage({ src, alt, initials, gradientClass }: Proj
 }
 
 function projectActions(projectName: string) {
-  const project = allProjects.find((p) => p.name === projectName);
+  const project = projects.find((p) => p.name === projectName);
   if (!project) return null;
 
   return (
@@ -82,9 +83,4 @@ function projectActions(projectName: string) {
   );
 }
 
-const allProjects = [
-  { name: "Secure Vote System", live: "https://secure-vote-system-eta.vercel.app/", github: "https://github.com/saad-affan12/secure-vote-system" },
-  { name: "NeuroAdaptive UX", live: "https://neuroadaptive.vercel.app/", github: "https://github.com/saad-affan12/NeuroAdaptive-UX" },
-  { name: "Smart AI Attendance System", live: null, github: "https://github.com/saad-affan12/Smart-AI-Attendance-System-IoT" },
-  { name: "Student Stress Prediction", live: null, github: "https://github.com/saad-affan12/student-stress-prediction" },
-];
+

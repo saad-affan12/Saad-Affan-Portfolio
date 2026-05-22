@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
-import ParticleNetwork from "@/components/backgrounds/ParticleNetwork";
-import DarkParticleNetwork from "@/components/backgrounds/dark/DarkParticleNetwork";
 import { projects } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
@@ -18,8 +16,6 @@ const projectColors = [
 export default function Projects() {
   return (
     <section id="projects" className="py-24 relative">
-      <ParticleNetwork />
-      <DarkParticleNetwork />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="Projects"

@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import GalaxyBackground from "@/components/background/galaxy-background";
 import DotGridBackground from "@/components/background/dot-grid-background";
 import BackgroundAnimation from "@/components/ui/BackgroundAnimation";
+import AuroraBackground from "@/components/backgrounds/AuroraBackground";
+import Starfield from "@/components/backgrounds/dark/Starfield";
 
 const CursorSpotlight = dynamic(() => import("@/components/effects/CursorSpotlight"), { ssr: false });
 
@@ -25,6 +27,7 @@ export default function Background() {
           <DotGridBackground />
         </>
       )}
+      {isDark ? <Starfield /> : <AuroraBackground />}
       <CursorSpotlight />
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${

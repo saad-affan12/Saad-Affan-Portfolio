@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import SectionHeading from "@/components/shared/SectionHeading";
-import MeshGradient from "@/components/backgrounds/MeshGradient";
-import CircuitGrid from "@/components/backgrounds/dark/CircuitGrid";
 import { stackCategories } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
 function SkillIcon({ name }: { name: string }) {
   const { theme } = useTheme();
-  const isDark = theme !== "light";
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const isDark = mounted && theme !== "light";
   const themeParam = isDark ? "dark" : "light";
   const slug = name.toLowerCase().replace(/\s+/g, "").replace(/[.#]/g, "");
   const iconMap: Record<string, string> = {
@@ -56,8 +56,6 @@ export default function Skills() {
 
   return (
     <section id="stack" className="py-24 relative">
-      <MeshGradient />
-      <CircuitGrid />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="My Arsenal"

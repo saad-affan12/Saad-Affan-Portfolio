@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { Calendar, Building2, Sparkles, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
-import DotGrid from "@/components/backgrounds/DotGrid";
-import Scanlines from "@/components/backgrounds/dark/Scanlines";
 import { roadmap } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
@@ -13,8 +11,6 @@ export default function Experience() {
 
   return (
     <section id="experience" className="py-24 relative">
-      <DotGrid variant="lg" />
-      <Scanlines />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="Experience & Projects"

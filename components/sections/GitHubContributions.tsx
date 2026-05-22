@@ -92,8 +92,8 @@ export default function GitHubContributions({
   contributions: ContributionsResponse | null;
 }) {
   const { theme } = useTheme();
-  const isLight = theme === "light";
   const [mounted, setMounted] = useState(false);
+  const isLight = mounted && theme === "light";
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;

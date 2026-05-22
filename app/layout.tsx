@@ -8,8 +8,6 @@ import TopNavbar from "@/components/layout/TopNavbar";
 import Footer from "@/components/layout/Footer";
 import BottomDock from "@/components/layout/BottomDock";
 import Background from "@/components/sections/Background";
-import GradientOrbs from "@/components/backgrounds/GradientOrbs";
-import DarkGradientOrbs from "@/components/backgrounds/dark/DarkGradientOrbs";
 import PageTransition from "@/components/shared/PageTransition";
 import InitialLoader from "@/components/shared/InitialLoader";
 import SearchBar from "@/components/shared/SearchBar";
@@ -17,7 +15,6 @@ import AddToHomeScreen from "@/components/AddToHomeScreen";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const PremiumCursor = dynamic(() => import("@/components/effects/PremiumCursor"));
-const FloatingTriangle = dynamic(() => import("@/components/effects/FloatingTriangle"));
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap", preload: true });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: true });
@@ -109,12 +106,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${clashDisplay.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ThemeProvider>
-          <GradientOrbs />
-          <DarkGradientOrbs />
           <InitialLoader />
           <SmoothScrollProvider>
             <Background />
-            <FloatingTriangle />
             <TopNavbar />
             <PremiumCursor />
             <SearchBar />

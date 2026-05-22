@@ -19,6 +19,8 @@
 }
 
 :root {
+  --body-bg: linear-gradient(180deg, #020617 0%, #050b1f 40%, #000814 100%);
+  --body-bg-transition: background 0.4s ease;
   --glass-bg: rgba(7, 14, 30, 0.6);
   --glass-border: rgba(59, 130, 246, 0.12);
   --glass-strong-bg: rgba(7, 14, 30, 0.8);
@@ -42,6 +44,7 @@
 }
 
 .light {
+  --body-bg: linear-gradient(180deg, #f8fafc 0%, #f0f4f8 50%, #eef2ff 100%);
   --color-background: #f8fafc;
   --color-foreground: #0f172a;
   --color-card: rgba(255, 255, 255, 0.95);
@@ -88,11 +91,11 @@
   }
 
   body {
-    background: linear-gradient(180deg, #020617 0%, #050b1f 40%, #000814 100%);
+    background: var(--body-bg);
     color: var(--color-foreground);
     font-family: var(--font-inter), sans-serif;
     overflow-x: hidden;
-    transition: background 0.4s ease, color 0.3s ease;
+    transition: var(--body-bg-transition, background 0.4s ease), color 0.3s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -102,10 +105,6 @@
     body {
       -webkit-tap-highlight-color: transparent;
     }
-  }
-
-  html.light body {
-    background: linear-gradient(180deg, #f8fafc 0%, #f0f4f8 50%, #eef2ff 100%);
   }
 
   .light .text-gradient {

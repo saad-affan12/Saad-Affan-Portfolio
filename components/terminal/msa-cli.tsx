@@ -149,7 +149,6 @@ const NAV_COMMANDS: Record<string, string> = {
   home: "/",
   roadmap: "/roadmap",
   tools: "/tools",
-  projects: "/projects",
 };
 
 function formatTime() {
@@ -161,6 +160,7 @@ export default function MsaCli() {
   const router = useRouter();
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const isLight = mounted && theme === "light";
   const [lines, setLines] = useState<Line[]>([]);
   const [input, setInput] = useState("");
   const [phase, setPhase] = useState<"auto" | "interactive">("auto");
@@ -284,7 +284,7 @@ export default function MsaCli() {
         style={{
           background: 'var(--terminal-bg)',
           boxShadow: 'var(--terminal-shadow)',
-          borderColor: mounted && theme === 'light' ? 'rgba(15, 23, 42, 0.15)' : 'rgba(51, 65, 85, 0.4)',
+          borderColor: isLight ? 'rgba(15, 23, 42, 0.15)' : 'rgba(51, 65, 85, 0.4)',
           transition: 'background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
         }}
       >
@@ -292,7 +292,7 @@ export default function MsaCli() {
           className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b"
           style={{
             background: 'var(--terminal-header-bg)',
-            borderColor: mounted && theme === 'light' ? 'rgba(15, 23, 42, 0.1)' : 'rgba(51, 65, 85, 0.3)',
+            borderColor: isLight ? 'rgba(15, 23, 42, 0.1)' : 'rgba(51, 65, 85, 0.3)',
             transition: 'background 0.3s ease, border-color 0.3s ease',
           }}
         >
@@ -302,7 +302,7 @@ export default function MsaCli() {
             <div className="size-2 sm:size-2.5 rounded-full bg-[#28c840]" />
           </div>
           <div className="flex-1 text-center min-w-0">
-            <span className="text-[9px] sm:text-[10px] font-medium tracking-wide truncate block" style={{ color: mounted && theme === 'light' ? 'rgba(71, 85, 105, 0.9)' : 'rgb(148, 163, 184)' }}>MSA Terminal</span>
+            <span className="text-[9px] sm:text-[10px] font-medium tracking-wide truncate block" style={{ color: isLight ? 'rgba(71, 85, 105, 0.9)' : 'rgb(148, 163, 184)' }}>MSA Terminal</span>
           </div>
           <div className="text-[8px] sm:text-[9px] text-blue-400/60 font-mono tracking-wider shrink-0">ONLINE</div>
         </div>

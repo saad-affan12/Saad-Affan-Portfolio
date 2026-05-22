@@ -8,8 +8,6 @@ import { useTheme } from "next-themes";
 import SocialLinks from "@/components/shared/SocialLinks";
 import HeroStatusBadge from "@/components/ui/HeroStatusBadge";
 import ProfileCard from "@/components/ui/ProfileCard";
-import AuroraBackground from "@/components/backgrounds/AuroraBackground";
-import Starfield from "@/components/backgrounds/dark/Starfield";
 import { personalInfo } from "@/lib/data";
 import { fadeInUp, staggerContainer, scaleIn } from "@/lib/utils";
 import type { GitHubProfile, ContributionsResponse } from "@/lib/github";
@@ -23,7 +21,7 @@ export default function Hero({
 }) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const isDark = mounted && theme === "dark";
   const [age, setAge] = useState({ years: 0, decimal: "000000000" });
 
   useEffect(() => {
@@ -44,8 +42,6 @@ export default function Hero({
 
   return (
     <section id="hero" className="relative min-h-[90dvh] flex items-center overflow-hidden">
-      <AuroraBackground />
-      <Starfield />
       <div className="w-full cinematic-container">
         <motion.div
           variants={staggerContainer}

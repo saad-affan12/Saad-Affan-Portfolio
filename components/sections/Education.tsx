@@ -4,8 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Calendar, Award, Sparkles } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
-import DotGrid from "@/components/backgrounds/DotGrid";
-import DarkDotGrid from "@/components/backgrounds/dark/DarkDotGrid";
 import { education } from "@/lib/data";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 
@@ -56,8 +54,6 @@ export default function Education() {
 
   return (
     <section id="education" className="relative py-24">
-      <DotGrid />
-      <DarkDotGrid />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="Education"

@@ -24,9 +24,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
     if (prevPathname.current !== pathname) {
       const lenis = getLenis();
       if (lenis) {
-        lenis.scrollTo(0, { immediate: false, duration: 0.5 });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        lenis.scrollTo(0, { immediate: true });
       }
       setTransitioning(true);
       setLoadingBar(true);
