@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import dynamic from "next/dynamic";
+// Dynamic imports removed; using client wrapper for client-only components
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
@@ -14,7 +14,7 @@ import SearchBar from "@/components/shared/SearchBar";
 import AddToHomeScreen from "@/components/AddToHomeScreen";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
-const PremiumCursor = dynamic(() => import("@/components/effects/PremiumCursor"));
+import ClientPremiumCursor from "@/components/effects/ClientPremiumCursor";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap", preload: true });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: true });
@@ -110,7 +110,7 @@ export default function RootLayout({
           <SmoothScrollProvider>
             <Background />
             <TopNavbar />
-            <PremiumCursor />
+            <ClientPremiumCursor />
             <SearchBar />
             <main className="relative z-10">
               <PageTransition>
