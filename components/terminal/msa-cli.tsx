@@ -201,7 +201,8 @@ export default function MsaCli() {
 
     if (typingCmd.length < entry.cmd.length + 2) {
       const t = setTimeout(() => {
-        setTypingCmd(`$ ${entry.cmd.slice(0, typingCmd.length - 1)}`);
+        const charPos = Math.max(0, typingCmd.length - 2);
+        setTypingCmd(`$ ${entry.cmd.slice(0, charPos)}`);
       }, 40);
       return () => clearTimeout(t);
     }

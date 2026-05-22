@@ -26,7 +26,6 @@ export async function fetchGitHubProfile(): Promise<GitHubProfile | null> {
     } as RequestInit & { next?: { revalidate: number } });
 
     if (!res.ok) {
-      console.warn("GitHub API responded with", res.status);
       return null;
     }
 
@@ -41,8 +40,7 @@ export async function fetchGitHubProfile(): Promise<GitHubProfile | null> {
       following: data.following ?? 0,
       html_url: data.html_url ?? "https://github.com/saad-affan12",
     };
-  } catch (err) {
-    console.error("GitHub API fetch failed:", err);
+  } catch {
     return null;
   }
 }
@@ -54,13 +52,11 @@ export async function fetchGitHubContributions(): Promise<ContributionsResponse 
     } as RequestInit & { next?: { revalidate: number } });
 
     if (!res.ok) {
-      console.warn("Contributions API responded with", res.status);
       return null;
     }
 
     return await res.json();
-  } catch (err) {
-    console.error("Contributions API fetch failed:", err);
+  } catch {
     return null;
   }
 }

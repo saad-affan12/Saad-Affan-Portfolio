@@ -31,7 +31,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
       prevPathname.current = pathname;
       const timer = setTimeout(() => {
         setTransitioning(false);
-        setTimeout(() => setLoadingBar(false), 200);
+        setLoadingBar(false);
       }, 400);
       return () => clearTimeout(timer);
     }

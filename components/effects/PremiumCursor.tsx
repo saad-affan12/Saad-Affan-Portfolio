@@ -165,7 +165,7 @@ export default function PremiumCursor() {
           border: mounted && theme === "dark" ? "1.5px solid rgba(148, 163, 184, 0.3)" : "1.5px solid rgba(15, 23, 42, 0.2)",
           transformOrigin: "18px 18px",
           transition: "opacity 0.4s ease",
-          zIndex: 9996,
+          zIndex: 9999,
         }}
       />
       <svg
@@ -176,7 +176,7 @@ export default function PremiumCursor() {
           height: 20,
           transformOrigin: "10px 10px",
           transition: "opacity 0.25s ease",
-          zIndex: 9997,
+          zIndex: 9999,
           color: mounted && theme === "dark" ? "#ffffff" : "#0f172a",
         }}
         viewBox="0 0 20 20"

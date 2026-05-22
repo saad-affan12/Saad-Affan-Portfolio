@@ -11,13 +11,17 @@ export default function VisitorCount() {
     setMounted(true);
 
     const record = async () => {
-      const recorded = localStorage.getItem("visitor_recorded");
-      if (!recorded) {
-        const res = await fetch("/api/visitors", { method: "POST" });
-        const data = await res.json();
-        if (data.count !== null) {
-          localStorage.setItem("visitor_recorded", "true");
+      try {
+        const recorded = localStorage.getItem("visitor_recorded");
+        if (!recorded) {
+          const res = await fetch("/api/visitors", { method: "POST" });
+          const data = await res.json();
+          if (data.count !== null) {
+            localStorage.setItem("visitor_recorded", "true");
+          }
         }
+      } catch {
+        /* visitor count is non-critical */
       }
     };
 
