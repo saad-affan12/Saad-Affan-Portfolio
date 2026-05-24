@@ -1,0 +1,42 @@
+[
+  {
+    "id": "programming",
+    "title": "Languages",
+    "items": ["Python", "Java", "C++", "C", "JavaScript", "TypeScript"]
+  },
+  {
+    "id": "frontend",
+    "title": "Frontend",
+    "items": ["React", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Framer Motion"]
+  },
+  {
+    "id": "backend",
+    "title": "Backend",
+    "items": ["Node.js", "Express.js", "Flask", "REST APIs", "Authentication"]
+  },
+  {
+    "id": "database",
+    "title": "Database",
+    "items": ["MongoDB", "MySQL", "Firebase"]
+  },
+  {
+    "id": "ml",
+    "title": "Machine Learning",
+    "items": ["Scikit-learn", "Pandas", "NumPy", "XGBoost", "AI Systems"]
+  },
+  {
+    "id": "tools",
+    "title": "Tools",
+    "items": ["Git", "GitHub", "Docker", "VS Code", "Postman", "Vercel"]
+  },
+  {
+    "id": "concepts",
+    "title": "Core Concepts",
+    "items": ["DSA", "OOP", "DBMS", "Operating Systems", "Computer Architecture"]
+  },
+  {
+    "id": "special",
+    "title": "Special",
+    "items": ["Intelligent Interfaces", "Performance Optimization", "Full Stack Systems", "AI-driven UX"]
+  }
+]

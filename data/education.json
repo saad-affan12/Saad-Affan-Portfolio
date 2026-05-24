@@ -1,0 +1,40 @@
+[
+  {
+    "institution": "Vellore Institute of Technology (VIT)",
+    "degree": "Bachelor’s of Computer Science",
+    "period": "Jun 2024 – Nov 2026",
+    "cgpa": "8.11 CGPA",
+    "specialization": "AI & ML",
+    "description": "Currently pursuing Bachelor’s of Computer Science with specialization in AI & ML, building strong foundations in scalable systems, programming, artificial intelligence, and modern software engineering.",
+    "skills": [
+      "Technical English",
+      "Computer Organisation and Architecture",
+      "Programming",
+      "Python",
+      "Java",
+      "Data Structures",
+      "Algorithms",
+      "Database Systems",
+      "Web Development",
+      "Object-Oriented Programming",
+      "AI & Machine Learning"
+    ],
+    "logo": "/education/vit-logo.png"
+  },
+  {
+    "institution": "Islamiah Boys Higher Secondary School",
+    "program": "Higher Secondary — Mathematics and Computer Science",
+    "period": "Jun 2023 – Mar 2024",
+    "description": "Successfully completed the English Access Microscholarship Program, strengthening communication and English proficiency.\n\nPerformed among the top ranks in Computer Science at the school level during the academic year.",
+    "skills": ["Communication", "Computer Science", "Mathematics", "Problem Solving"],
+    "logo": "/education/ibhss-logo.png"
+  },
+  {
+    "institution": "Islamiah Boys Higher Secondary School",
+    "program": "Matriculation",
+    "period": "Jun 2021 – Apr 2022",
+    "description": "Built strong foundations in mathematics, analytical thinking, and academic discipline.",
+    "skills": ["Mathematics", "Science", "Analytical Thinking"],
+    "logo": "/education/ibhss-logo.png"
+  }
+]

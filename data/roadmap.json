@@ -1,0 +1,96 @@
+[
+  {
+    "role": "Full Stack Developer Intern",
+    "company": "SuperCX Technologies Pvt. Ltd.",
+    "type": "Internship",
+    "period": "May 2026 – Present",
+    "badge": "Full-Stack",
+    "logo": "/company/supercx-logo.png",
+    "description": "Working as a Full Stack Developer Intern contributing to scalable web systems, frontend/backend engineering, startup product development, and modern software implementation in a fast-paced engineering environment.",
+    "highlights": [
+      "Building and improving scalable full-stack web applications",
+      "Working across frontend and backend engineering workflows",
+      "Contributing to startup product development",
+      "Collaborating in a hybrid engineering environment",
+      "Improving software architecture and technical problem-solving"
+    ]
+  },
+  {
+    "role": "Machine Learning Developer",
+    "company": "Vellore Institute of Technology",
+    "type": "Academic Project",
+    "period": "Mar 2026",
+    "badge": "AI/ML",
+    "description": "Built a student stress prediction system using SVM, Random Forest, and XGBoost achieving ~85% accuracy through optimized feature engineering and hyperparameter tuning.",
+    "highlights": [
+      "Implemented and compared SVM, Random Forest, and XGBoost classifiers",
+      "Feature engineering and hyperparameter tuning for optimal accuracy",
+      "Achieved ~85% prediction accuracy on real student data"
+    ]
+  },
+  {
+    "role": "Member",
+    "company": "VIT Film Society",
+    "type": "Club / Volunteer",
+    "period": "Dec 2025 – Present",
+    "badge": "Creative",
+    "description": "Actively contributing to collaborative creative initiatives and technical event participation within VIT's film community.",
+    "highlights": [
+      "Collaborative creative project development",
+      "Technical event coordination and participation",
+      "Cross-team communication and creative ideation"
+    ]
+  },
+  {
+    "role": "Builder / Developer",
+    "company": "Smart AI Attendance System",
+    "type": "project",
+    "period": "2025",
+    "badge": "IoT + AI",
+    "description": "IoT-powered intelligent attendance system combining ESP32-CAM real-time face capture, deep learning face recognition, anti-spoofing detection, and automated attendance logging with LED/buzzer feedback.",
+    "highlights": [
+      "Real-time face detection and recognition via ESP32-CAM hardware",
+      "Anti-spoofing CNN model detecting live vs photo/screen attempts",
+      "Automated Excel attendance logging with timestamp"
+    ]
+  },
+  {
+    "role": "Builder / Developer",
+    "company": "SecureVote",
+    "type": "project",
+    "period": "2025",
+    "badge": "Full-Stack",
+    "description": "Enterprise-grade online voting platform with role-based access, JWT authentication, one-vote enforcement, and secure MongoDB-backed election management.",
+    "highlights": [
+      "Role-Based Access Control (RBAC) with admin/voter separation",
+      "JWT-authenticated secure sessions with duplicate vote prevention",
+      "Real-time election result tracking and management"
+    ]
+  },
+  {
+    "role": "Builder / Developer",
+    "company": "NeuroAdaptive UX",
+    "type": "project",
+    "period": "2025",
+    "badge": "Frontend",
+    "description": "Client-side intelligent interface system that adapts in real-time to user interaction patterns without any backend or data storage.",
+    "highlights": [
+      "Real-time behavioral pattern analysis (typing, mouse, corrections)",
+      "Dynamic UI state adaptation across four behavioral modes",
+      "Zero backend — fully client-side with complete privacy"
+    ]
+  },
+  {
+    "role": "Builder / Developer",
+    "company": "Student Stress Prediction",
+    "type": "project",
+    "period": "2026",
+    "badge": "ML",
+    "description": "Machine learning system predicting student stress levels from lifestyle and academic factors using optimized feature engineering achieving ~85% accuracy.",
+    "highlights": [
+      "Multi-model comparison: Logistic Regression, RF, SVM+PCA, XGBoost",
+      "Feature engineering and hyperparameter tuning across models",
+      "XGBoost achieved ~85% prediction accuracy"
+    ]
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "setupCards": [
+    { "title": "Editor", "description": "VS Code", "icon": "code" },
+    { "title": "Terminal", "description": "PowerShell", "icon": "terminal" },
+    { "title": "Framework", "description": "Next.js 15", "icon": "globe" },
+    { "title": "Version Control", "description": "Git & GitHub", "icon": "git-branch" },
+    { "title": "API Testing", "description": "Postman", "icon": "beaker" },
+    { "title": "Containerization", "description": "Docker", "icon": "container" },
+    { "title": "Fuel", "description": "Coffee", "icon": "coffee" }
+  ],
+  "footerLinks": {
+    "links": [
+      { "label": "Home", "href": "/" },
+      { "label": "Roadmap", "href": "/roadmap" },
+      { "label": "Projects", "href": "/projects" },
+      { "label": "Resume", "href": "/resume" },
+      { "label": "Tools", "href": "/tools" }
+    ],
+    "meta": [
+      { "label": "Sitemap", "href": "/sitemap.xml" },
+      { "label": "Source Code", "href": "https://github.com/saad-affan12/Saad-Affan-Portfolio" }
+    ],
+    "contact": [
+      { "label": "Email", "href": "mailto:saadaffan129@gmail.com" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/saad-affan-566553319" },
+      { "label": "GitHub", "href": "https://github.com/saad-affan12" },
+      { "label": "Instagram", "href": "https://www.instagram.com/saad_affan12/" }
+    ]
+  },
+  "topNavLinks": [
+    { "label": "Roadmap", "href": "/roadmap" },
+    { "label": "Projects", "href": "/projects" },
+    { "label": "Resume", "href": "/resume" },
+    { "label": "Tools", "href": "/tools" }
+  ],
+  "dockLinks": [
+    { "label": "Home", "href": "/", "icon": "home" },
+    { "label": "Roadmap", "href": "/roadmap", "icon": "roadmap" },
+    { "label": "Projects", "href": "/projects", "icon": "projects" },
+    { "label": "Resume", "href": "/resume", "icon": "resume" },
+    { "label": "Tools", "href": "/tools", "icon": "tools" }
+  ],
+  "sponsorInfo": {
+    "title": "Support My Work",
+    "description": "If you find my projects useful, consider sponsoring on GitHub.",
+    "buttonLabel": "Sponsor on GitHub",
+    "buttonHref": "https://github.com/sponsors"
+  }
+}

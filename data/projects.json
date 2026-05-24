@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Secure Vote System",
+    "slug": "secure-vote-system",
+    "date": "2025",
+    "description": "Enterprise-grade online voting platform with role-based access, JWT authentication, one-vote enforcement, and secure MongoDB-backed election management. Features admin-controlled election lifecycle and real-time result tracking.",
+    "tags": ["Next.js", "TypeScript", "Node.js", "Express", "MongoDB", "JWT"],
+    "highlights": [
+      "Role-Based Access Control (RBAC) with admin/voter separation",
+      "JWT-authenticated secure sessions",
+      "One-vote-per-user enforcement with duplicate prevention",
+      "Real-time election result management"
+    ],
+    "github": "https://github.com/saad-affan12/secure-vote-system",
+    "live": "https://secure-vote-system-eta.vercel.app/",
+    "image": "/images/projects/secure-vote-system.svg",
+    "featured": true,
+    "status": "completed",
+    "priority": 1
+  },
+  {
+    "name": "NeuroAdaptive UX",
+    "slug": "neuroadaptive-ux",
+    "date": "2025",
+    "description": "Client-side intelligent interface system that adapts in real-time to user interaction patterns. Tracks typing rhythm, mouse movement, and interaction intensity to dynamically adjust UI feedback without any backend or data storage.",
+    "tags": ["Next.js", "React", "TypeScript", "Framer Motion", "Tailwind CSS"],
+    "highlights": [
+      "Real-time behavioral pattern analysis (typing, mouse, corrections)",
+      "Dynamic UI state adaptation (Calm, Rushed, Stressed, Idle)",
+      "Zero backend — fully client-side with complete privacy",
+      "Smooth animated transitions between behavioral states"
+    ],
+    "github": "https://github.com/saad-affan12/NeuroAdaptive-UX",
+    "live": "https://neuroadaptive.vercel.app/",
+    "image": "/images/projects/neuroadaptive-ux.svg",
+    "featured": true,
+    "status": "completed",
+    "priority": 2
+  },
+  {
+    "name": "Smart AI Attendance System",
+    "slug": "smart-ai-attendance-system",
+    "date": "2025",
+    "description": "IoT-powered intelligent attendance system combining ESP32-CAM real-time face capture, deep learning face recognition, anti-spoofing detection, and automated attendance logging with LED/buzzer feedback.",
+    "tags": ["Python", "Flask", "OpenCV", "TensorFlow", "ESP32-CAM", "IoT"],
+    "highlights": [
+      "Real-time face detection and recognition via ESP32-CAM",
+      "Anti-spoofing CNN model (live vs photo/screen detection)",
+      "Automated Excel attendance logging with timestamp",
+      "Hardware feedback: Green LED (valid), Red LED + Buzzer (invalid)"
+    ],
+    "github": "https://github.com/saad-affan12/Smart-AI-Attendance-System-IoT",
+    "live": null,
+    "image": "/images/projects/smart-ai-attendance-system.svg",
+    "featured": true,
+    "status": "completed",
+    "priority": 3
+  },
+  {
+    "name": "Student Stress Prediction",
+    "slug": "student-stress-prediction",
+    "date": "2026",
+    "description": "Machine learning system predicting student stress levels from lifestyle and academic factors. Compares Logistic Regression, Random Forest, SVM+PCA, and XGBoost with optimized feature engineering achieving ~85% accuracy.",
+    "tags": ["Python", "Pandas", "NumPy", "Scikit-learn", "XGBoost"],
+    "highlights": [
+      "Multi-model comparison: LR, RF, SVM+PCA, XGBoost",
+      "Feature engineering and hyperparameter tuning",
+      "XGBoost achieved ~85% prediction accuracy",
+      "PCA-based dimensionality reduction for SVM optimization"
+    ],
+    "github": "https://github.com/saad-affan12/student-stress-prediction",
+    "live": null,
+    "image": "/images/projects/student-stress-prediction.svg",
+    "featured": true,
+    "status": "completed",
+    "priority": 4
+  }
+]

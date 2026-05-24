@@ -1,0 +1,16 @@
+{
+  "welcomeMessage": "MSA Terminal v2.0 — Type 'help' for available commands",
+  "initialCommands": ["whoami", "skills", "projects", "socials"],
+  "commandHelp": {
+    "about": "Display profile information",
+    "skills": "List technical skills",
+    "projects": "Show featured projects",
+    "education": "Show education background",
+    "experience": "Show work experience",
+    "socials": "Display social links",
+    "resume": "Open resume page",
+    "home": "Go to homepage",
+    "help": "Show available commands",
+    "clear": "Clear terminal"
+  }
+}
