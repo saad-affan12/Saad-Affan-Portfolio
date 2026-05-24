@@ -6,6 +6,7 @@ import Projects from "@/components/sections/Projects";
 import Education from "@/components/sections/Education";
 import GitHubContributions from "@/components/sections/GitHubContributions";
 import Setup from "@/components/sections/Setup";
+import Philosophy from "@/components/sections/Philosophy";
 import Sponsor from "@/components/sections/Sponsor";
 import Contact from "@/components/sections/Contact";
 
@@ -24,6 +25,7 @@ export default async function Home() {
       <Education />
       <GitHubContributions profile={profile} contributions={contributions} />
       <Setup />
+      <Philosophy />
       <Sponsor />
       <Contact />
     </>

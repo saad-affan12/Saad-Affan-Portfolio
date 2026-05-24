@@ -67,19 +67,31 @@ export default function Experience() {
                   </div>
 
                   <div className="group relative">
-                    <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-accent/5 via-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-                    <div className="relative bg-card border border-border rounded-xl p-5 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/[0.1]">
+                    <div className={`absolute -inset-px rounded-xl bg-gradient-to-br from-accent/5 via-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isCurrentRole ? "blur-md" : "blur-sm"}`} />
+                    <div className={`relative bg-card border rounded-xl transition-all duration-300 group-hover:-translate-y-0.5 ${isCurrentRole
+                        ? "border-accent/20 p-6 group-hover:border-accent/40 group-hover:shadow-[0_0_24px_rgba(99,102,241,0.12)]"
+                        : "border-border p-5 group-hover:border-white/[0.1]"}`}
+                    >
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                         <div className="space-y-2 sm:space-y-3 flex-1">
                           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                            <h3 className="text-base font-semibold text-foreground">{item.role}</h3>
-                            {item.badge && (
+                            <h3 className={`font-semibold text-foreground ${isCurrentRole ? "text-lg" : "text-base"}`}>{item.role}</h3>
+                            {isCurrentRole && (
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-0.5 text-[10px] font-medium text-accent border border-accent/20">
+                                <span className="relative flex size-1.5">
+                                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-75" />
+                                  <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
+                                </span>
+                                Currently Building @ SuperCX
+                              </span>
+                            )}
+                            {item.badge && !isCurrentRole && (
                               <span className="inline-flex items-center gap-1 rounded-full bg-accent/8 px-2.5 py-0.5 text-[10px] font-medium text-accent border border-accent/10">
                                 <Sparkles size={10} />
                                 {item.badge}
                               </span>
                             )}
-                            {item.type && item.type !== "project" && (
+                            {item.type && item.type !== "project" && !isCurrentRole && (
                               <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium text-subtle">
                                 {item.type}
                               </span>
@@ -89,11 +101,11 @@ export default function Experience() {
                             <span className="flex items-center gap-2">
                               <Building2 size={12} />
                               {item.logo ? (
-                                <span className="flex items-center justify-center rounded-md p-0.5">
+                                <span className={`flex items-center justify-center rounded-md p-0.5 ${isCurrentRole ? "p-1" : ""}`}>
                                   <img
                                     src={item.logo}
                                     alt={item.company + ' logo'}
-                                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain rounded-md"
+                                    className={`object-contain rounded-md ${isCurrentRole ? "w-10 h-10 sm:w-12 sm:h-12" : "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"}`}
                                   />
                                 </span>
                               ) : null}
@@ -109,7 +121,7 @@ export default function Experience() {
                           </p>
                           {item.highlights && item.highlights.length > 0 && (
                             <ul className="space-y-1.5 pt-1">
-                              {item.highlights.slice(0, 3).map((h, i) => (
+                              {item.highlights.slice(0, isCurrentRole ? 5 : 3).map((h, i) => (
                                 <li key={i} className="text-[13px] text-subtle flex items-start gap-2">
                                   <ArrowRight size={12} className="text-accent mt-0.5 shrink-0" />
                                   {h}

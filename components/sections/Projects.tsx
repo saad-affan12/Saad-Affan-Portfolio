@@ -74,6 +74,20 @@ export default function Projects() {
                       {project.description}
                     </p>
 
+                    {project.metrics && project.metrics.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.metrics.map((m: string) => (
+                          <span
+                            key={m}
+                            className="inline-flex items-center gap-1 rounded-md bg-accent/5 px-2 py-0.5 text-[10px] font-medium text-accent/80 border border-accent/8"
+                          >
+                            <span className="size-1 rounded-full bg-accent/40" />
+                            {m}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                     <div className="flex flex-wrap gap-1.5">
                       {project.tags.slice(0, 3).map((tag) => (
                         <span

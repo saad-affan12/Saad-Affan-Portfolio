@@ -24,6 +24,7 @@ export interface Project {
   date: string;
   description: string;
   tags: string[];
+  metrics?: string[];
   highlights: string[];
   github: string;
   live: string | null;

@@ -14,8 +14,8 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
+      staggerChildren: 0.1,
+      delayChildren: 0.12,
     },
   },
 };
@@ -26,7 +26,7 @@ export const fadeInUp: Variants = {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.9, ease: cinematicEase },
+    transition: { duration: 0.9, ease: smoothEase },
   },
 };
 
@@ -55,6 +55,25 @@ export const scaleIn: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: { duration: 0.8, ease: cinematicEase },
+  },
+};
+
+export const staggerFadeIn: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+export const bladeReveal: Variants = {
+  hidden: { opacity: 0, clipPath: "inset(0 0 100% 0)" },
+  visible: {
+    opacity: 1,
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 1, ease: smoothEase },
   },
 };
 

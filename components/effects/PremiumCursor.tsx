@@ -16,6 +16,7 @@ const INTERACTIVE = "a, button, input, textarea, select, [role='button'], [data-
 export default function PremiumCursor() {
   const svgRef = useRef<SVGSVGElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const pos = useRef({ x: -100, y: -100 });
   const ringPos = useRef({ x: -100, y: -100 });
@@ -30,6 +31,7 @@ export default function PremiumCursor() {
   const [ready, setReady] = useState<false | "hidden" | "visible">(false);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [label, setLabel] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -50,10 +52,27 @@ export default function PremiumCursor() {
       lastMove.current = Date.now();
     };
 
+    const detectLabel = (el: Element | null): string => {
+      if (!el) return "";
+      const custom = el.getAttribute("data-cursor-label");
+      if (custom) return custom;
+      const href = (el as HTMLAnchorElement).href || "";
+      const text = (el.textContent || "").toLowerCase();
+      if (href.includes("/resume") || href.endsWith(".pdf")) return "Resume";
+      if (href.includes("github")) return "Open";
+      if (href.includes("linkedin")) return "Connect";
+      if (text.includes("view projects") || text.includes("view all")) return "View →";
+      if (text.includes("resume")) return "Resume";
+      if (el.classList.contains("group") || el.closest('[data-cursor="card"]')) return "Explore";
+      if (href.startsWith("mailto:")) return "Email";
+      return el.tagName === "A" || el.tagName === "BUTTON" ? "Open" : "";
+    };
+
     const onOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const el = target.closest(INTERACTIVE) as HTMLElement | null;
       hoveredEl.current = el;
+      setLabel(detectLabel(el));
       if (el) {
         const type = el.getAttribute("data-cursor");
         if (type === "text") st.current.scale = 0.65;
@@ -70,6 +89,8 @@ export default function PremiumCursor() {
       st.current.hidden = false;
     };
 
+    const onLabelReset = () => setLabel("");
+
     const onLeave = () => { st.current.hidden = true; };
     const onEnter = () => { st.current.hidden = false; };
 
@@ -77,6 +98,7 @@ export default function PremiumCursor() {
     window.addEventListener("mouseover", onOver);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
+    document.addEventListener("mouseout", onLabelReset);
 
     const loop = () => {
       const vx = mouse.current.x - prev.current.x;
@@ -134,6 +156,13 @@ export default function PremiumCursor() {
         ringRef.current.style.opacity = st.current.hidden ? "0" : "0.35";
       }
 
+      if (labelRef.current) {
+        const lx = ringPos.current.x + 24;
+        const ly = ringPos.current.y - 8;
+        labelRef.current.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
+        labelRef.current.style.opacity = label && !st.current.hidden ? "1" : "0";
+      }
+
       rafId.current = requestAnimationFrame(loop);
     };
 
@@ -144,6 +173,7 @@ export default function PremiumCursor() {
       window.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      document.removeEventListener("mouseout", onLabelReset);
       cancelAnimationFrame(rafId.current);
       document.documentElement.classList.remove("hide-native-cursor");
     };
@@ -168,6 +198,18 @@ export default function PremiumCursor() {
           zIndex: 9996,
         }}
       />
+      <div
+        ref={labelRef}
+        className="fixed top-0 left-0 pointer-events-none will-change-transform"
+        style={{
+          zIndex: 9997,
+          transition: "opacity 0.2s ease",
+        }}
+      >
+        <span className={`text-[10px] font-medium whitespace-nowrap ${mounted && theme === "dark" ? "text-white/70" : "text-[#0f172a]/60"}`}>
+          {label}
+        </span>
+      </div>
       <svg
         ref={svgRef}
         className="fixed top-0 left-0 pointer-events-none will-change-transform premium-cursor-glow"

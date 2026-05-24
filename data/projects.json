@@ -11,6 +11,7 @@
       "One-vote-per-user enforcement with duplicate prevention",
       "Real-time election result management"
     ],
+    "metrics": ["JWT Auth", "RBAC", "MongoDB", "One Vote Enforcement"],
     "github": "https://github.com/saad-affan12/secure-vote-system",
     "live": "https://secure-vote-system-eta.vercel.app/",
     "image": "/images/projects/secure-vote-system.svg",
@@ -30,6 +31,7 @@
       "Zero backend — fully client-side with complete privacy",
       "Smooth animated transitions between behavioral states"
     ],
+    "metrics": ["Behavior Tracking", "Adaptive UX", "Privacy First", "Real-Time Learning"],
     "github": "https://github.com/saad-affan12/NeuroAdaptive-UX",
     "live": "https://neuroadaptive.vercel.app/",
     "image": "/images/projects/neuroadaptive-ux.svg",
@@ -49,6 +51,7 @@
       "Automated Excel attendance logging with timestamp",
       "Hardware feedback: Green LED (valid), Red LED + Buzzer (invalid)"
     ],
+    "metrics": ["ESP32-CAM", "Face Recognition", "IoT System", "Anti Spoofing"],
     "github": "https://github.com/saad-affan12/Smart-AI-Attendance-System-IoT",
     "live": null,
     "image": "/images/projects/smart-ai-attendance-system.svg",
@@ -68,6 +71,7 @@
       "XGBoost achieved ~85% prediction accuracy",
       "PCA-based dimensionality reduction for SVM optimization"
     ],
+    "metrics": ["85% Accuracy", "ML Models", "Feature Engineering", "Prediction System"],
     "github": "https://github.com/saad-affan12/student-stress-prediction",
     "live": null,
     "image": "/images/projects/student-stress-prediction.svg",

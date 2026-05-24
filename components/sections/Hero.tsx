@@ -1,16 +1,70 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Download, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import SocialLinks from "@/components/shared/SocialLinks";
 import HeroStatusBadge from "@/components/ui/HeroStatusBadge";
 import ProfileCard from "@/components/ui/ProfileCard";
+import StatsRow from "@/components/sections/StatsRow";
 import { useData } from "@/hooks/useData";
-import { fadeInUp, staggerContainer, scaleIn } from "@/lib/utils";
+import { fadeInUp, staggerContainer, scaleIn, cinematicEase } from "@/lib/utils";
 import type { GitHubProfile, ContributionsResponse } from "@/lib/github";
+
+const roles = [
+  "Full Stack Developer",
+  "AI Systems Builder",
+  "Computer Science Student",
+  "Building Scalable Systems",
+  "Problem Solver",
+];
+
+function RoleRotator() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setIndex((p) => (p + 1) % roles.length), 3800);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="relative h-[1.5em] overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -10, filter: "blur(6px)" }}
+          transition={{ duration: 0.55, ease: cinematicEase }}
+          className="text-lg md:text-xl text-muted-foreground font-medium block"
+        >
+          {roles[index]}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function MagneticWrap({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={(e) => {
+        if (!ref.current) return;
+        const r = ref.current.getBoundingClientRect();
+        setPos({ x: (e.clientX - r.left - r.width / 2) * 0.12, y: (e.clientY - r.top - r.height / 2) * 0.12 });
+      }}
+      onMouseLeave={() => setPos({ x: 0, y: 0 })}
+      animate={{ x: pos.x, y: pos.y }}
+      transition={{ type: "spring", stiffness: 200, damping: 18, mass: 0.12 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function Hero({
   profile,
@@ -66,9 +120,7 @@ export default function Hero({
               >
                 {personalInfo.shortName}
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground font-medium">
-                {personalInfo.role}
-              </p>
+              <RoleRotator />
               {mounted && (
                 <p className="text-xs tabular-nums text-accent font-mono truncate max-w-full">
                   been on earth for {age.years}.{age.decimal} years
@@ -81,25 +133,33 @@ export default function Hero({
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-              <Link
-                href="/projects"
-                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px rgba(99,102,241,0.25)]"
-              >
-                View Projects
-                <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <a
-                href={personalInfo.resume}
-                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98]"
-              >
-                Resume
-                <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
-              </a>
+              <MagneticWrap>
+                <Link
+                  href="/projects"
+                  data-cursor-label="View →"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]"
+                >
+                  View Projects
+                  <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              </MagneticWrap>
+              <MagneticWrap>
+                <a
+                  href={personalInfo.resume}
+                  data-cursor-label="Resume"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Resume
+                  <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
+                </a>
+              </MagneticWrap>
             </div>
 
             <motion.div variants={fadeInUp} className="flex justify-center sm:justify-start">
               <SocialLinks />
             </motion.div>
+
+            <StatsRow />
           </motion.div>
 
           <motion.div variants={scaleIn} className="lg:col-span-2 order-1 lg:order-2">

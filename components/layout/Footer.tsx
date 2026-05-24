@@ -98,9 +98,15 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-6 sm:flex-row">
-          <p className="text-xs text-subtle">
-            &copy; {year} {personalInfo.name}. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <p className="text-xs text-subtle">
+              &copy; {year} {personalInfo.name}. All rights reserved.
+            </p>
+            <span className="hidden sm:inline text-subtle/30 text-[10px]">&bull;</span>
+            <p className="text-xs text-subtle/60">
+              Based in India &middot; GMT+5:30
+            </p>
+          </div>
           <div className="flex items-center gap-4">
             <p className="text-xs text-subtle">
               Made with Next.js &amp; <span className="text-red-500/80">&hearts;</span>

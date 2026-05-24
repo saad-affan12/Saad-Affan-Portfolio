@@ -3,11 +3,29 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Home, Map, FolderOpen, FileText, Wrench, Terminal, User, Zap, Briefcase, GraduationCap, Github, Linkedin, Mail, Heart, ExternalLink } from "lucide-react";
 import { useAllData } from "@/hooks/useData";
 import type { SearchItem } from "@/lib/search-data";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+const searchIcons: Record<string, React.ReactNode> = {
+  home: <Home size={14} />,
+  map: <Map size={14} />,
+  folder: <FolderOpen size={14} />,
+  file: <FileText size={14} />,
+  wrench: <Wrench size={14} />,
+  terminal: <Terminal size={14} />,
+  user: <User size={14} />,
+  zap: <Zap size={14} />,
+  briefcase: <Briefcase size={14} />,
+  grad: <GraduationCap size={14} />,
+  github: <Github size={14} />,
+  linkedin: <Linkedin size={14} />,
+  mail: <Mail size={14} />,
+  heart: <Heart size={14} />,
+  external: <ExternalLink size={14} />,
+};
 
 function fuzzyMatch(text: string, query: string): boolean {
   const lower = text.toLowerCase();
@@ -36,21 +54,21 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
     const roadmap = allData.roadmap as any[] || [];
 
     items.push(
-      { id: "page-home", title: "Home", description: "Portfolio overview — hero, about, experience", href: "/#hero", icon: "🏠", category: "Pages" },
-      { id: "page-roadmap", title: "Roadmap", description: "Journey, experience, and timeline", href: "/roadmap", icon: "🗺️", category: "Pages" },
-      { id: "page-projects", title: "Projects", description: "Featured work and case studies", href: "/projects", icon: "📁", category: "Pages" },
-      { id: "page-resume", title: "Resume", description: "Skills, education, and experience", href: "/resume", icon: "📄", category: "Pages" },
-      { id: "page-tools", title: "Tools", description: "Toolkit and setup", href: "/tools", icon: "🛠️", category: "Pages" },
-      { id: "page-cli", title: "CLI", description: "Interactive terminal", href: "/cli", icon: "💻", category: "Pages" },
-      { id: "sec-hero", title: "About Me", description: hero ? `${hero.name} — ${hero.role}` : "Full-Stack & AI Developer", href: "/#hero", icon: "👤", category: "Sections" },
-      { id: "sec-stack", title: "Tech Stack", description: "Languages, frameworks, tools, and core concepts", href: "/#stack", icon: "⚡", category: "Sections" },
-      { id: "sec-projects", title: "Featured Work", description: "Real-world projects with focus on performance", href: "/#projects", icon: "📁", category: "Sections" },
-      { id: "sec-experience", title: "Experience", description: "Academic projects, club involvement, and hands-on work", href: "/#experience", icon: "💼", category: "Sections" },
-      { id: "sec-education", title: "Education", description: `${education[0]?.institution || "VIT"} — CS, AI & ML`, href: "/#education", icon: "🎓", category: "Sections" },
-      { id: "sec-setup", title: "My Toolkit", description: "Editor, terminal, version control, and more", href: "/#setup", icon: "🛠️", category: "Sections" },
-      { id: "sec-github", title: "GitHub Activity", description: "Contributions heatmap, repos, and activity status", href: "/#github", icon: "📊", category: "Sections" },
-      { id: "sec-contact", title: "Get in Touch", description: "Let's talk — open to collaborations and internships", href: "/#contact", icon: "✉️", category: "Sections" },
-      { id: "sec-sponsor", title: "Support My Work", description: "Sponsor on GitHub", href: "/#sponsor", icon: "❤️", category: "Sections" },
+      { id: "page-home", title: "Home", description: "Portfolio overview — hero, about, experience", href: "/#hero", icon: "home", category: "Pages" },
+      { id: "page-roadmap", title: "Roadmap", description: "Journey, experience, and timeline", href: "/roadmap", icon: "map", category: "Pages" },
+      { id: "page-projects", title: "Projects", description: "Featured work and case studies", href: "/projects", icon: "folder", category: "Pages" },
+      { id: "page-resume", title: "Resume", description: "Skills, education, and experience", href: "/resume", icon: "file", category: "Pages" },
+      { id: "page-tools", title: "Tools", description: "Toolkit and setup", href: "/tools", icon: "wrench", category: "Pages" },
+      { id: "page-cli", title: "CLI", description: "Interactive terminal", href: "/cli", icon: "terminal", category: "Pages" },
+      { id: "sec-hero", title: "About Me", description: hero ? `${hero.name} — ${hero.role}` : "Full-Stack & AI Developer", href: "/#hero", icon: "user", category: "Sections" },
+      { id: "sec-stack", title: "Tech Stack", description: "Languages, frameworks, tools, and core concepts", href: "/#stack", icon: "zap", category: "Sections" },
+      { id: "sec-projects", title: "Featured Work", description: "Real-world projects with focus on performance", href: "/#projects", icon: "folder", category: "Sections" },
+      { id: "sec-experience", title: "Experience", description: "Academic projects, club involvement, and hands-on work", href: "/#experience", icon: "briefcase", category: "Sections" },
+      { id: "sec-education", title: "Education", description: `${education[0]?.institution || "VIT"} — CS, AI & ML`, href: "/#education", icon: "grad", category: "Sections" },
+      { id: "sec-setup", title: "My Toolkit", description: "Editor, terminal, version control, and more", href: "/#setup", icon: "wrench", category: "Sections" },
+      { id: "sec-github", title: "GitHub Activity", description: "Contributions heatmap, repos, and activity status", href: "/#github", icon: "github", category: "Sections" },
+      { id: "sec-contact", title: "Get in Touch", description: "Let's talk — open to collaborations and internships", href: "/#contact", icon: "mail", category: "Sections" },
+      { id: "sec-sponsor", title: "Support My Work", description: "Sponsor on GitHub", href: "/#sponsor", icon: "heart", category: "Sections" },
     );
 
     projects.forEach((p: any) => {
@@ -60,7 +78,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
           title: p.name,
           description: p.description?.split(".")[0] || "",
           href: `/projects#${p.slug || ""}`,
-          icon: "📁",
+          icon: "folder",
           category: "Projects",
         });
       }
@@ -73,7 +91,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
           title: `${e.institution} — ${e.degree || e.program || ""}`,
           description: `${e.cgpa ? e.cgpa : ""}`,
           href: "/#education",
-          icon: "🎓",
+          icon: "grad",
           category: "Education",
         });
       }
@@ -86,17 +104,17 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
           title: skill,
           description: `${s.title} skill`,
           href: "/#stack",
-          icon: "⚡",
+          icon: "zap",
           category: "Skills",
         });
       });
     });
 
     items.push(
-      { id: "ext-github", title: "GitHub Profile", description: hero?.github ? `@${hero.github.split('/').pop()}` : "saad-affan12", href: hero?.github || "https://github.com/saad-affan12", icon: "🐙", category: "External" },
-      { id: "ext-linkedin", title: "LinkedIn Profile", description: "Connect on LinkedIn", href: hero?.linkedin || "https://www.linkedin.com/in/saad-affan-566553319", icon: "🔗", category: "External" },
-      { id: "ext-email", title: "Send Email", description: hero?.email || "saadaffan129@gmail.com", href: `mailto:${hero?.email || ""}`, icon: "📧", category: "External" },
-      { id: "ext-resume", title: "Download Resume", description: "View or download my resume", href: "/resume.pdf", icon: "📄", category: "External" },
+      { id: "ext-github", title: "GitHub Profile", description: hero?.github ? `@${hero.github.split('/').pop()}` : "saad-affan12", href: hero?.github || "https://github.com/saad-affan12", icon: "github", category: "External" },
+      { id: "ext-linkedin", title: "LinkedIn Profile", description: "Connect on LinkedIn", href: hero?.linkedin || "https://www.linkedin.com/in/saad-affan-566553319", icon: "linkedin", category: "External" },
+      { id: "ext-email", title: "Send Email", description: hero?.email || "saadaffan129@gmail.com", href: `mailto:${hero?.email || ""}`, icon: "mail", category: "External" },
+      { id: "ext-resume", title: "Download Resume", description: "View or download my resume", href: "/resume.pdf", icon: "file", category: "External" },
     );
 
     return items;
@@ -213,8 +231,8 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/5"
                     }`}
                   >
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-border/60 bg-card text-[13px]">
-                      {item.icon}
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-border/60 bg-card text-accent/70">
+                      {searchIcons[item.icon] || <Zap size={14} />}
                     </span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">

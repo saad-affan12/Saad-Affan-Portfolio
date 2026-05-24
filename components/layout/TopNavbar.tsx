@@ -42,12 +42,21 @@ export default function TopNavbar() {
         className="fixed top-3 left-1/2 -translate-x-1/2 z-50 hidden md:block"
       >
         <div className="glass-nav rounded-full px-5 py-2 shadow-xl flex items-center gap-5">
-          <Link
-            href="/"
-            className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors"
-          >
-            {personalInfo.initials}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors"
+            >
+              {personalInfo.initials}
+            </Link>
+            <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/8 px-2 py-0.5 text-[9px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/15 dark:border-emerald-400/15">
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75 dark:bg-emerald-400" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+              </span>
+              Open to Opportunities
+            </span>
+          </div>
           <div className="w-px h-4 bg-border" />
           {topNavLinks.map((link) => {
             const active = isActive(link.href);
