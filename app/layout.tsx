@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import { DataProvider } from "@/components/providers/DataProvider";
-import { readAllData } from "@/lib/data";
+import { readAllDataFiles } from "@/lib/data-store";
+import type { SEO } from "@/lib/types";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap", preload: true });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: true });
@@ -30,58 +31,63 @@ const clashDisplay = localFont({
   preload: true,
 });
 
-const initialData = readAllData();
+export async function generateMetadata() {
+  const allData = await readAllDataFiles();
+  const seo = allData.seo as SEO | undefined;
 
-export const metadata = {
-  metadataBase: new URL("https://saad-affan.vercel.app"),
-  title: initialData.seo.title,
-  description: initialData.seo.description,
-  keywords: initialData.seo.keywords,
-  authors: [{ name: initialData.seo.author }],
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Saad Affan",
-  },
-  icons: {
-    apple: [
-      { url: "/icons/icon-152x152.png", sizes: "152x152", type: "image/png" },
-      { url: "/icons/icon-144x144.png", sizes: "144x144", type: "image/png" },
-      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
-    ],
-  },
-  other: {
-    "mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "Saad Affan",
-    "application-name": "Saad Affan",
-    "msapplication-TileColor": "#6366f1",
-    "theme-color": "#6366f1",
-  },
-  openGraph: {
-    title: initialData.seo.ogTitle,
-    description: initialData.seo.ogDescription,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: initialData.seo.twitterTitle,
-    description: initialData.seo.twitterDescription,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  return {
+    metadataBase: new URL("https://saad-affan.vercel.app"),
+    title: seo?.title,
+    description: seo?.description,
+    keywords: seo?.keywords,
+    authors: seo?.author ? [{ name: seo.author }] : undefined,
+    manifest: "/manifest.json",
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "black-translucent",
+      title: "Saad Affan",
+    },
+    icons: {
+      apple: [
+        { url: "/icons/icon-152x152.png", sizes: "152x152", type: "image/png" },
+        { url: "/icons/icon-144x144.png", sizes: "144x144", type: "image/png" },
+        { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      ],
+    },
+    other: {
+      "mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black-translucent",
+      "apple-mobile-web-app-title": "Saad Affan",
+      "application-name": "Saad Affan",
+      "msapplication-TileColor": "#6366f1",
+      "theme-color": "#6366f1",
+    },
+    openGraph: {
+      title: seo?.ogTitle,
+      description: seo?.ogDescription,
+      type: "website",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo?.twitterTitle,
+      description: seo?.twitterDescription,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialData = await readAllDataFiles();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body

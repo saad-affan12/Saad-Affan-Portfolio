@@ -3,6 +3,7 @@
 import { useData } from '@/hooks/useData';
 import { LayoutDashboard, FolderKanban, Briefcase, GraduationCap, Wrench, Map, User } from 'lucide-react';
 import Link from 'next/link';
+import { GitHubSyncCard } from '@/components/admin/GitHubSyncCard';
 
 const cards = [
   { label: 'Hero', href: '/admin/hero', icon: User, color: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/20', key: 'hero' as const },
@@ -58,19 +59,23 @@ export default function AdminDashboard() {
         })}
       </div>
 
-      <div className="rounded-xl border border-white/[0.06] bg-[#0d0d14] p-5">
-        <h2 className="text-sm font-semibold text-gray-200 mb-3">Quick Actions</h2>
-        <div className="flex flex-wrap gap-2">
-          <Link href="/admin/projects" className="text-xs px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors">
-            + Add Project
-          </Link>
-          <Link href="/admin/hero" className="text-xs px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors">
-            Edit Hero
-          </Link>
-          <Link href="/admin/skills" className="text-xs px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
-            Manage Skills
-          </Link>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="rounded-xl border border-white/[0.06] bg-[#0d0d14] p-5">
+          <h2 className="text-sm font-semibold text-gray-200 mb-3">Quick Actions</h2>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/admin/projects" className="text-xs px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors">
+              + Add Project
+            </Link>
+            <Link href="/admin/hero" className="text-xs px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors">
+              Edit Hero
+            </Link>
+            <Link href="/admin/skills" className="text-xs px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
+              Manage Skills
+            </Link>
+          </div>
         </div>
+
+        <GitHubSyncCard />
       </div>
     </div>
   );

@@ -1,20 +1,12 @@
 import { NextRequest } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-const DATA_DIR = path.join(process.cwd(), 'data');
+import { readDataFile } from '@/lib/data-store';
+import { supabase } from '@/lib/supabase';
+import { DATA_FILES, type DataKey } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest) {
-  let lastTimestamps: Record<string, number> = {};
-  const files = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.json'));
-  for (const file of files) {
-    const stat = fs.statSync(path.join(DATA_DIR, file));
-    lastTimestamps[file] = stat.mtimeMs;
-  }
-
   const stream = new ReadableStream({
     start(controller) {
       const encoder = new TextEncoder();
@@ -25,30 +17,61 @@ export async function GET(request: NextRequest) {
         } catch {}
       };
 
-      const checkChanges = () => {
+      const sendEvent = (key: string, data: unknown) => {
         try {
-          for (const file of files) {
-            const filePath = path.join(DATA_DIR, file);
-            if (!fs.existsSync(filePath)) continue;
-            const stat = fs.statSync(filePath);
-            const newTime = stat.mtimeMs;
-            if (newTime !== lastTimestamps[file]) {
-              lastTimestamps[file] = newTime;
-              const key = file.replace('.json', '');
-              const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-              const event = `data: ${JSON.stringify({ key, data })}\n\n`;
-              controller.enqueue(encoder.encode(event));
-            }
-          }
+          const event = `data: ${JSON.stringify({ key, data })}\n\n`;
+          controller.enqueue(encoder.encode(event));
         } catch {}
       };
 
-      const intervalId = setInterval(checkChanges, 800);
-      const keepAliveId = setInterval(sendKeepAlive, 15000);
+      const intervalId = setInterval(sendKeepAlive, 15000);
+
+      let cleanupRealtime: (() => void) | null = null;
+      let pollingInterval: ReturnType<typeof setInterval> | null = null;
+      const hashes = new Map<string, string>();
+
+      const pollData = () => {
+        const keys = Object.keys(DATA_FILES) as DataKey[];
+        for (const key of keys) {
+          readDataFile(key).then((data) => {
+            if (data === null) return;
+            const hash = JSON.stringify(data);
+            if (hashes.get(key) === hash) return;
+            hashes.set(key, hash);
+            sendEvent(key, data);
+          });
+        }
+      };
+
+      const sb = supabase;
+      if (sb) {
+        const channel = sb
+          .channel('portfolio-changes')
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'portfolio_data' },
+            (payload) => {
+              const record = (payload.new as Record<string, unknown> | null)
+                || (payload.old as Record<string, unknown> | null);
+              const key = record?.key as string | undefined;
+              if (key) {
+                sendEvent(key, record?.data);
+              }
+            }
+          )
+          .subscribe();
+
+        cleanupRealtime = () => {
+          sb.removeChannel(channel);
+        };
+      } else {
+        pollingInterval = setInterval(pollData, 5000);
+      }
 
       request.signal.addEventListener('abort', () => {
         clearInterval(intervalId);
-        clearInterval(keepAliveId);
+        if (cleanupRealtime) cleanupRealtime();
+        if (pollingInterval) clearInterval(pollingInterval);
       });
     },
   });
