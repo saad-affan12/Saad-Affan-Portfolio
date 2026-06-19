@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { Github, ExternalLink, BookOpen } from "lucide-react";
-import { fadeInUp, staggerContainer, cn } from "@/lib/utils";
+import { Github, ExternalLink } from "lucide-react";
+import { fadeInUp, staggerContainer } from "@/lib/utils";
 import type { GitHubProfile, ContributionsResponse, ContributionDay } from "@/lib/github";
 
 function useLevelColor(level: number, isLight: boolean): string {
@@ -30,19 +30,24 @@ function useLevelColor(level: number, isLight: boolean): string {
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-function processYearlyData(contributions: ContributionDay[], year: string) {
-  const yearData = contributions
-    .filter((d) => d.date.startsWith(year))
-    .sort((a, b) => a.date.localeCompare(b.date));
+function processRollingData(contributions: ContributionDay[]) {
+  const sorted = [...contributions].sort((a, b) => a.date.localeCompare(b.date));
 
-  if (yearData.length === 0) return { weeks: [], total: 0, monthLabels: [] as { weekIndex: number; label: string }[] };
+  // We want to show the last 53 weeks (approx 371 days) to fill the grid.
+  const today = new Date();
+  const startDate = new Date(today.getTime() - 371 * 24 * 60 * 60 * 1000);
+  const startDateStr = startDate.toISOString().split('T')[0];
 
-  const total = yearData.reduce((sum, d) => sum + d.count, 0);
+  const rollingData = sorted.filter((d) => d.date >= startDateStr);
+
+  if (rollingData.length === 0) return { weeks: [], total: 0, monthLabels: [] as { weekIndex: number; label: string }[] };
+
+  const total = rollingData.reduce((sum, d) => sum + d.count, 0);
 
   const weeks: (ContributionDay | null)[][] = [];
   const monthLabels: { weekIndex: number; label: string }[] = [];
 
-  const firstDate = new Date(yearData[0].date);
+  const firstDate = new Date(rollingData[0].date);
   const startDayOfWeek = firstDate.getDay();
 
   let currentWeek: (ContributionDay | null)[] = [];
@@ -52,7 +57,7 @@ function processYearlyData(contributions: ContributionDay[], year: string) {
 
   let lastMonth = -1;
 
-  for (const day of yearData) {
+  for (const day of rollingData) {
     const date = new Date(day.date);
     const month = date.getMonth();
 
@@ -85,8 +90,8 @@ function formatDate(dateStr: string) {
 }
 
 export default function GitHubContributions({
-  profile,
-  contributions,
+  profile: initialProfile,
+  contributions: initialContributions,
 }: {
   profile: GitHubProfile | null;
   contributions: ContributionsResponse | null;
@@ -94,6 +99,10 @@ export default function GitHubContributions({
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const isLight = mounted && theme === "light";
+  
+  const [profile, setProfile] = useState<GitHubProfile | null>(initialProfile);
+  const [contributions, setContributions] = useState<ContributionsResponse | null>(initialContributions);
+
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
@@ -102,11 +111,22 @@ export default function GitHubContributions({
     count: number;
   }>({ visible: false, x: 0, y: 0, date: "", count: 0 });
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    fetch("/api/github")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data.profile) setProfile(data.profile);
+        if (data.contributions) setContributions(data.contributions);
+      })
+      .catch(() => {});
+  }, []);
 
-  const year = new Date().getFullYear().toString();
   const processed = contributions?.contributions
-    ? processYearlyData(contributions.contributions, year)
+    ? processRollingData(contributions.contributions)
     : null;
   const weeks = processed?.weeks ?? [];
   const total = processed?.total ?? 0;
@@ -241,7 +261,7 @@ export default function GitHubContributions({
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: (wi * 7 + di) * 0.0015 }}
-                                                className={`size-[10px] rounded-[2px] ${useLevelColor(day.level, isLight)} transition-colors duration-200 hover:ring-1 hover:ring-accent/50 cursor-pointer`}
+                                className={`size-[10px] rounded-[2px] ${useLevelColor(day.level, isLight)} transition-colors duration-200 hover:ring-1 hover:ring-accent/50 cursor-pointer`}
                               />
                             ) : (
                               <div className="size-[10px]" />
@@ -259,7 +279,7 @@ export default function GitHubContributions({
                       ))}
                       <span className="text-[10px] text-subtle">More</span>
                     </div>
-                    <span className="text-[10px] text-subtle">{total} contributions in {year}</span>
+                    <span className="text-[10px] text-subtle">{total} contributions in the last year</span>
                   </div>
                 </div>
               </motion.div>

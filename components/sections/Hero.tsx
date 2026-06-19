@@ -79,9 +79,25 @@ export default function Hero({
   const isDark = mounted && theme === "dark";
   const [age, setAge] = useState({ years: 0, decimal: "000000000" });
 
+  const [gitProfile, setGitProfile] = useState<GitHubProfile | null>(profile ?? null);
+  const [gitContributions, setGitContributions] = useState<ContributionsResponse | null>(contributions ?? null);
+
   useEffect(() => {
     setMounted(true);
     if (!personalInfo) return;
+
+    // Fetch live statistics
+    fetch("/api/github")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data.profile) setGitProfile(data.profile);
+        if (data.contributions) setGitContributions(data.contributions);
+      })
+      .catch(() => {});
+
     const birth = new Date(personalInfo.birthDate);
     const update = () => {
       const now = new Date();
@@ -164,8 +180,8 @@ export default function Hero({
 
           <motion.div variants={scaleIn} className="lg:col-span-2 order-1 lg:order-2">
             <ProfileCard
-              profile={profile ?? null}
-              contributions={contributions ?? null}
+              profile={gitProfile}
+              contributions={gitContributions}
             />
           </motion.div>
         </motion.div>

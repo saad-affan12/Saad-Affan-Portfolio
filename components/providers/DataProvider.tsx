@@ -37,7 +37,12 @@ export function DataProvider({
     } catch {}
   }, []);
 
+  const getData = useCallback(<T extends DataKey>(key: T): DataValue<T> | undefined => {
+    return dataRef.current[key] as DataValue<T> | undefined;
+  }, []);
+
   useEffect(() => {
+    refreshData();
     let es: EventSource | null = null;
 
     const connect = () => {
@@ -61,11 +66,7 @@ export function DataProvider({
     return () => {
       es?.close();
     };
-  }, []);
-
-  const getData = useCallback(<T extends DataKey>(key: T): DataValue<T> | undefined => {
-    return dataRef.current[key] as DataValue<T> | undefined;
-  }, []);
+  }, [refreshData]);
 
   return (
     <DataContext.Provider value={{ data, getData, refreshData }}>
