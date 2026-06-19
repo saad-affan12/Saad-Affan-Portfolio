@@ -66,6 +66,26 @@ function MagneticWrap({ children, className }: { children: React.ReactNode; clas
   );
 }
 
+const HERO_FALLBACK = {
+  name: '',
+  initials: '',
+  role: '',
+  shortName: '',
+  description: '',
+  tagline: '',
+  image: '',
+  resume: '',
+  github: '',
+  linkedin: '',
+  email: '',
+  instagram: '',
+  location: '',
+  availability: 'Available',
+  birthDate: '',
+  portfolio: '',
+  repo: ''
+};
+
 export default function Hero({
   profile,
   contributions,
@@ -73,7 +93,7 @@ export default function Hero({
   profile?: GitHubProfile | null;
   contributions?: ContributionsResponse | null;
 }) {
-  const personalInfo = useData('hero', { name: '', initials: '', role: '', shortName: '', description: '', tagline: '', image: '', resume: '', github: '', linkedin: '', email: '', instagram: '', location: '', availability: '', birthDate: '', portfolio: '', repo: '' });
+  const personalInfo = useData('hero', HERO_FALLBACK);
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const isDark = mounted && theme === "dark";
@@ -82,11 +102,9 @@ export default function Hero({
   const [gitProfile, setGitProfile] = useState<GitHubProfile | null>(profile ?? null);
   const [gitContributions, setGitContributions] = useState<ContributionsResponse | null>(contributions ?? null);
 
+  // 1. Mount and Fetch GitHub Stats (Runs once)
   useEffect(() => {
     setMounted(true);
-    if (!personalInfo) return;
-
-    // Fetch live statistics
     fetch("/api/github")
       .then((res) => {
         if (res.ok) return res.json();
@@ -97,7 +115,11 @@ export default function Hero({
         if (data.contributions) setGitContributions(data.contributions);
       })
       .catch(() => {});
+  }, []);
 
+  // 2. Age Clock Tracker (Runs when birthDate is available)
+  useEffect(() => {
+    if (!personalInfo?.birthDate) return;
     const birth = new Date(personalInfo.birthDate);
     const update = () => {
       const now = new Date();
@@ -110,7 +132,7 @@ export default function Hero({
     update();
     const id = setInterval(update, 80);
     return () => clearInterval(id);
-  }, [personalInfo]);
+  }, [personalInfo.birthDate]);
 
   return (
     <section id="hero" className="relative min-h-[90dvh] flex items-center overflow-hidden">

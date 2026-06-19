@@ -72,26 +72,30 @@ export default function BottomDock() {
                 const active = isActive(link.href);
 
                 return (
-                  <motion.div
+                  <Link
                     key={link.label}
+                    href={link.href}
+                    aria-label={link.label}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
-                    whileHover={{ scale: 1.2, y: -4 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={cn(
-                      "group relative flex items-center justify-center rounded-xl transition-all duration-200 size-9 sm:size-10",
-                      isHovered ? "text-foreground bg-accent/8" : "",
-                      active ? "text-foreground bg-accent/10" : "text-subtle hover:text-foreground hover:bg-accent/5"
-                    )}
+                    className="relative flex items-center justify-center size-9 sm:size-10 group"
                   >
-                    <Link href={link.href} aria-label={link.label}>
+                    <motion.div
+                      whileHover={{ scale: 1.2, y: -4 }}
+                      whileTap={{ scale: 0.9 }}
+                      className={cn(
+                        "flex items-center justify-center rounded-xl transition-all duration-200 size-full",
+                        isHovered ? "text-foreground bg-accent/8" : "",
+                        active ? "text-foreground bg-accent/10" : "text-subtle hover:text-foreground hover:bg-accent/5"
+                      )}
+                    >
                       <Icon size={16} />
-                    </Link>
+                    </motion.div>
                     <span className="absolute -top-9 sm:-top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-card px-2 py-1.5 text-[10px] sm:text-xs text-foreground opacity-0 transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 whitespace-nowrap border border-border shadow-xl">
                       {link.label}
                       <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 rotate-45 size-2 bg-card border-r border-b border-border" />
                     </span>
-                  </motion.div>
+                  </Link>
                 );
               })}
             </div>
