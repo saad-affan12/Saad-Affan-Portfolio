@@ -674,3 +674,35 @@
     cursor: none !important;
   }
 }
+
+/* Custom Marquee Animations */
+@utility animate-marquee-left {
+  animation: marquee-left 35s linear infinite;
+}
+
+@utility animate-marquee-right {
+  animation: marquee-right 35s linear infinite;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
