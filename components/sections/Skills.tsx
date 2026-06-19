@@ -17,8 +17,9 @@ function SkillIcon({ name }: { name: string }) {
     setMounted(true);
   }, []);
 
-  const isDark = mounted && theme !== "light";
-  const themeParam = isDark ? "dark" : "light";
+  // Use "light" theme consistently for the skillicons so they look exactly the same in both modes
+  // and to prevent dynamic src changes that cause browser-aborted request errors on mount.
+  const themeParam = "light";
   const slug = name.toLowerCase().replace(/\s+/g, "").replace(/[.#]/g, "");
   
   const iconMap: Record<string, string> = {
@@ -40,6 +41,12 @@ function SkillIcon({ name }: { name: string }) {
   };
 
   const iconSlug = iconMap[slug] || slug;
+  const srcUrl = `https://skillicons.dev/icons?i=${iconSlug}&theme=${themeParam}`;
+
+  // Reset error state when the image URL changes (in case of transient or cached fetch aborts)
+  useEffect(() => {
+    setError(false);
+  }, [srcUrl]);
 
   const getFallbackIcon = () => {
     const s = iconSlug.toLowerCase();
@@ -70,7 +77,7 @@ function SkillIcon({ name }: { name: string }) {
 
   return (
     <img
-      src={`https://skillicons.dev/icons?i=${iconSlug}&theme=${themeParam}`}
+      src={srcUrl}
       alt={name}
       className="size-4 sm:size-5 shrink-0 object-contain"
       loading="lazy"
