@@ -6,14 +6,21 @@ import { useTheme } from "next-themes";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useData } from "@/hooks/useData";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
+import { Terminal, Code2, Database, Shield, Cpu, Layers } from "lucide-react";
 
 function SkillIcon({ name }: { name: string }) {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isDark = mounted && theme !== "light";
   const themeParam = isDark ? "dark" : "light";
   const slug = name.toLowerCase().replace(/\s+/g, "").replace(/[.#]/g, "");
+  
   const iconMap: Record<string, string> = {
     python: "python", java: "java", "c++": "cpp", c: "c",
     javascript: "javascript", typescript: "typescript",
@@ -29,15 +36,45 @@ function SkillIcon({ name }: { name: string }) {
     dsa: "cpp", oop: "java", dbms: "mysql",
     operatingsystems: "linux", computerarchitecture: "raspberrypi",
     intelligentinterfaces: "react", performanceoptimization: "vercel",
-    fullstacksystems: "nodejs", "aidrivenux": "tensorflow",
+    fullstacksystems: "nodejs", aidrivenux: "tensorflow",
   };
+
   const iconSlug = iconMap[slug] || slug;
+
+  const getFallbackIcon = () => {
+    const s = iconSlug.toLowerCase();
+    if (["python", "java", "cpp", "c", "javascript", "typescript", "rust", "go", "php", "ruby", "dsa", "oop"].includes(s)) {
+      return <Code2 className="size-4 sm:size-5 text-accent" />;
+    }
+    if (["react", "nextjs", "tailwindcss", "html5", "css3", "framer", "vue", "angular", "intelligentinterfaces"].includes(s)) {
+      return <Layers className="size-4 sm:size-5 text-purple-400" />;
+    }
+    if (["nodejs", "express", "flask", "django", "laravel", "cpu", "fullstacksystems", "scikitlearn", "pandas", "numpy", "xgboost", "aisystems", "aidrivenux"].includes(s)) {
+      return <Cpu className="size-4 sm:size-5 text-emerald-400" />;
+    }
+    if (["mongodb", "mysql", "firebase", "postgresql", "sqlite", "dbms", "database"].includes(s)) {
+      return <Database className="size-4 sm:size-5 text-blue-400" />;
+    }
+    if (["docker", "git", "github", "vscode", "postman", "vercel", "performanceoptimization", "operatingsystems", "computerarchitecture"].includes(s)) {
+      return <Terminal className="size-4 sm:size-5 text-amber-400" />;
+    }
+    if (["auth0", "authentication", "jwt", "shield"].includes(s)) {
+      return <Shield className="size-4 sm:size-5 text-rose-400" />;
+    }
+    return <Code2 className="size-4 sm:size-5 text-muted-foreground" />;
+  };
+
+  if (error) {
+    return getFallbackIcon();
+  }
+
   return (
     <img
       src={`https://skillicons.dev/icons?i=${iconSlug}&theme=${themeParam}`}
       alt={name}
-      className="size-4 sm:size-5"
+      className="size-4 sm:size-5 shrink-0 object-contain"
       loading="lazy"
+      onError={() => setError(true)}
     />
   );
 }
