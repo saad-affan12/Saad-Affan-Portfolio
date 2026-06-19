@@ -60,7 +60,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
       { id: "page-resume", title: "Resume", description: "Skills, education, and experience", href: "/resume", icon: "file", category: "Pages" },
       { id: "page-tools", title: "Tools", description: "Toolkit and setup", href: "/tools", icon: "wrench", category: "Pages" },
       { id: "page-cli", title: "CLI", description: "Interactive terminal", href: "/cli", icon: "terminal", category: "Pages" },
-      { id: "sec-hero", title: "About Me", description: hero ? `${hero.name} — ${hero.role}` : "Full-Stack & AI Developer", href: "/#hero", icon: "user", category: "Sections" },
+      { id: "sec-hero", title: "About Me", description: (hero && hero.name && hero.role) ? `${hero.name} — ${hero.role}` : "Full-Stack & AI Developer", href: "/#hero", icon: "user", category: "Sections" },
       { id: "sec-stack", title: "Tech Stack", description: "Languages, frameworks, tools, and core concepts", href: "/#stack", icon: "zap", category: "Sections" },
       { id: "sec-projects", title: "Featured Work", description: "Real-world projects with focus on performance", href: "/#projects", icon: "folder", category: "Sections" },
       { id: "sec-experience", title: "Experience", description: "Academic projects, club involvement, and hands-on work", href: "/#experience", icon: "briefcase", category: "Sections" },
@@ -111,7 +111,7 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
     });
 
     items.push(
-      { id: "ext-github", title: "GitHub Profile", description: hero?.github ? `@${hero.github.split('/').pop()}` : "saad-affan12", href: hero?.github || "https://github.com/saad-affan12", icon: "github", category: "External" },
+      { id: "ext-github", title: "GitHub Profile", description: (typeof hero?.github === 'string' && hero.github) ? `@${hero.github.split('/').pop()}` : "saad-affan12", href: hero?.github || "https://github.com/saad-affan12", icon: "github", category: "External" },
       { id: "ext-linkedin", title: "LinkedIn Profile", description: "Connect on LinkedIn", href: hero?.linkedin || "https://www.linkedin.com/in/saad-affan-566553319", icon: "linkedin", category: "External" },
       { id: "ext-email", title: "Send Email", description: hero?.email || "saadaffan129@gmail.com", href: `mailto:${hero?.email || ""}`, icon: "mail", category: "External" },
       { id: "ext-resume", title: "Download Resume", description: "View or download my resume", href: "/resume.pdf", icon: "file", category: "External" },

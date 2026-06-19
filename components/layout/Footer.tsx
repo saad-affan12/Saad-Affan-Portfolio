@@ -38,7 +38,7 @@ export default function Footer() {
               Links
             </h3>
             <div className="flex flex-col gap-2.5">
-              {footerLinks.links.map((link) => (
+              {(footerLinks.links || []).map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

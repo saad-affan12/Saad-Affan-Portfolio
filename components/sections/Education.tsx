@@ -40,10 +40,10 @@ function InstitutionLogo({
   );
 }
 
-function getInitials(institution: string) {
-  return institution
+function getInitials(institution?: string) {
+  return (institution || "")
     .split(" ")
-    .map((w) => w[0])
+    .map((w) => w ? w[0] : "")
     .join("")
     .slice(0, 3)
     .toUpperCase();
@@ -51,7 +51,7 @@ function getInitials(institution: string) {
 
 export default function Education() {
   const education = useData('education', []);
-  const isVIT = (name: string) => name.toLowerCase().includes("vellore");
+  const isVIT = (name?: string) => (name || "").toLowerCase().includes("vellore");
 
   return (
     <section id="education" className="relative py-24">
@@ -140,7 +140,7 @@ export default function Education() {
                         )}
 
                         <div className="flex flex-wrap gap-1.5 pb-1">
-                          {item.skills.slice(0, 5).map((skill) => (
+                          {(item.skills || []).slice(0, 5).map((skill) => (
                             <span
                               key={skill}
                               className="inline-flex items-center rounded-full border border-accent/10 bg-accent/8 px-3 py-1 text-[11px] font-medium text-accent whitespace-nowrap"
@@ -148,9 +148,9 @@ export default function Education() {
                               {skill}
                             </span>
                           ))}
-                          {item.skills.length > 5 && (
+                          {(item.skills || []).length > 5 && (
                             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground whitespace-nowrap">
-                              +{item.skills.length - 5} more
+                              +{(item.skills || []).length - 5} more
                             </span>
                           )}
                         </div>

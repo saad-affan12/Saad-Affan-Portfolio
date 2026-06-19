@@ -53,7 +53,7 @@ export default function MsaCli() {
     {
       cmd: "skills",
       output: (() => {
-        const all = skills.flatMap((c) => c.items);
+        const all = (skills || []).flatMap((c) => c?.items || []);
         const chunks: string[] = [];
         for (let i = 0; i < all.length; i += 4) {
           chunks.push(all.slice(i, i + 4).join("  "));
@@ -77,11 +77,13 @@ export default function MsaCli() {
   ];
 
   const COMMANDS: Record<string, { output: string[]; action?: "nav" }> = useMemo(() => {
-    const allSkillsList = skills.flatMap((c) => c.items);
+    const allSkillsList = (skills || []).flatMap((c) => c?.items || []);
 
     const byCategory: Record<string, string[]> = {};
-    for (const cat of skills) {
-      byCategory[cat.title] = cat.items;
+    for (const cat of (skills || [])) {
+      if (cat && cat.title) {
+        byCategory[cat.title] = cat.items || [];
+      }
     }
 
     return {

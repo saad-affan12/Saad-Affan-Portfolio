@@ -129,7 +129,7 @@ export default function Hero({
             </div>
 
             <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
-              {personalInfo.description.split("\n\n")[0]}
+              {(personalInfo.description || "").split("\n\n")[0]}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">

@@ -12,10 +12,7 @@ export default function ResumeContent() {
   const projects = useData('projects', []);
   const roadmap = useData('roadmap', []);
   const skillsData = useData('skills', []);
-  const allSkills = skillsData.flatMap((c) => c.items);
-  if (!allSkills.length) {
-    // fallback if skills data not loaded yet
-  }
+  const allSkills = (skillsData || []).flatMap((c) => c?.items || []);
   return (
     <section className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3b82f6]/[0.01] to-transparent pointer-events-none" />
@@ -84,7 +81,7 @@ export default function ResumeContent() {
                 </div>
 
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {personalInfo.description.split("\n\n")[0]}
+                  {(personalInfo?.description || "").split("\n\n")[0]}
                 </p>
 
                 <div>
@@ -155,7 +152,7 @@ export default function ResumeContent() {
                     )}
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {edu.skills.slice(0, 6).map((skill) => (
+                    {(edu.skills || []).slice(0, 6).map((skill) => (
                       <span
                         key={skill}
                         className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium text-subtle"
@@ -175,8 +172,8 @@ export default function ResumeContent() {
 
             {/* Experience Section */}
             <div className="space-y-4">
-              {roadmap.filter((r) => r.type !== "project").map((item) => (
-                <div key={item.role + item.company} className="group relative">
+              {roadmap.filter((r) => r.type !== "project").map((item, idx) => (
+                <div key={`${item.role || ''}-${item.company || ''}-${idx}`} className="group relative">
                   <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                   <div className="relative glass-card glass-card-border-accent p-5 sm:p-6 space-y-3">
                     <div className="flex items-center gap-2 text-accent">
@@ -209,8 +206,8 @@ export default function ResumeContent() {
                 Featured Projects
               </div>
 
-              {roadmap.filter((r) => r.type === "project").map((item) => (
-                <div key={item.role + item.company} className="group relative">
+              {roadmap.filter((r) => r.type === "project").map((item, idx) => (
+                <div key={`${item.role || ''}-${item.company || ''}-project-${idx}`} className="group relative">
                   <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                   <div className="relative glass-card glass-card-border-accent p-5 sm:p-6 space-y-2">
                     <div className="flex items-center gap-2 flex-wrap">

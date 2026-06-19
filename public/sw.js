@@ -1,42 +1,25 @@
-const CACHE_NAME = 'saad-affan-portfolio-v1'
-const STATIC_ASSETS = [
-  '/',
-  '/projects',
-  '/resume',
-  '/roadmap',
-  '/tools',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-]
+// Cleaner Service Worker to unregister itself and clear caches
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS)
-    })
-  )
-  self.skipWaiting()
-})
+  self.skipWaiting();
+});
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
+        keys.map((key) => caches.delete(key))
       )
-    )
-  )
-  self.clients.claim()
-})
+    ).then(() => {
+      self.clients.claim();
+      // Unregister this service worker
+      self.registration.unregister().then(() => {
+        console.log('Service worker unregistered successfully.');
+      });
+    })
+  );
+});
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).catch(() => caches.match('/'))
-    })
-  )
-})
+  // Pass-through: do not intercept or cache anything
+});

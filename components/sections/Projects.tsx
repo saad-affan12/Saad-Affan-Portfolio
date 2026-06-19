@@ -32,7 +32,7 @@ export default function Projects() {
           className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {projects.map((project, index) => {
-            const initials = project.name.split(" ").map((w) => w[0]).join("").slice(0, 3);
+            const initials = (project.name || "").split(" ").map((w) => w ? w[0] : "").join("").slice(0, 3);
             const isFeatured = index === 0;
 
             return (
@@ -89,7 +89,7 @@ export default function Projects() {
                     )}
 
                     <div className="flex flex-wrap gap-1.5">
-                      {project.tags.slice(0, 3).map((tag) => (
+                      {(project.tags || []).slice(0, 3).map((tag) => (
                         <span
                           key={tag}
                           className="inline-flex items-center rounded-full bg-accent/8 px-2.5 py-1 text-[10px] font-medium text-accent border border-accent/10"
@@ -97,9 +97,9 @@ export default function Projects() {
                           {tag}
                         </span>
                       ))}
-                      {project.tags.length > 3 && (
+                      {(project.tags || []).length > 3 && (
                         <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-[10px] font-medium text-subtle">
-                          +{project.tags.length - 3}
+                          +{(project.tags || []).length - 3}
                         </span>
                       )}
                     </div>

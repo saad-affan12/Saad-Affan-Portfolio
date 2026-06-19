@@ -37,7 +37,7 @@ export default function Experience() {
 
               return (
                 <motion.div
-                  key={item.role + item.company}
+                  key={`${item.role || ''}-${item.company || ''}-${index}`}
                   variants={fadeInUp}
                   className="relative pl-0 sm:pl-10"
                 >
@@ -104,7 +104,7 @@ export default function Experience() {
                                 <span className={`flex items-center justify-center rounded-md p-0.5 ${isCurrentRole ? "p-1" : ""}`}>
                                   <img
                                     src={item.logo}
-                                    alt={item.company + ' logo'}
+                                    alt={(item.company || 'Company') + ' logo'}
                                     className={`object-contain rounded-md ${isCurrentRole ? "w-10 h-10 sm:w-12 sm:h-12" : "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"}`}
                                   />
                                 </span>
