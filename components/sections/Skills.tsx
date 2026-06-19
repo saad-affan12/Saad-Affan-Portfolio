@@ -64,9 +64,11 @@ export default function Skills() {
       ? stackCategories.flatMap((c) => c.items)
       : stackCategories.find((c) => c.id === activeCategory)?.items ?? [];
 
-  // Divide the skills into two rows
-  const row1 = getRowItems(filteredItems.filter((_, idx) => idx % 2 === 0));
-  const row2 = getRowItems(filteredItems.filter((_, idx) => idx % 2 !== 0));
+  // Divide the skills into 4 rows for the marquee
+  const row1 = getRowItems(filteredItems.filter((_, idx) => idx % 4 === 0));
+  const row2 = getRowItems(filteredItems.filter((_, idx) => idx % 4 === 1));
+  const row3 = getRowItems(filteredItems.filter((_, idx) => idx % 4 === 2));
+  const row4 = getRowItems(filteredItems.filter((_, idx) => idx % 4 === 3));
 
   return (
     <section id="stack" className="py-24 relative">
@@ -98,48 +100,103 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        <div
-          key={activeCategory}
-          className="marquee-container mt-10 space-y-4 relative w-full overflow-hidden"
-        >
-          {/* Edge Gradients for Fading Effect */}
-          <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        {activeCategory === "all" ? (
+          <div
+            key="marquee"
+            className="marquee-container mt-10 space-y-4 relative w-full overflow-hidden"
+          >
+            {/* Edge Gradients for Fading Effect */}
+            <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-          {/* Row 1: Moves Left */}
-          {row1.length > 0 && (
-            <div className="flex w-full overflow-hidden">
-              <div className="flex gap-3 py-1.5 animate-marquee-left w-max">
-                {[...row1, ...row1].map((item, i) => (
-                  <div
-                    key={`row1-${item}-${i}`}
-                    className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
-                  >
-                    <SkillIcon name={item} />
-                    <span>{item}</span>
-                  </div>
-                ))}
+            {/* Row 1: Moves Left */}
+            {row1.length > 0 && (
+              <div className="flex w-full overflow-hidden">
+                <div className="flex gap-3 py-1.5 animate-marquee-left w-max">
+                  {[...row1, ...row1].map((item, i) => (
+                    <div
+                      key={`row1-${item}-${i}`}
+                      className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
+                    >
+                      <SkillIcon name={item} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Row 2: Moves Right */}
-          {row2.length > 0 && (
-            <div className="flex w-full overflow-hidden">
-              <div className="flex gap-3 py-1.5 animate-marquee-right w-max">
-                {[...row2, ...row2].map((item, i) => (
-                  <div
-                    key={`row2-${item}-${i}`}
-                    className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
-                  >
-                    <SkillIcon name={item} />
-                    <span>{item}</span>
-                  </div>
-                ))}
+            {/* Row 2: Moves Right */}
+            {row2.length > 0 && (
+              <div className="flex w-full overflow-hidden">
+                <div className="flex gap-3 py-1.5 animate-marquee-right w-max">
+                  {[...row2, ...row2].map((item, i) => (
+                    <div
+                      key={`row2-${item}-${i}`}
+                      className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
+                    >
+                      <SkillIcon name={item} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+
+            {/* Row 3: Moves Left */}
+            {row3.length > 0 && (
+              <div className="flex w-full overflow-hidden">
+                <div className="flex gap-3 py-1.5 animate-marquee-left w-max">
+                  {[...row3, ...row3].map((item, i) => (
+                    <div
+                      key={`row3-${item}-${i}`}
+                      className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
+                    >
+                      <SkillIcon name={item} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Row 4: Moves Right */}
+            {row4.length > 0 && (
+              <div className="flex w-full overflow-hidden">
+                <div className="flex gap-3 py-1.5 animate-marquee-right w-max">
+                  {[...row4, ...row4].map((item, i) => (
+                    <div
+                      key={`row4-${item}-${i}`}
+                      className="flex items-center gap-1.5 sm:gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default shrink-0"
+                    >
+                      <SkillIcon name={item} />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <motion.div
+            key="grid"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"
+          >
+            {filteredItems.map((item) => (
+              <motion.div
+                key={item}
+                variants={fadeInUp}
+                className="group flex items-center gap-2 bg-black/[0.03] dark:bg-white/[0.04] border border-border rounded-lg px-3 py-2 text-[10px] sm:text-xs font-medium text-muted-foreground transition-all duration-200 hover:bg-black/[0.06] dark:hover:bg-white/10 hover:scale-105 hover:border-accent/30 cursor-default"
+              >
+                <SkillIcon name={item} />
+                <span className="truncate">{item}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );
