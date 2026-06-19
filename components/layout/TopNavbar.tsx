@@ -8,6 +8,7 @@ import { useData } from "@/hooks/useData";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import { getLenis } from "@/lib/lenis";
 
 export default function TopNavbar() {
   const pathname = usePathname();
@@ -18,6 +19,30 @@ export default function TopNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === "/") {
+      let targetId = "";
+      if (href === "/") targetId = "hero";
+      else if (href === "/roadmap") targetId = "experience";
+      else if (href === "/projects") targetId = "projects";
+      else if (href === "/resume") targetId = "education";
+      else if (href === "/tools") targetId = "setup";
+
+      if (targetId) {
+        const element = document.getElementById(targetId);
+        if (element) {
+          e.preventDefault();
+          const lenis = getLenis();
+          if (lenis) {
+            lenis.scrollTo(element, { offset: -80 });
+          } else {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     if (mobileOpen) {
@@ -45,6 +70,7 @@ export default function TopNavbar() {
           <div className="flex items-center gap-3">
             <Link
               href="/"
+              onClick={(e) => handleLinkClick(e, "/")}
               className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors"
             >
               {personalInfo.initials}
@@ -64,6 +90,7 @@ export default function TopNavbar() {
               <Link
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className={cn(
                   "relative text-sm font-medium transition-colors duration-200 py-1",
                   active
@@ -94,6 +121,7 @@ export default function TopNavbar() {
         )}>
           <Link
             href="/"
+            onClick={(e) => handleLinkClick(e, "/")}
             className="text-base font-mono font-bold tracking-tight text-foreground"
           >
             {personalInfo.initials}
@@ -139,7 +167,10 @@ export default function TopNavbar() {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(e) => {
+                      setMobileOpen(false);
+                      handleLinkClick(e, link.href);
+                    }}
                     className={cn(
                       "text-2xl sm:text-3xl font-semibold transition-colors",
                       isActive(link.href) ? "text-accent" : "text-foreground/80 hover:text-accent"

@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Home, Map, LayoutGrid, FileText, Wrench, ChevronDown } from "lucide-react";
 import { useData } from "@/hooks/useData";
 import { cn } from "@/lib/utils";
+import { getLenis } from "@/lib/lenis";
 
 const fallbackIcons: Record<string, React.ElementType> = {
   home: Home,
@@ -28,6 +29,30 @@ export default function BottomDock() {
     const timer = setTimeout(() => setVisible(true), 200);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === "/") {
+      let targetId = "";
+      if (href === "/") targetId = "hero";
+      else if (href === "/roadmap") targetId = "experience";
+      else if (href === "/projects") targetId = "projects";
+      else if (href === "/resume") targetId = "education";
+      else if (href === "/tools") targetId = "setup";
+
+      if (targetId) {
+        const element = document.getElementById(targetId);
+        if (element) {
+          e.preventDefault();
+          const lenis = getLenis();
+          if (lenis) {
+            lenis.scrollTo(element, { offset: -80 });
+          } else {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
+    }
+  };
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -75,6 +100,7 @@ export default function BottomDock() {
                   <Link
                     key={link.label}
                     href={link.href}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                     aria-label={link.label}
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
