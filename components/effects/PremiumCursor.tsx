@@ -23,7 +23,7 @@ export default function PremiumCursor() {
   const prev = useRef({ x: -100, y: -100 });
   const rot = useRef(0);
   const rotTarget = useRef(0);
-  const st = useRef({ scale: 1, hidden: false });
+  const st = useRef({ scale: 1, hidden: true }); // Start hidden until first mouse movement
   const hoveredEl = useRef<Element | null>(null);
   const idlePhase = useRef(0);
   const lastMove = useRef(Date.now());
@@ -32,6 +32,7 @@ export default function PremiumCursor() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [label, setLabel] = useState("");
+  const [hasMouseMoved, setHasMouseMoved] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -45,9 +46,22 @@ export default function PremiumCursor() {
     }
     setReady("visible");
 
-    document.documentElement.classList.add("hide-native-cursor");
+    let hasMoved = false;
 
     const onMove = (e: MouseEvent) => {
+      if (!hasMoved) {
+        hasMoved = true;
+        // Snap directly to position on first move to prevent fly-in lag
+        pos.current = { x: e.clientX, y: e.clientY };
+        ringPos.current = { x: e.clientX, y: e.clientY };
+        prev.current = { x: e.clientX, y: e.clientY };
+        document.documentElement.classList.add("hide-native-cursor");
+        st.current.hidden = false;
+        setHasMouseMoved(true);
+      } else if (st.current.hidden) {
+        st.current.hidden = false;
+        document.documentElement.classList.add("hide-native-cursor");
+      }
       mouse.current = { x: e.clientX, y: e.clientY };
       lastMove.current = Date.now();
     };
@@ -86,19 +100,25 @@ export default function PremiumCursor() {
           st.current.scale = 1;
         }
       }
-      st.current.hidden = false;
+      if (hasMoved) st.current.hidden = false;
     };
 
     const onLabelReset = () => setLabel("");
 
     const onLeave = () => { st.current.hidden = true; };
-    const onEnter = () => { st.current.hidden = false; };
+    const onEnter = () => { if (hasMoved) st.current.hidden = false; };
+
+    const onTouchStart = () => {
+      st.current.hidden = true;
+      document.documentElement.classList.remove("hide-native-cursor");
+    };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseover", onOver);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
     document.addEventListener("mouseout", onLabelReset);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
 
     const loop = () => {
       const vx = mouse.current.x - prev.current.x;
@@ -142,25 +162,27 @@ export default function PremiumCursor() {
         idleR = Math.sin(idlePhase.current * 0.5) * 0.8;
       }
 
+      const isHidden = st.current.hidden || !hasMoved;
+
       if (svgRef.current) {
         const x = pos.current.x + magX + idleX - 10;
         const y = pos.current.y + magY + idleY - 10;
         const r = rot.current + idleR;
         svgRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${st.current.scale}) rotate(${r}deg)`;
-        svgRef.current.style.opacity = st.current.hidden ? "0" : "1";
+        svgRef.current.style.opacity = isHidden ? "0" : "1";
       }
 
       if (ringRef.current) {
-        const ringScale = st.current.hidden ? 0 : 0.6 + 0.4 * st.current.scale;
+        const ringScale = isHidden ? 0 : 0.6 + 0.4 * st.current.scale;
         ringRef.current.style.transform = `translate3d(${ringPos.current.x - 18}px, ${ringPos.current.y - 18}px, 0) scale(${ringScale})`;
-        ringRef.current.style.opacity = st.current.hidden ? "0" : "0.35";
+        ringRef.current.style.opacity = isHidden ? "0" : "0.35";
       }
 
       if (labelRef.current) {
         const lx = ringPos.current.x + 24;
         const ly = ringPos.current.y - 8;
         labelRef.current.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
-        labelRef.current.style.opacity = label && !st.current.hidden ? "1" : "0";
+        labelRef.current.style.opacity = label && !isHidden ? "1" : "0";
       }
 
       rafId.current = requestAnimationFrame(loop);
@@ -174,14 +196,14 @@ export default function PremiumCursor() {
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
       document.removeEventListener("mouseout", onLabelReset);
+      window.removeEventListener("touchstart", onTouchStart);
       cancelAnimationFrame(rafId.current);
       document.documentElement.classList.remove("hide-native-cursor");
     };
   }, [mounted, theme]);
 
   if (!ready || ready === "hidden") return null;
-
-  const isLight = mounted && theme !== "dark";
+  if (!hasMouseMoved) return null; // Avoid rendering markup until mouse actually moves
 
   return (
     <>
