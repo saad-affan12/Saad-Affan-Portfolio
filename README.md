@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://saad-affans.vercel.app">
+  <a href="https://saad-affan.vercel.app">
     <img src="https://img.shields.io/badge/🌐%20Live%20Portfolio-Visit%20Now-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" />
   </a>
   <a href="https://github.com/saad-affan12">
