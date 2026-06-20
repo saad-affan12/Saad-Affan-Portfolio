@@ -5,6 +5,7 @@ import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useData } from "@/hooks/useData";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
+import TiltCard from "@/components/effects/TiltCard";
 
 const projectColors = [
   "from-[#6366F1]/20 via-[#4F46E5]/10 to-[#4338CA]/5",
@@ -41,93 +42,95 @@ export default function Projects() {
                 variants={fadeInUp}
                 className={isFeatured ? "md:col-span-2" : ""}
               >
-                <div className="group relative bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.12] hover:shadow-[0_0_20px_rgba(99,102,241,0.08)]">
-                  <div className="relative w-full aspect-video bg-card overflow-hidden">
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={`${project.name} preview`}
-                        className="absolute inset-0 size-full object-cover"
-                        loading={index < 2 ? "eager" : "lazy"}
-                      />
-                    ) : (
-                      <div className={`absolute inset-0 bg-gradient-to-br ${projectColors[index % projectColors.length]}`} />
-                    )}
-                    {!project.image && (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-5xl font-bold text-foreground/5 select-none tracking-tighter">
-                          {initials}
+                <TiltCard className="h-full">
+                  <div className="group relative bg-card border border-border rounded-xl overflow-hidden h-full transition-colors duration-300">
+                    <div className="relative w-full aspect-video bg-card overflow-hidden">
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={`${project.name} preview`}
+                          className="absolute inset-0 size-full object-cover"
+                          loading={index < 2 ? "eager" : "lazy"}
+                        />
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-br ${projectColors[index % projectColors.length]}`} />
+                      )}
+                      {!project.image && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-5xl font-bold text-foreground/5 select-none tracking-tighter">
+                            {initials}
+                          </div>
                         </div>
+                      )}
+                      <div className="absolute top-2 right-2 bg-card/80 backdrop-blur-sm rounded-full px-2 py-0.5 text-[10px] font-mono text-muted-foreground border border-border">
+                        {project.date}
                       </div>
-                    )}
-                    <div className="absolute top-2 right-2 bg-card/80 backdrop-blur-sm rounded-full px-2 py-0.5 text-[10px] font-mono text-muted-foreground border border-border">
-                      {project.date}
                     </div>
-                  </div>
 
-                  <div className="p-4 sm:p-5 space-y-3">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {project.name}
-                    </h3>
+                    <div className="p-4 sm:p-5 space-y-3">
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {project.name}
+                      </h3>
 
-                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
-                      {project.description}
-                    </p>
+                      <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                        {project.description}
+                      </p>
 
-                    {project.metrics && project.metrics.length > 0 && (
+                      {project.metrics && project.metrics.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {project.metrics.map((m: string) => (
+                            <span
+                              key={m}
+                              className="inline-flex items-center gap-1 rounded-md bg-accent/5 px-2 py-0.5 text-[10px] font-medium text-accent/80 border border-accent/8"
+                            >
+                              <span className="size-1 rounded-full bg-accent/40" />
+                              {m}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
                       <div className="flex flex-wrap gap-1.5">
-                        {project.metrics.map((m: string) => (
+                        {(project.tags || []).slice(0, 3).map((tag) => (
                           <span
-                            key={m}
-                            className="inline-flex items-center gap-1 rounded-md bg-accent/5 px-2 py-0.5 text-[10px] font-medium text-accent/80 border border-accent/8"
+                            key={tag}
+                            className="inline-flex items-center rounded-full bg-accent/8 px-2.5 py-1 text-[10px] font-medium text-accent border border-accent/10"
                           >
-                            <span className="size-1 rounded-full bg-accent/40" />
-                            {m}
+                            {tag}
                           </span>
                         ))}
+                        {(project.tags || []).length > 3 && (
+                          <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-[10px] font-medium text-subtle">
+                            +{(project.tags || []).length - 3}
+                          </span>
+                        )}
                       </div>
-                    )}
 
-                    <div className="flex flex-wrap gap-1.5">
-                      {(project.tags || []).slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center rounded-full bg-accent/8 px-2.5 py-1 text-[10px] font-medium text-accent border border-accent/10"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {(project.tags || []).length > 3 && (
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-[10px] font-medium text-subtle">
-                          +{(project.tags || []).length - 3}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-3 pt-1">
-                      {project.live && (
+                      <div className="flex items-center gap-3 pt-1">
+                        {project.live && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] flex-1 sm:flex-none"
+                          >
+                            <ExternalLink size={12} />
+                            Live
+                          </a>
+                        )}
                         <a
-                          href={project.live}
+                          href={project.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] flex-1 sm:flex-none"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98] flex-1 sm:flex-none"
                         >
-                          <ExternalLink size={12} />
-                          Live
+                          <Github size={12} />
+                          Source
                         </a>
-                      )}
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98] flex-1 sm:flex-none"
-                      >
-                        <Github size={12} />
-                        Source
-                      </a>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
               </motion.div>
             );
           })}

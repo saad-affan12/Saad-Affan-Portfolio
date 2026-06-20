@@ -30,6 +30,8 @@ export default function BottomDock() {
     return () => clearTimeout(timer);
   }, []);
 
+  if (pathname !== "/") return null;
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (pathname === "/") {
       let targetId = "";

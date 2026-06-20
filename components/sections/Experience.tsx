@@ -5,6 +5,7 @@ import { Calendar, Building2, Sparkles, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useData } from "@/hooks/useData";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
+import TiltCard from "@/components/effects/TiltCard";
 
 export default function Experience() {
   const roadmap = useData('roadmap', []);
@@ -66,12 +67,8 @@ export default function Experience() {
                     )}
                   </div>
 
-                  <div className="group relative">
-                    <div className={`absolute -inset-px rounded-xl bg-gradient-to-br from-accent/5 via-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isCurrentRole ? "blur-md" : "blur-sm"}`} />
-                    <div className={`relative bg-card border rounded-xl transition-all duration-300 group-hover:-translate-y-0.5 ${isCurrentRole
-                        ? "border-accent/20 p-6 group-hover:border-accent/40 group-hover:shadow-[0_0_24px_rgba(99,102,241,0.12)]"
-                        : "border-border p-5 group-hover:border-white/[0.1]"}`}
-                    >
+                  <TiltCard className="w-full">
+                    <div className={`group relative bg-card border rounded-xl transition-colors duration-300 ${isCurrentRole ? "border-accent/20 p-6" : "border-border p-5"}`}>
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                         <div className="space-y-2 sm:space-y-3 flex-1">
                           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
@@ -132,7 +129,7 @@ export default function Experience() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </TiltCard>
                 </motion.div>
               );
             })}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { useData } from "@/hooks/useData";
+import MagneticButton from "@/components/effects/MagneticButton";
 
 export default function SocialLinks({ className = "" }: { className?: string }) {
   const hero = useData('hero');
@@ -16,20 +17,20 @@ export default function SocialLinks({ className = "" }: { className?: string }) 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {links.map((link, i) => (
-        <motion.a
-          key={link.label}
-          href={link.href}
-          target="_blank"
-          rel="noreferrer"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 + i * 0.08 }}
-          whileHover={{ scale: 1.05, y: -2 }}
-          className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-accent hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10"
-          aria-label={link.label}
-        >
-          <link.icon size={16} />
-        </motion.a>
+        <MagneticButton key={link.label}>
+          <motion.a
+            href={link.href}
+            target="_blank"
+            rel="noreferrer"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 + i * 0.08 }}
+            className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-accent hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10"
+            aria-label={link.label}
+          >
+            <link.icon size={16} />
+          </motion.a>
+        </MagneticButton>
       ))}
     </div>
   );

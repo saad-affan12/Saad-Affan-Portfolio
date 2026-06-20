@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { getLenis } from "@/lib/lenis";
-
+import MagneticButton from "@/components/effects/MagneticButton";
 export default function TopNavbar() {
   const pathname = usePathname();
   const personalInfo = useData('hero', { name: '', initials: '', role: '', shortName: '', description: '', tagline: '', image: '', resume: '', github: '', linkedin: '', email: '', instagram: '', location: '', availability: '', birthDate: '', portfolio: '', repo: '' });
@@ -21,24 +21,15 @@ export default function TopNavbar() {
   useEffect(() => setMounted(true), []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (pathname === "/") {
-      let targetId = "";
-      if (href === "/") targetId = "hero";
-      else if (href === "/roadmap") targetId = "experience";
-      else if (href === "/projects") targetId = "projects";
-      else if (href === "/resume") targetId = "education";
-      else if (href === "/tools") targetId = "setup";
-
-      if (targetId) {
-        const element = document.getElementById(targetId);
-        if (element) {
-          e.preventDefault();
-          const lenis = getLenis();
-          if (lenis) {
-            lenis.scrollTo(element, { offset: -80 });
-          } else {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
+    if (pathname === "/" && href === "/") {
+      const element = document.getElementById("hero");
+      if (element) {
+        e.preventDefault();
+        const lenis = getLenis();
+        if (lenis) {
+          lenis.scrollTo(element, { offset: -80 });
+        } else {
+          element.scrollIntoView({ behavior: "smooth" });
         }
       }
     }
@@ -68,13 +59,15 @@ export default function TopNavbar() {
       >
         <div className="glass-nav rounded-full px-5 py-2 shadow-xl flex items-center gap-5">
           <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              onClick={(e) => handleLinkClick(e, "/")}
-              className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors"
-            >
-              {personalInfo.initials}
-            </Link>
+            <MagneticButton>
+              <Link
+                href="/"
+                onClick={(e) => handleLinkClick(e, "/")}
+                className="text-sm font-mono font-bold tracking-tight text-foreground hover:text-accent transition-colors block py-1 px-1.5"
+              >
+                {personalInfo.initials}
+              </Link>
+            </MagneticButton>
             <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/8 px-2 py-0.5 text-[9px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/15 dark:border-emerald-400/15">
               <span className="relative flex size-1.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75 dark:bg-emerald-400" />
@@ -87,26 +80,27 @@ export default function TopNavbar() {
           {topNavLinks.map((link) => {
             const active = isActive(link.href);
             return (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className={cn(
-                  "relative text-sm font-medium transition-colors duration-200 py-1",
-                  active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {link.label}
-                {active && mounted && (
-                  <motion.span
-                    layoutId="nav-dot"
-                    className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 size-1 rounded-full bg-accent"
-                    transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.8 }}
-                  />
-                )}
-              </Link>
+              <MagneticButton key={link.label}>
+                <Link
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  className={cn(
+                    "relative text-sm font-medium transition-colors duration-200 py-1 px-1.5 block",
+                    active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {link.label}
+                  {active && mounted && (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 size-1 rounded-full bg-accent"
+                      transition={{ type: "spring", stiffness: 400, damping: 35, mass: 0.8 }}
+                    />
+                  )}
+                </Link>
+              </MagneticButton>
             );
           })}
           <div className="w-px h-4 bg-border" />

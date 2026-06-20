@@ -30,7 +30,7 @@ export default function MsaCli() {
   const [charIndex, setCharIndex] = useState(0);
   const [showPrompt, setShowPrompt] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const endRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isProcessingRef = useRef(false);
 
   const hero = useData('hero');
@@ -203,7 +203,9 @@ export default function MsaCli() {
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   }, [lines, typingCmd, typingOutput, showPrompt]);
 
   useEffect(() => {
@@ -229,7 +231,7 @@ export default function MsaCli() {
     if (typingCmd.length < entry.cmd.length + 2) {
       const t = setTimeout(() => {
         const charPos = Math.max(0, typingCmd.length - 2);
-        setTypingCmd(`$ ${entry.cmd.slice(0, charPos)}`);
+        setTypingCmd(`$ ${entry.cmd.slice(0, charPos + 1)}`);
       }, 40);
       return () => clearTimeout(t);
     }
@@ -335,7 +337,7 @@ export default function MsaCli() {
           <div className="text-[8px] sm:text-[9px] text-blue-400/60 font-mono tracking-wider shrink-0">ONLINE</div>
         </div>
 
-        <div className="p-3 sm:p-5 md:p-6 font-mono text-[12px] sm:text-[13px] leading-relaxed min-h-[300px] sm:min-h-[400px] md:min-h-[480px] max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto">
+        <div ref={containerRef} className="p-3 sm:p-5 md:p-6 font-mono text-[12px] sm:text-[13px] leading-relaxed min-h-[300px] sm:min-h-[400px] md:min-h-[480px] max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto">
           <div className="space-y-1.5">
             {lines.map((line, i) => (
               <div
@@ -384,7 +386,6 @@ export default function MsaCli() {
               </form>
             )}
           </div>
-          <div ref={endRef} />
         </div>
       </div>
     </motion.div>

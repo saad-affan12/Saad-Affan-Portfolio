@@ -31,7 +31,8 @@
     { "label": "Roadmap", "href": "/roadmap" },
     { "label": "Projects", "href": "/projects" },
     { "label": "Resume", "href": "/resume" },
-    { "label": "Tools", "href": "/tools" }
+    { "label": "Tools", "href": "/tools" },
+    { "label": "CLI", "href": "/cli" }
   ],
   "dockLinks": [
     { "label": "Home", "href": "/", "icon": "home" },
