@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useData } from "@/hooks/useData";
+import { useBackgroundState } from "@/components/providers/BackgroundStateProvider";
 
 interface Line {
   text: string;
@@ -18,6 +19,14 @@ function formatTime() {
 
 export default function MsaCli() {
   const router = useRouter();
+  const { setWorkstationMode } = useBackgroundState();
+
+  useEffect(() => {
+    setWorkstationMode(true);
+    return () => {
+      setWorkstationMode(false);
+    };
+  }, [setWorkstationMode]);
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const isLight = mounted && theme === "light";
@@ -94,9 +103,12 @@ export default function MsaCli() {
           "  about      Display profile information",
           "  skills     List technical skills",
           "  projects   Show featured projects",
+          "  supercx    Details about current internship at SuperCX",
           "  education  Show education background",
           "  experience Show work experience",
           "  socials    Display social links",
+          "  blog       Go to Blog page",
+          "  assistant  Open floating AI Assistant",
           "  resume     Open resume page",
           "  home       Go to homepage",
           "  clear      Clear terminal",
@@ -155,6 +167,15 @@ export default function MsaCli() {
           ]),
         ],
       },
+      supercx: {
+        output: [
+          "SuperCX Technologies Pvt. Ltd.",
+          "  Role: Full Stack Developer Intern",
+          "  Period: May 2026 – Present",
+          "  Tech Stack: React, Next.js, TypeScript, Node.js, MongoDB, GitHub",
+          "  Focus: Spearheaded full-stack startup features and responsive layouts.",
+        ],
+      },
       education: {
         output: education.length
           ? education.flatMap((e) => [
@@ -198,6 +219,7 @@ export default function MsaCli() {
     home: "/",
     roadmap: "/roadmap",
     tools: "/tools",
+    blog: "/blog",
   }), []);
 
   useEffect(() => { setMounted(true); }, []);
@@ -264,6 +286,17 @@ export default function MsaCli() {
 
       if (trimmed === "clear") {
         setLines([]);
+        return;
+      }
+
+      if (trimmed === "assistant") {
+        setLines((prev) => [
+          ...prev,
+          { text: `$ ${trimmed}`, type: "command" },
+          { text: "Opening floating AI Assistant...", type: "output" },
+        ]);
+        const btn = document.querySelector('[aria-label="AI Assistant"]') as HTMLButtonElement | null;
+        if (btn) btn.click();
         return;
       }
 

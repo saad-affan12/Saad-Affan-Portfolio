@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Building a Client-Side Adaptive UX Engine",
+    "slug": "client-side-adaptive-ux",
+    "date": "June 15, 2026",
+    "description": "How I built NeuroAdaptive UX: a pure client-side interaction speed and fatigue detector with React and Framer Motion.",
+    "readTime": "5 min read",
+    "tags": ["React", "UX", "Algorithms"],
+    "content": "Standard interfaces are static, failing to adapt to user fatigue or stress. In this article, I break down the mathematical modeling of typing cadence (rolling average WPM and correction rate) and cursor jitter calculation on the main thread. By processing pointer coordinates through a moving variance window, we can determine the cognitive load of a user locally and adjust layouts asynchronously to reduce drop-out rates without leaking any interaction packets to the server.",
+    "published": true
+  },
+  {
+    "title": "Secure Distributed Voting with JWT & MongoDB",
+    "slug": "secure-distributed-voting",
+    "date": "May 28, 2026",
+    "description": "Engineering an atomic transaction lifecycle to guarantee exactly-once voting rules under concurrent request stress tests.",
+    "readTime": "8 min read",
+    "tags": ["Security", "Database", "Node.js"],
+    "content": "Preventing concurrent double-voting is one of the hardest challenges in web-scale digital voting. Standard web servers run in parallel, meaning a voter sending twin requests milliseconds apart can trick the backend. In this case study, I detail the implementation of a compound index in MongoDB combined with atomic transactional locks to guarantee that once the voter state flags transition, duplicate requests are discarded instantly.",
+    "published": true
+  }
+]

@@ -175,20 +175,26 @@ export default function Hero({
                 <Link
                   href="/projects"
                   data-cursor-label="View →"
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.15)] hover:shadow-[0_0_30px_rgba(99,102,241,0.35)]"
                 >
-                  View Projects
-                  <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    View Projects
+                    <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
                 </Link>
               </MagneticWrap>
               <MagneticWrap>
                 <a
                   href={personalInfo.resume}
                   data-cursor-label="Resume"
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98]"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-foreground hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
                 >
-                  Resume
-                  <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    Resume
+                    <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
+                  </span>
                 </a>
               </MagneticWrap>
             </div>

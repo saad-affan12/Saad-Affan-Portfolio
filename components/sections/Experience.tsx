@@ -1,11 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Building2, Sparkles, ArrowRight } from "lucide-react";
+import { Calendar, Building2, Sparkles, ArrowRight, Briefcase, Cpu, Camera, Shield, Zap, GraduationCap } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useData } from "@/hooks/useData";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 import TiltCard from "@/components/effects/TiltCard";
+
+function getTimelineIcon(item: any) {
+  const role = (item.role || "").toLowerCase();
+  const company = (item.company || "").toLowerCase();
+  const type = (item.type || "").toLowerCase();
+
+  if (company.includes("supercx")) return <Briefcase size={14} className="text-accent" />;
+  if (company.includes("attendance")) return <Camera size={14} className="text-purple-400" />;
+  if (company.includes("vote")) return <Shield size={14} className="text-emerald-400" />;
+  if (company.includes("neuroadaptive")) return <Zap size={14} className="text-amber-400" />;
+  if (company.includes("stress")) return <Cpu size={14} className="text-pink-400" />;
+  if (role.includes("member") || type.includes("club")) return <Sparkles size={14} className="text-indigo-400" />;
+  return <GraduationCap size={14} className="text-blue-400" />;
+}
 
 export default function Experience() {
   const roadmap = useData('roadmap', []);
@@ -21,7 +35,8 @@ export default function Experience() {
         />
 
         <div className="relative mt-14">
-          <div className="absolute left-[1.125rem] top-0 bottom-0 w-px bg-border hidden sm:block" />
+          {/* Timeline Line with Gradient */}
+          <div className="absolute left-[1.125rem] top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent/50 via-indigo-500/30 to-border/10 hidden sm:block" />
 
           <motion.div
             variants={staggerContainer}
@@ -40,7 +55,7 @@ export default function Experience() {
                 <motion.div
                   key={`${item.role || ''}-${item.company || ''}-${index}`}
                   variants={fadeInUp}
-                  className="relative pl-0 sm:pl-10"
+                  className="relative pl-0 sm:pl-12"
                 >
                   {isFirstProject && (
                     <>
@@ -52,27 +67,24 @@ export default function Experience() {
                     </>
                   )}
 
-                  <div className="absolute left-0 top-6 hidden sm:flex items-center justify-center">
+                  {/* Storytelling Timeline Icon Node */}
+                  <div className="absolute left-0 top-5 hidden sm:flex items-center justify-center size-9 rounded-full border border-border bg-card shadow-md z-10 hover:border-accent/40 hover:shadow-[0_0_15px_rgba(99,102,241,0.15)] transition-all duration-300">
                     {isCurrentRole ? (
-                      <span className="relative flex size-[18px]">
-                        <span className="animate-ping absolute inline-flex size-full rounded-full bg-accent/30 opacity-75" />
-                        <span className="relative inline-flex size-[18px] rounded-full border-2 border-accent bg-background items-center justify-center">
-                          <span className="size-[6px] rounded-full bg-accent" />
-                        </span>
+                      <span className="relative flex size-full items-center justify-center rounded-full bg-accent/5">
+                        <span className="animate-ping absolute inline-flex size-full rounded-full bg-accent/20 opacity-75" />
+                        {getTimelineIcon(item)}
                       </span>
                     ) : (
-                      <span className="size-[18px] rounded-full border border-border bg-background flex items-center justify-center">
-                        <span className="size-[6px] rounded-full bg-accent/60" />
-                      </span>
+                      getTimelineIcon(item)
                     )}
                   </div>
 
                   <TiltCard className="w-full">
-                    <div className={`group relative bg-card border rounded-xl transition-colors duration-300 ${isCurrentRole ? "border-accent/20 p-6" : "border-border p-5"}`}>
+                    <div className={`group relative bg-card border rounded-xl transition-colors duration-300 ${isCurrentRole ? "border-accent/30 shadow-[0_0_20px_rgba(99,102,241,0.05)] p-6" : "border-border p-5"}`}>
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                         <div className="space-y-2 sm:space-y-3 flex-1">
                           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-                            <h3 className={`font-semibold text-foreground ${isCurrentRole ? "text-lg" : "text-base"}`}>{item.role}</h3>
+                            <h3 className={`font-bold text-foreground ${isCurrentRole ? "text-lg" : "text-base"}`}>{item.role}</h3>
                             {isCurrentRole && (
                               <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-0.5 text-[10px] font-medium text-accent border border-accent/20">
                                 <span className="relative flex size-1.5">
@@ -108,7 +120,7 @@ export default function Experience() {
                               ) : null}
                               <span>{item.company}</span>
                             </span>
-                            <span className="flex items-center gap-1.5">
+                            <span className="flex items-center gap-1.5 font-mono">
                               <Calendar size={12} />
                               {item.period}
                             </span>

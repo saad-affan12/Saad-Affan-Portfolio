@@ -32,6 +32,14 @@ export interface Project {
   featured: boolean;
   status: string;
   priority: number;
+  problem?: string;
+  solution?: string;
+  architectureDescription?: string;
+  architectureDiagram?: string;
+  challenges?: string;
+  learnings?: string;
+  screenshots?: string[];
+  achievements?: string[];
 }
 
 export interface RoadmapItem {
@@ -136,7 +144,27 @@ export interface ExperienceItem {
   order: number;
 }
 
-export type DataKey = 'hero' | 'projects' | 'roadmap' | 'education' | 'skills' | 'socials' | 'settings' | 'seo' | 'cli';
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  cover?: string;
+  tags: string[];
+  readTime: string;
+  publishedAt: string;
+  content: string;
+  category: string;
+}
+
+export interface ChangelogItem {
+  version: string;
+  title: string;
+  date: string;
+  description: string;
+  highlights: string[];
+}
+
+export type DataKey = 'hero' | 'projects' | 'roadmap' | 'education' | 'skills' | 'socials' | 'settings' | 'seo' | 'cli' | 'blog' | 'changelog';
 
 export interface DataMap {
   hero: Hero;
@@ -148,6 +176,8 @@ export interface DataMap {
   settings: Settings;
   seo: SEO;
   cli: CLI;
+  blog: BlogPost[];
+  changelog: ChangelogItem[];
 }
 
 export type DataValue<T extends DataKey> = DataMap[T];
@@ -162,4 +192,6 @@ export const DATA_FILES: Record<DataKey, string> = {
   settings: 'settings.json',
   seo: 'seo.json',
   cli: 'cli.json',
+  blog: 'blog.json',
+  changelog: 'changelog.json',
 };

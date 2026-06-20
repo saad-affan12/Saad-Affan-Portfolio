@@ -28,6 +28,8 @@ const DEFAULTS: Record<string, any> = {
   roadmap: [],
   education: [],
   skills: [],
+  blog: [],
+  changelog: [],
   socials: {
     github: '',
     linkedin: '',

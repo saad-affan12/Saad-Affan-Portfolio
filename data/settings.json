@@ -13,6 +13,7 @@
       { "label": "Home", "href": "/" },
       { "label": "Roadmap", "href": "/roadmap" },
       { "label": "Projects", "href": "/projects" },
+      { "label": "Blog", "href": "/blog" },
       { "label": "Resume", "href": "/resume" },
       { "label": "Tools", "href": "/tools" }
     ],
@@ -30,6 +31,7 @@
   "topNavLinks": [
     { "label": "Roadmap", "href": "/roadmap" },
     { "label": "Projects", "href": "/projects" },
+    { "label": "Blog", "href": "/blog" },
     { "label": "Resume", "href": "/resume" },
     { "label": "Tools", "href": "/tools" },
     { "label": "CLI", "href": "/cli" }

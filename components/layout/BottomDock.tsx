@@ -9,6 +9,8 @@ import { useData } from "@/hooks/useData";
 import { cn } from "@/lib/utils";
 import { getLenis } from "@/lib/lenis";
 
+import { useBackgroundState } from "@/components/providers/BackgroundStateProvider";
+
 const fallbackIcons: Record<string, React.ElementType> = {
   home: Home,
   roadmap: Map,
@@ -24,6 +26,7 @@ export default function BottomDock() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const pathname = usePathname();
+  const { setActiveDiagram } = useBackgroundState();
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 200);
@@ -54,6 +57,14 @@ export default function BottomDock() {
         }
       }
     }
+  };
+
+  const getDockDiagramKey = (iconName: string) => {
+    if (iconName === "roadmap") return "student-stress";
+    if (iconName === "projects") return "smart-attendance";
+    if (iconName === "tools") return "supercx";
+    if (iconName === "resume") return "neuroadaptive";
+    return "default";
   };
 
   const isActive = (href: string) => {
@@ -90,7 +101,7 @@ export default function BottomDock() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-dock rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2.5"
+            className="glass-dock rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2.5 dark:shadow-[0_0_24px_rgba(37,99,235,0.15)]"
           >
             <div className="flex items-center gap-0.5 sm:gap-1.5">
               {dockLinks.map((link, index) => {
@@ -104,17 +115,27 @@ export default function BottomDock() {
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     aria-label={link.label}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    onMouseEnter={() => {
+                      setHoveredIndex(index);
+                      setActiveDiagram(getDockDiagramKey(link.icon));
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredIndex(null);
+                      setActiveDiagram("default");
+                    }}
                     className="relative flex items-center justify-center size-9 sm:size-10 group"
                   >
                     <motion.div
-                      whileHover={{ scale: 1.2, y: -4 }}
+                      whileHover={{ 
+                        scale: 1.25, 
+                        y: -6,
+                        boxShadow: "0 0 15px rgba(37, 99, 235, 0.4)",
+                      }}
                       whileTap={{ scale: 0.9 }}
                       className={cn(
                         "flex items-center justify-center rounded-xl transition-all duration-200 size-full",
                         isHovered ? "text-foreground bg-accent/8" : "",
-                        active ? "text-foreground bg-accent/10" : "text-subtle hover:text-foreground hover:bg-accent/5"
+                        active ? "text-foreground bg-accent/10 border border-accent/20" : "text-subtle hover:text-foreground hover:bg-accent/5"
                       )}
                     >
                       <Icon size={16} />

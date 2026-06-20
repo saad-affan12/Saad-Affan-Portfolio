@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard, User, FolderKanban, Briefcase, GraduationCap,
   Map, Wrench, Link2, Image as ImageIcon, Terminal, Search,
-  Settings, Menu, X, ChevronLeft, ExternalLink, LogOut,
+  Settings, Menu, X, ChevronLeft, ExternalLink, LogOut, BookOpen, History
 } from 'lucide-react';
 
 const navItems = [
@@ -17,6 +17,7 @@ const navItems = [
   { href: '/admin/education', label: 'Education', icon: GraduationCap },
   { href: '/admin/roadmap', label: 'Roadmap', icon: Map },
   { href: '/admin/skills', label: 'Skills', icon: Wrench },
+  { href: '/admin/blog', label: 'Blog', icon: BookOpen },
   { href: '/admin/socials', label: 'Social Links', icon: Link2 },
   { href: '/admin/media', label: 'Media', icon: ImageIcon },
   { href: '/admin/cli', label: 'CLI', icon: Terminal },

@@ -3,9 +3,12 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import { Search, Home, Map, FolderOpen, FileText, Wrench, Terminal, User, Zap, Briefcase, GraduationCap, Github, Linkedin, Mail, Heart, ExternalLink } from "lucide-react";
 import { useAllData } from "@/hooks/useData";
 import type { SearchItem } from "@/lib/search-data";
+
+import { useBackgroundState } from "@/components/providers/BackgroundStateProvider";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -43,7 +46,16 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { setTheme } = useTheme();
   const allData = useAllData();
+  const { setSearchFocused } = useBackgroundState();
+
+  useEffect(() => {
+    setSearchFocused(open);
+    return () => {
+      setSearchFocused(false);
+    };
+  }, [open, setSearchFocused]);
 
   const searchData: SearchItem[] = useMemo(() => {
     const items: SearchItem[] = [];
@@ -115,6 +127,9 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
       { id: "ext-linkedin", title: "LinkedIn Profile", description: "Connect on LinkedIn", href: hero?.linkedin || "https://www.linkedin.com/in/saad-affan-566553319", icon: "linkedin", category: "External" },
       { id: "ext-email", title: "Send Email", description: hero?.email || "saadaffan129@gmail.com", href: `mailto:${hero?.email || ""}`, icon: "mail", category: "External" },
       { id: "ext-resume", title: "Download Resume", description: "View or download my resume", href: "/resume.pdf", icon: "file", category: "External" },
+      { id: "cmd-dark", title: "Switch to Dark Mode", description: "Toggle portfolio appearance to dark mode", href: "#", icon: "zap", category: "Commands" },
+      { id: "cmd-light", title: "Switch to Light Mode", description: "Toggle portfolio appearance to light mode", href: "#", icon: "zap", category: "Commands" },
+      { id: "cmd-assistant", title: "Open AI Assistant", description: "Open floating interactive helper widget", href: "#", icon: "terminal", category: "Commands" }
     );
 
     return items;
@@ -145,13 +160,20 @@ export default function CommandPalette({ open, onClose }: { open: boolean; onClo
   const navigate = useCallback(
     (item: SearchItem) => {
       onClose();
-      if (item.href.startsWith("http") || item.href.startsWith("mailto")) {
+      if (item.id === "cmd-dark") {
+        setTheme("dark");
+      } else if (item.id === "cmd-light") {
+        setTheme("light");
+      } else if (item.id === "cmd-assistant") {
+        const btn = document.querySelector('[aria-label="AI Assistant"]') as HTMLButtonElement | null;
+        if (btn) btn.click();
+      } else if (item.href.startsWith("http") || item.href.startsWith("mailto")) {
         window.open(item.href, "_blank", "noreferrer");
       } else {
         router.push(item.href);
       }
     },
-    [onClose, router]
+    [onClose, router, setTheme]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

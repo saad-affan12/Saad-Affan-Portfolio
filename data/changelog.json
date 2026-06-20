@@ -1,0 +1,46 @@
+[
+  {
+    "version": "v3.0",
+    "title": "Portfolio Transformation & Rebuild",
+    "date": "June 2026",
+    "description": "Upgraded the portfolio into a premium, world-class engineering showcase with unified design aesthetics, full CMS controls, interactive skill trees, and optimized case study showcases.",
+    "highlights": [
+      "Added Blog dynamic showcase sub-pages managed entirely by CMS",
+      "Added Changelog timeline to track portfolio versions",
+      "Created dynamic engineering Case Studies for all featured projects",
+      "Upgraded skills section with an interactive visual tree diagram",
+      "Implemented floating local AI portfolio assistant"
+    ]
+  },
+  {
+    "version": "v2.8",
+    "title": "Interactive Search & CLI Upgrades",
+    "date": "June 2026",
+    "description": "Merged a spotlight Command Palette with the terminal terminal CLI, enhancing navigation shortcuts.",
+    "highlights": [
+      "Unified CMD/Ctrl+K spotlight search with Linear-style actions",
+      "Fixed CLI commands, autocomplete, and auto-typing sequencing loops",
+      "Added local offline command mapping"
+    ]
+  },
+  {
+    "version": "v2.6",
+    "title": "Premium Motion Effects",
+    "date": "June 2026",
+    "description": "Integrated Framer Motion spring physics across core layout components.",
+    "highlights": [
+      "Created TiltCard 3D perspective wrapper with radial glow cursor spotlights",
+      "Created MagneticButton wrappers for high-fidelity navbar link attractions"
+    ]
+  },
+  {
+    "version": "v2.4",
+    "title": "SuperCX Internship Showcase",
+    "date": "May 2026",
+    "description": "Featured the live engineering role at SuperCX Technologies Pvt Ltd.",
+    "highlights": [
+      "Added Dedicated building-status section directly above projects list",
+      "Linked current live tools and internship stack details"
+    ]
+  }
+]

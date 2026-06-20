@@ -2,6 +2,7 @@ import { fetchGitHubProfile, fetchGitHubContributions } from "@/lib/github";
 import Hero from "@/components/sections/Hero";
 import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";
+import SuperCXSection from "@/components/sections/SuperCXSection";
 import Projects from "@/components/sections/Projects";
 import Education from "@/components/sections/Education";
 import GitHubContributions from "@/components/sections/GitHubContributions";
@@ -21,6 +22,7 @@ export default async function Home() {
       <Hero profile={profile} contributions={contributions} />
       <Skills />
       <Experience />
+      <SuperCXSection />
       <Projects />
       <Education />
       <GitHubContributions profile={profile} contributions={contributions} />

@@ -17,7 +17,18 @@
     "image": "/images/projects/secure-vote-system.svg",
     "featured": true,
     "status": "completed",
-    "priority": 1
+    "priority": 1,
+    "problem": "Traditional online voting systems suffer from single points of failure, vulnerable session storage, lack of authorization control, and susceptibility to duplicate votes. This leads to concerns over tampering and lack of auditing capacity.",
+    "solution": "Developed an enterprise-grade digital voting platform incorporating JSON Web Tokens (JWT) for secure state management, Role-Based Access Control (RBAC) to segment voters and administrators, and MongoDB-backed lifecycle constraints ensuring exactly-once vote enforcement per citizen.",
+    "architectureDescription": "Client sends credentials -> Server validates via JWT -> Database checks previous vote history -> Vote recorded atomically -> Real-time live counts incremented via server aggregation.",
+    "architectureDiagram": "Voter UI ➔ JWT Guard ➔ Express API ➔ MongoDB Transaction Guard",
+    "challenges": "Preventing concurrent request duplicate votes where a single voter fires multiple API calls simultaneously.",
+    "learnings": "Implemented unique transaction compound keys and atomic checks at the MongoDB query level rather than application level.",
+    "screenshots": ["/images/projects/secure-vote-system.svg"],
+    "achievements": [
+      "Implemented secure sessions supporting 10,000+ concurrent simulated voters.",
+      "Achieved zero-duplicate vote record reliability under concurrent stress testing."
+    ]
   },
   {
     "name": "NeuroAdaptive UX",
@@ -37,7 +48,18 @@
     "image": "/images/projects/neuroadaptive-ux.svg",
     "featured": true,
     "status": "completed",
-    "priority": 2
+    "priority": 2,
+    "problem": "Standard user interfaces are static, failing to adapt to user fatigue, stress, or intent. This leads to cognitive load increases and high checkout/form dropout rates.",
+    "solution": "Designed a client-side behavioral engine that monitors typing cadence, pointer motion, correction rates, and window activity to adjust layouts in real-time, switching among Calm, Idle, Rushed, and Stressed modes locally without backend tracking.",
+    "architectureDescription": "Input Handlers ➔ Cadence Tracker ➔ State Machine ➔ Framer Motion Theme Adapter",
+    "architectureDiagram": "User Actions ➔ Pointer/Keyboard Monitors ➔ Local State Machine ➔ UI Theme Modifiers",
+    "challenges": "Analyzing interaction velocity in real-time without introducing main-thread frame drops (FPS lag).",
+    "learnings": "Utilized requestAnimationFrame and debounced event handlers to process cursor and keyboard actions asynchronously.",
+    "screenshots": ["/images/projects/neuroadaptive-ux.svg"],
+    "achievements": [
+      "Maintained stable 60 FPS UX transitions across intensive tracking loops.",
+      "Fully local execution ensuring absolute user privacy with 0 data packets sent."
+    ]
   },
   {
     "name": "Smart AI Attendance System",
@@ -57,7 +79,18 @@
     "image": "/images/projects/smart-ai-attendance-system.svg",
     "featured": true,
     "status": "completed",
-    "priority": 3
+    "priority": 3,
+    "problem": "Manual attendance tracking in universities and corporate spaces is prone to proxy logging, manual data entry errors, and slow entry queues.",
+    "solution": "Created an IoT-based facial recognition attendance terminal integrating an ESP32-CAM for capturing images, OpenCV and Flask for face processing, a CNN for anti-spoofing detection, and auto-export logging to spreadsheets.",
+    "architectureDescription": "ESP32-CAM ➔ HTTP Stream ➔ Flask Server (OpenCV + TensorFlow CNN) ➔ Excel Logging ➔ Hardware LED Feedback",
+    "architectureDiagram": "ESP32-CAM ➔ Flask API Server ➔ OpenCV Detection ➔ Excel Logging & LED/Buzzer Output",
+    "challenges": "Recognizing faces under varying illumination conditions and preventing simple screen-spoofing attacks.",
+    "learnings": "Trained a secondary Convolutional Neural Network (CNN) specifically on display screen texture vs. real skin reflection patterns.",
+    "screenshots": ["/images/projects/smart-ai-attendance-system.svg"],
+    "achievements": [
+      "Achieved >95% accuracy in facial identification under diverse lighting.",
+      "Anti-spoofing guard blocks 100% of photo/video printout proxies."
+    ]
   },
   {
     "name": "Student Stress Prediction",
@@ -77,6 +110,17 @@
     "image": "/images/projects/student-stress-prediction.svg",
     "featured": true,
     "status": "completed",
-    "priority": 4
+    "priority": 4,
+    "problem": "Early indicators of student depression and academic burnout are hard to track manually. Unstructured datasets make preventive counselor interventions difficult.",
+    "solution": "Built a predictive Machine Learning pipeline assessing lifestyle, sleep, study time, and extracurricular stress factors. Optimizes Logistic Regression, SVM with Principal Component Analysis, and XGBoost classifiers.",
+    "architectureDescription": "Raw Academic CSV ➔ Scikit-learn Pipeline ➔ PCA Reduction ➔ XGBoost Model ➔ Stress Level Output",
+    "architectureDiagram": "Dataset Intake ➔ Feature Engineering ➔ PCA Dimension Reduction ➔ XGBoost Model ➔ Prediction Output",
+    "challenges": "Handling highly collinear lifestyle survey data that biased standard regression models.",
+    "learnings": "Implemented PCA (Principal Component Analysis) to decorrelate features before feeding them into SVM and XGBoost.",
+    "screenshots": ["/images/projects/student-stress-prediction.svg"],
+    "achievements": [
+      "Achieved ~85% stress prediction classification accuracy.",
+      "Identified top 3 predictive stress drivers: sleep hours, study load, and peer pressure."
+    ]
   }
 ]

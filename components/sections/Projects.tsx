@@ -2,10 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useData } from "@/hooks/useData";
 import { fadeInUp, staggerContainer } from "@/lib/utils";
 import TiltCard from "@/components/effects/TiltCard";
+
+import { useBackgroundState } from "@/components/providers/BackgroundStateProvider";
 
 const projectColors = [
   "from-[#6366F1]/20 via-[#4F46E5]/10 to-[#4338CA]/5",
@@ -16,6 +19,17 @@ const projectColors = [
 
 export default function Projects() {
   const projects = useData('projects', []);
+  const { setActiveDiagram } = useBackgroundState();
+
+  const getDiagramKey = (name: string) => {
+    const n = (name || "").toLowerCase();
+    if (n.includes("attendance") || n.includes("smart")) return "smart-attendance";
+    if (n.includes("vote") || n.includes("secure")) return "secure-vote";
+    if (n.includes("adaptive") || n.includes("neuro")) return "neuroadaptive";
+    if (n.includes("stress") || n.includes("student")) return "student-stress";
+    return "default";
+  };
+
   return (
     <section id="projects" className="py-24 relative">
       <div className="cinematic-container">
@@ -43,7 +57,11 @@ export default function Projects() {
                 className={isFeatured ? "md:col-span-2" : ""}
               >
                 <TiltCard className="h-full">
-                  <div className="group relative bg-card border border-border rounded-xl overflow-hidden h-full transition-colors duration-300">
+                  <div
+                    onMouseEnter={() => setActiveDiagram(getDiagramKey(project.name))}
+                    onMouseLeave={() => setActiveDiagram("default")}
+                    className="group relative bg-card border border-border rounded-xl overflow-hidden h-full transition-colors duration-300"
+                  >
                     <div className="relative w-full aspect-video bg-card overflow-hidden">
                       {project.image ? (
                         <img
@@ -106,13 +124,19 @@ export default function Projects() {
                         )}
                       </div>
 
-                      <div className="flex items-center gap-3 pt-1">
+                      <div className="flex flex-wrap items-center gap-2 pt-2">
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-semibold text-white hover:brightness-110 active:scale-[0.98] transition-all flex-1 sm:flex-none"
+                        >
+                          Case Study
+                        </Link>
                         {project.live && (
                           <a
                             href={project.live}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] flex-1 sm:flex-none"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 active:scale-[0.98] transition-all flex-1 sm:flex-none"
                           >
                             <ExternalLink size={12} />
                             Live
@@ -122,7 +146,7 @@ export default function Projects() {
                           href={project.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-accent/30 hover:text-foreground hover:bg-white/5 active:scale-[0.98] flex-1 sm:flex-none"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 active:scale-[0.98] transition-all flex-1 sm:flex-none"
                         >
                           <Github size={12} />
                           Source

@@ -15,6 +15,8 @@ import type { Project } from '@/lib/types';
 const emptyProject: Project = {
   name: '', slug: '', date: '', description: '', tags: [], highlights: [],
   github: '', live: null, image: null, featured: false, status: 'draft', priority: 0,
+  problem: '', solution: '', architectureDescription: '', architectureDiagram: '',
+  challenges: '', learnings: '', screenshots: [], achievements: [], metrics: []
 };
 
 export default function ProjectsEditor() {
@@ -116,6 +118,21 @@ export default function ProjectsEditor() {
             <TextInput label="Live URL" value={editing.live || ''} onChange={(e) => updateEditing('live', e.target.value || null)} className="sm:col-span-2" />
           </div>
           <TextArea label="Description" value={editing.description} onChange={(e) => updateEditing('description', e.target.value)} rows={3} />
+          
+          <div className="border-t border-white/[0.04] pt-4 space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400">Case Study Details</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <TextArea label="The Problem" value={editing.problem || ''} onChange={(e) => updateEditing('problem', e.target.value)} rows={3} />
+              <TextArea label="The Solution" value={editing.solution || ''} onChange={(e) => updateEditing('solution', e.target.value)} rows={3} />
+              <TextArea label="Architecture Description" value={editing.architectureDescription || ''} onChange={(e) => updateEditing('architectureDescription', e.target.value)} rows={3} />
+              <TextArea label="Architecture Diagram (Flowchart Text)" value={editing.architectureDiagram || ''} onChange={(e) => updateEditing('architectureDiagram', e.target.value)} rows={3} />
+              <TextArea label="Technical Challenges" value={editing.challenges || ''} onChange={(e) => updateEditing('challenges', e.target.value)} rows={3} />
+              <TextArea label="Key Learnings" value={editing.learnings || ''} onChange={(e) => updateEditing('learnings', e.target.value)} rows={3} />
+            </div>
+            <TagInput label="Key Metrics" tags={editing.metrics ?? []} onChange={(m) => updateEditing('metrics', m)} placeholder="Add metric..." />
+            <TagInput label="Impact achievements" tags={editing.achievements ?? []} onChange={(a) => updateEditing('achievements', a)} placeholder="Add achievement..." />
+          </div>
+
           <TagInput label="Tags" tags={editing.tags ?? []} onChange={(tags) => updateEditing('tags', tags)} />
           <TagInput label="Highlights" tags={editing.highlights ?? []} onChange={(h) => updateEditing('highlights', h)} placeholder="Add highlight..." />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
