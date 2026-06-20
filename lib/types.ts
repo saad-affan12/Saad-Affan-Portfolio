@@ -145,15 +145,18 @@ export interface ExperienceItem {
 }
 
 export interface BlogPost {
-  id: string;
+  id?: string;
   slug: string;
   title: string;
-  cover?: string;
-  tags: string[];
+  date: string;
+  description: string;
   readTime: string;
-  publishedAt: string;
+  tags: string[];
   content: string;
-  category: string;
+  published: boolean;
+  cover?: string;
+  publishedAt?: string;
+  category?: string;
 }
 
 export interface ChangelogItem {
