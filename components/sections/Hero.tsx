@@ -3,9 +3,9 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, Download, ChevronDown, FileText } from "lucide-react";
+import { ArrowUpRight, Download, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
-import { GithubBrandIcon, LinkedinBrandIcon, EmailBrandIcon } from "@/components/shared/SocialLinks";
+import SocialLinks from "@/components/shared/SocialLinks";
 import HeroStatusBadge from "@/components/ui/HeroStatusBadge";
 import ProfileCard from "@/components/ui/ProfileCard";
 import StatsRow from "@/components/sections/StatsRow";
@@ -159,112 +159,48 @@ export default function Hero({
                 {personalInfo.shortName}
               </h1>
               <RoleRotator />
+              {mounted && (
+                <p className="text-xs tabular-nums text-accent font-mono truncate max-w-full">
+                  been on earth for {age.years}.{age.decimal} years
+                </p>
+              )}
             </div>
 
             <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
               {(personalInfo.description || "").split("\n\n")[0]}
             </p>
 
-            {/* Action Cards Grid */}
-            <motion.div 
-              variants={fadeInUp} 
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 max-w-xl"
-            >
-              {/* Card 1: View Projects */}
-              <Link
-                href="/projects"
-                data-cursor-label="View Projects"
-                className="group relative block rounded-xl overflow-hidden bg-white/[0.02] dark:bg-white/[0.01] border border-[#7C3AED]/12 p-4 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_0_24px_rgba(124,58,237,0.15)]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-accent group-hover:border-accent/20 group-hover:bg-accent/5 transition-all duration-300">
-                    <GithubBrandIcon className="size-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-semibold text-foreground">View Projects</h3>
-                      <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-normal">
-                      Explore my work, open-source projects, and repository code.
-                    </p>
-                  </div>
-                </div>
-              </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+              <MagneticWrap>
+                <Link
+                  href="/projects"
+                  data-cursor-label="View →"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden shadow-[0_0_20px_rgba(124,58,237,0.15)] hover:shadow-[0_0_30px_rgba(124,58,237,0.35)]"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    View Projects
+                    <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
+                </Link>
+              </MagneticWrap>
+              <MagneticWrap>
+                <a
+                  href={personalInfo.resume}
+                  data-cursor-label="Resume"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-foreground hover:bg-white/5 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm pointer-events-none" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    Resume
+                    <Download size={14} className="transition-transform group-hover:translate-y-0.5" />
+                  </span>
+                </a>
+              </MagneticWrap>
+            </div>
 
-              {/* Card 2: Resume */}
-              <a
-                href={personalInfo.resume}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor-label="Download Resume"
-                className="group relative block rounded-xl overflow-hidden bg-white/[0.02] dark:bg-white/[0.01] border border-[#7C3AED]/12 p-4 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_0_24px_rgba(124,58,237,0.15)]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-accent group-hover:border-accent/20 group-hover:bg-accent/5 transition-all duration-300">
-                    <FileText size={18} />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-semibold text-foreground">Resume</h3>
-                      <Download size={12} className="text-muted-foreground group-hover:text-accent group-hover:translate-y-0.5 transition-all" />
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-normal">
-                      Download or view my technical resume and qualifications.
-                    </p>
-                  </div>
-                </div>
-              </a>
-
-              {/* Card 3: LinkedIn */}
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor-label="LinkedIn Profile"
-                className="group relative block rounded-xl overflow-hidden bg-white/[0.02] dark:bg-white/[0.01] border border-[#7C3AED]/12 p-4 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_0_24px_rgba(124,58,237,0.15)]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-accent group-hover:border-accent/20 group-hover:bg-accent/5 transition-all duration-300">
-                    <LinkedinBrandIcon className="size-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-semibold text-foreground">LinkedIn</h3>
-                      <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-normal">
-                      Connect with me professionally and check my career updates.
-                    </p>
-                  </div>
-                </div>
-              </a>
-
-              {/* Card 4: Contact */}
-              <a
-                href={`mailto:${personalInfo.email}`}
-                data-cursor-label="Send Email"
-                className="group relative block rounded-xl overflow-hidden bg-white/[0.02] dark:bg-white/[0.01] border border-[#7C3AED]/12 p-4 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_0_24px_rgba(124,58,237,0.15)]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-card text-accent group-hover:border-accent/20 group-hover:bg-accent/5 transition-all duration-300">
-                    <EmailBrandIcon className="size-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="text-sm font-semibold text-foreground">Contact</h3>
-                      <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-normal">
-                      Send an email or message to discuss hiring or networking.
-                    </p>
-                  </div>
-                </div>
-              </a>
+            <motion.div variants={fadeInUp} className="flex justify-center sm:justify-start">
+              <SocialLinks />
             </motion.div>
 
             <StatsRow />
