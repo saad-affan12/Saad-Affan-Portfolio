@@ -165,26 +165,77 @@ export default function EngineeringBackground() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 -z-10 bg-[#020617] overflow-hidden select-none pointer-events-none perspective-[1200px]"
+      className="absolute inset-0 -z-10 bg-[#000000] overflow-hidden select-none pointer-events-none perspective-[1200px]"
     >
+      {/* ----------------------------------------------------
+          LAYER 0: PURPLE ATMOSPHERIC SPOTLIGHTS
+          ---------------------------------------------------- */}
+      {/* Massive hero purple spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        style={{
+          background: `
+            radial-gradient(
+              circle at center,
+              rgba(124, 58, 237, 0.35) 0%,
+              rgba(124, 58, 237, 0.15) 25%,
+              rgba(124, 58, 237, 0.05) 50%,
+              transparent 80%
+            )
+          `,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Secondary bottom purple glow */}
+      <div
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        style={{
+          background: `
+            radial-gradient(
+              circle at bottom center,
+              rgba(168, 85, 247, 0.18) 0%,
+              transparent 70%
+            )
+          `,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Atmospheric depth fog */}
+      <div
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        style={{
+          background: `
+            radial-gradient(
+              ellipse at 30% 40%,
+              rgba(124, 58, 237, 0.04) 0%,
+              rgba(168, 85, 247, 0.03) 30%,
+              transparent 60%
+            )
+          `,
+        }}
+        aria-hidden="true"
+      />
+
       {/* ----------------------------------------------------
           LAYER 1: ANIMATED GRADIENT MESH
           ---------------------------------------------------- */}
-      <div className="absolute inset-0 overflow-hidden opacity-30 mix-blend-screen filter blur-[120px] will-change-transform">
-        {/* Blob 1: Primary Blue */}
+      <div className="absolute inset-0 overflow-hidden opacity-20 mix-blend-screen filter blur-[120px] will-change-transform">
+        {/* Blob 1: Primary Purple */}
         <div
           ref={blob1Ref}
-          className="absolute -top-1/4 -left-1/4 w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 opacity-60"
+          className="absolute -top-1/4 -left-1/4 w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-purple-600 to-violet-700 opacity-60"
         />
         {/* Blob 2: Secondary Violet */}
         <div
           ref={blob2Ref}
           className="absolute -bottom-1/4 -right-1/4 w-[55vw] h-[55vw] rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-600 opacity-50"
         />
-        {/* Blob 3: Accent Cyan */}
+        {/* Blob 3: Accent Purple */}
         <div
           ref={blob3Ref}
-          className="absolute top-1/3 left-1/3 w-[45vw] h-[45vw] rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 opacity-45"
+          className="absolute top-1/3 left-1/3 w-[45vw] h-[45vw] rounded-full bg-gradient-to-br from-purple-500 to-violet-600 opacity-40"
         />
       </div>
 
@@ -200,7 +251,7 @@ export default function EngineeringBackground() {
       <div className="absolute top-0 left-[25vw] w-[1px] h-full bg-white/[0.015] pointer-events-none">
         <div
           ref={beamV1Ref}
-          className="absolute left-1/2 -translate-x-1/2 w-[3px] h-[80px] bg-gradient-to-b from-transparent via-[#06b6d4]/40 to-transparent"
+          className="absolute left-1/2 -translate-x-1/2 w-[3px] h-[80px] bg-gradient-to-b from-transparent via-[#7C3AED]/40 to-transparent"
         />
       </div>
       {/* Vertical Highway 2 */}
@@ -214,7 +265,7 @@ export default function EngineeringBackground() {
       <div className="absolute top-[35vh] left-0 w-full h-[1px] bg-white/[0.015] pointer-events-none">
         <div
           ref={beamH1Ref}
-          className="absolute top-1/2 -translate-y-1/2 w-[80px] h-[3px] bg-gradient-to-r from-transparent via-[#2563eb]/40 to-transparent"
+          className="absolute top-1/2 -translate-y-1/2 w-[80px] h-[3px] bg-gradient-to-r from-transparent via-[#7C3AED]/40 to-transparent"
         />
       </div>
 
@@ -236,7 +287,7 @@ export default function EngineeringBackground() {
           <div className="absolute bottom-2 left-2 w-1.5 h-1.5 border-b border-l border-white/20" />
           <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-white/20" />
           {/* Engineering status code */}
-          <div className="absolute bottom-3 left-4 font-mono text-[8px] tracking-wider text-[#06b6d4]/40">
+          <div className="absolute bottom-3 left-4 font-mono text-[8px] tracking-wider text-[#7C3AED]/40">
             LOC: [ 0x5F11 ] / DEV_CORE: LIVE
           </div>
           <div className="absolute top-3 right-4 font-mono text-[8px] tracking-wider text-slate-400/40">
@@ -250,7 +301,7 @@ export default function EngineeringBackground() {
           className="absolute top-[52vh] right-[10vw] w-[280px] h-[170px] rounded-2xl border border-white/[0.07] bg-slate-900/10 backdrop-blur-[16px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.5)] transition-all duration-300 ease-out will-change-transform"
         >
           <div className="absolute inset-0 rounded-2xl opacity-10 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:20px_20px]" />
-          <div className="absolute top-3 left-4 font-mono text-[8px] tracking-wider text-[#2563eb]/45">
+          <div className="absolute top-3 left-4 font-mono text-[8px] tracking-wider text-[#7C3AED]/45">
             [ ECOSYSTEM_MAP_09 ]
           </div>
           {/* Simplified vector schematic */}
@@ -270,10 +321,10 @@ export default function EngineeringBackground() {
           className="absolute top-[105vh] left-[8vw] w-[320px] h-[190px] rounded-2xl border border-white/[0.07] bg-slate-900/10 backdrop-blur-[16px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_12px_36px_rgba(0,0,0,0.5)] transition-all duration-300 ease-out will-change-transform"
         >
           <div className="absolute inset-0 rounded-2xl opacity-[0.08] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:10px_10px]" />
-          <div className="absolute top-4 left-5 font-mono text-[8px] tracking-wider text-[#8b5cf6]/40">
+          <div className="absolute top-4 left-5 font-mono text-[8px] tracking-wider text-[#7C3AED]/40">
             // WORKFLOW_TIMELINE
           </div>
-          <div className="absolute bottom-4 left-5 font-mono text-[8px] text-slate-500/40">
+          <div className="absolute bottom-4 left-5 font-mono text-[8px] text-[#7C3AED]/40">
             SYSTEM_STATUS: OK
           </div>
         </div>
@@ -284,7 +335,7 @@ export default function EngineeringBackground() {
           className="absolute top-[162vh] right-[10vw] w-[300px] h-[160px] rounded-2xl border border-white/[0.06] bg-slate-900/10 backdrop-blur-[12px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.07),0_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300 ease-out will-change-transform"
         >
           <div className="absolute inset-0 rounded-2xl opacity-10 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px]" />
-          <div className="absolute top-4 left-5 font-mono text-[8px] tracking-wider text-[#06b6d4]/40">
+          <div className="absolute top-4 left-5 font-mono text-[8px] tracking-wider text-[#7C3AED]/40">
             ROADMAP_INDEX_v4
           </div>
         </div>
@@ -298,13 +349,13 @@ export default function EngineeringBackground() {
       <div className="absolute inset-0 noise-overlay pointer-events-none opacity-[0.012]" />
 
       {/* Radial vignette fade for deep edge contrast */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#020617_95%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,#000000_95%)] pointer-events-none" />
 
       {/* ----------------------------------------------------
           LAYER 5: CURSOR SPOTLIGHT
           ---------------------------------------------------- */}
       <div
-        className="absolute inset-0 pointer-events-none transition-colors duration-500 bg-[radial-gradient(circle_550px_at_var(--mouse-x)_var(--mouse-y),rgba(37,99,235,0.045),transparent_100%)]"
+        className="absolute inset-0 pointer-events-none transition-colors duration-500 bg-[radial-gradient(circle_550px_at_var(--mouse-x)_var(--mouse-y),rgba(124,58,237,0.045),transparent_100%)]"
       />
     </div>
   );

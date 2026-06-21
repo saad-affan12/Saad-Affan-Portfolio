@@ -26,7 +26,7 @@ export default function ProfileCard({
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
       className="relative group mx-auto sm:mx-0 max-w-xs sm:max-w-none"
     >
-      <div className="bg-card border border-border rounded-2xl p-6 text-center space-y-5 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.08)]">
+      <div className="bg-card border border-border rounded-2xl p-6 text-center space-y-5 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.08)]">
         <div className="mx-auto size-24 sm:size-28 rounded-full overflow-hidden ring-2 ring-accent/30">
           <img
             src={personalInfo.image}

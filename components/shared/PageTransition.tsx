@@ -76,7 +76,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
             transition={{ duration: 0.5, ease }}
             className="fixed top-0 left-0 right-0 h-[2px] z-[110] origin-left pointer-events-none"
             style={{
-              background: "linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%)",
+              background: "linear-gradient(90deg, #7C3AED 0%, #A855F7 50%, #7C3AED 100%)",
             }}
           />
         )}

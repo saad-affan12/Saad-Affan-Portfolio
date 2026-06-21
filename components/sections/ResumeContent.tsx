@@ -15,7 +15,7 @@ export default function ResumeContent() {
   const allSkills = (skillsData || []).flatMap((c) => c?.items || []);
   return (
     <section className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3b82f6]/[0.01] to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/[0.01] to-transparent pointer-events-none" />
       <div className="cinematic-container">
         <SectionHeading
           eyebrow="Resume"
@@ -33,7 +33,7 @@ export default function ResumeContent() {
           {/* Left: Summary Card */}
           <motion.div variants={fadeInUp} className="lg:col-span-3">
             <div className="group relative h-full">
-              <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#7C3AED]/10 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
               <div className="relative glass-panel-strong p-5 sm:p-8 space-y-5 sm:space-y-6">
                 <div className="flex items-start justify-between gap-3 sm:gap-4">
                   <div className="space-y-1">
@@ -131,7 +131,7 @@ export default function ResumeContent() {
           <motion.div variants={fadeInUp} className="lg:col-span-2 space-y-6">
             {education.map((edu, i) => (
               <div key={edu.institution + (edu.degree || edu.program || i)} className="group relative">
-                <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#7C3AED]/10 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
               <div className="relative glass-card glass-card-border-accent p-5 sm:p-6 space-y-3">
                 <div className="flex items-center gap-2 text-accent">
                     <GraduationCap size={16} />
@@ -174,7 +174,7 @@ export default function ResumeContent() {
             <div className="space-y-4">
               {roadmap.filter((r) => r.type !== "project").map((item, idx) => (
                 <div key={`${item.role || ''}-${item.company || ''}-${idx}`} className="group relative">
-                  <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                  <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#7C3AED]/10 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                   <div className="relative glass-card glass-card-border-accent p-5 sm:p-6 space-y-3">
                     <div className="flex items-center gap-2 text-accent">
                       <Building2 size={16} />
@@ -208,7 +208,7 @@ export default function ResumeContent() {
 
               {roadmap.filter((r) => r.type === "project").map((item, idx) => (
                 <div key={`${item.role || ''}-${item.company || ''}-project-${idx}`} className="group relative">
-                  <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                  <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#7C3AED]/10 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                   <div className="relative glass-card glass-card-border-accent p-5 sm:p-6 space-y-2">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h4 className="text-sm font-semibold text-foreground">{item.company}</h4>
@@ -238,7 +238,7 @@ export default function ResumeContent() {
               rel="noreferrer"
               className="group relative block"
             >
-              <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-[#7C3AED]/10 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
               <div className="relative glass-card glass-card-border-accent p-6 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-foreground">

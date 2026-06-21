@@ -56,7 +56,7 @@ export default function ProjectImage({ src, alt, initials, gradientClass }: Proj
           className="object-cover transition-all duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 z-10" style={{ background: 'var(--img-fade-overlay)' }} />
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
           <div className="flex gap-3">
             {projectActions(alt)}
@@ -74,7 +74,7 @@ export default function ProjectImage({ src, alt, initials, gradientClass }: Proj
           {initials}
         </div>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/5 via-transparent to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/5 via-transparent to-[#A855F7]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
         <div className="flex gap-3">
           {projectActions(alt)}

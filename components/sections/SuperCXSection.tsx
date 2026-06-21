@@ -35,7 +35,7 @@ export default function SuperCXSection() {
       >
         {/* Section Header */}
         <div className="mb-10 text-center sm:text-left">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold tracking-wider text-accent uppercase border border-accent/20 dark:shadow-[0_0_12px_rgba(99,102,241,0.2)]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold tracking-wider text-accent uppercase border border-accent/20 dark:shadow-[0_0_12px_rgba(124,58,237,0.2)]">
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-accent" />

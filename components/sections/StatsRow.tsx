@@ -45,7 +45,7 @@ export default function StatsRow() {
       {statItems.map((stat, i) => (
         <div
           key={stat.label}
-          className="bg-card border border-border rounded-lg px-3 py-2.5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/15 hover:shadow-[0_0_12px_rgba(99,102,241,0.06)]"
+          className="bg-card border border-border rounded-lg px-3 py-2.5 text-center transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/15 hover:shadow-[0_0_12px_rgba(124,58,237,0.06)]"
         >
           <div className="text-sm font-bold text-foreground leading-tight">
             {"value" in stat ? (

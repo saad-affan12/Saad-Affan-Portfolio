@@ -16,7 +16,7 @@ export default function DarkGradientOrbs() {
       <div
         className="dark-orb-1 absolute top-[-250px] left-[-200px] w-[700px] h-[700px] rounded-full will-change-transform"
         style={{
-          background: "rgba(99, 102, 241, 0.18)",
+          background: "rgba(124, 58, 237, 0.18)",
           filter: "blur(140px)",
           animation: "dark-float-1 14s ease-in-out infinite alternate",
         }}
@@ -24,7 +24,7 @@ export default function DarkGradientOrbs() {
       <div
         className="dark-orb-2 absolute top-[25%] right-[-150px] w-[600px] h-[600px] rounded-full will-change-transform"
         style={{
-          background: "rgba(139, 92, 246, 0.14)",
+          background: "rgba(168, 85, 247, 0.14)",
           filter: "blur(120px)",
           animation: "dark-float-2 18s ease-in-out infinite alternate",
         }}
@@ -32,7 +32,7 @@ export default function DarkGradientOrbs() {
       <div
         className="dark-orb-3 absolute bottom-[-150px] left-[35%] w-[500px] h-[500px] rounded-full will-change-transform"
         style={{
-          background: "rgba(29, 78, 216, 0.12)",
+          background: "rgba(109, 40, 217, 0.12)",
           filter: "blur(100px)",
           animation: "dark-float-3 22s ease-in-out infinite alternate",
         }}

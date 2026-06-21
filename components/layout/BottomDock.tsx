@@ -101,7 +101,7 @@ export default function BottomDock() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-dock rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2.5 dark:shadow-[0_0_24px_rgba(37,99,235,0.15)]"
+            className="glass-dock rounded-xl sm:rounded-2xl px-1.5 sm:px-3 py-1.5 sm:py-2.5 dark:shadow-[0_0_24px_rgba(124,58,237,0.15)]"
           >
             <div className="flex items-center gap-0.5 sm:gap-1.5">
               {dockLinks.map((link, index) => {
@@ -129,7 +129,7 @@ export default function BottomDock() {
                       whileHover={{ 
                         scale: 1.25, 
                         y: -6,
-                        boxShadow: "0 0 15px rgba(37, 99, 235, 0.4)",
+                        boxShadow: "0 0 15px rgba(124, 58, 237, 0.4)",
                       }}
                       whileTap={{ scale: 0.9 }}
                       className={cn(

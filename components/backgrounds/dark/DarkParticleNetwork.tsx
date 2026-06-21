@@ -8,9 +8,9 @@ const CONFIG = {
   maxDistance: 130,
   nodeSpeed: 0.35,
   nodeRadius: 2.2,
-  nodeColor: "rgba(139, 92, 246, 0.45)",
-  lineColor: "rgba(99, 102, 241, 0.15)",
-  glowColor: "rgba(139, 92, 246, 0.08)",
+  nodeColor: "rgba(168, 85, 247, 0.45)",
+  lineColor: "rgba(124, 58, 237, 0.15)",
+  glowColor: "rgba(168, 85, 247, 0.08)",
   backgroundColor: "transparent",
 };
 
@@ -105,7 +105,7 @@ export default function DarkParticleNetwork() {
           ctx.shadowColor = CONFIG.glowColor;
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(139, 92, 246, 0.7)";
+          ctx.fillStyle = "rgba(168, 85, 247, 0.7)";
           ctx.fill();
           ctx.restore();
         }

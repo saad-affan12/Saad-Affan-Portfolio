@@ -47,7 +47,7 @@ export default function Contact() {
                   <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-3 pt-2">
                     <a
                       href={`mailto:${personalInfo?.email}`}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:brightness-110 active:scale-[0.98] shadow-[0_0_20px_rgba(124,58,237,0.15)]"
                     >
                       <Mail size={14} />
                       Send Email

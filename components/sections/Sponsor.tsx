@@ -21,10 +21,10 @@ export default function Sponsor() {
           viewport={{ once: true, margin: "-100px" }}
           className="group relative"
         >
-          <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#ec4899]/20 via-[#3b82f6]/10 to-[#8b5cf6]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
+          <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#ec4899]/20 via-[#7C3AED]/10 to-[#A855F7]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
           <div className="relative glass-panel-strong p-8 sm:p-12 md:p-16 text-center space-y-6 sm:space-y-8 overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#ec4899]/10 to-transparent rounded-bl-full" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#3b82f6]/10 to-transparent rounded-tr-full" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#7C3AED]/10 to-transparent rounded-tr-full" />
 
             <motion.div variants={fadeInUp} className="relative space-y-4">
               <SectionHeading
