@@ -6,11 +6,26 @@ import { syncDataToGitHub, isGitHubConfigured } from '@/lib/github-sync';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
+interface CacheEntry {
+  data: any;
+  timestamp: number;
+}
+
+const memoryStore = new Map<string, CacheEntry>();
+const CACHE_TTL_MS = 10000; // 10 seconds TTL
+
 function isVercel(): boolean {
   return !!process.env.VERCEL;
 }
 
 export async function readDataFile<T>(key: string): Promise<T | null> {
+  const cached = memoryStore.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return cached.data as T;
+  }
+
+  let fileData: T | null = null;
+
   if (supabaseAdmin) {
     try {
       const { data, error } = await supabaseAdmin
@@ -19,24 +34,33 @@ export async function readDataFile<T>(key: string): Promise<T | null> {
         .eq('key', key)
         .single();
       if (data && !error) {
-        return data.data as T;
+        fileData = data.data as T;
       }
     } catch {}
   }
 
-  const filename = DATA_FILES[key as DataKey];
-  if (!filename) return null;
-  const filePath = path.join(DATA_DIR, filename);
-  try {
-    if (fs.existsSync(filePath)) {
-      const content = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
-      return content;
-    }
-  } catch {}
+  if (fileData === null) {
+    const filename = DATA_FILES[key as DataKey];
+    if (!filename) return null;
+    const filePath = path.join(DATA_DIR, filename);
+    try {
+      if (fs.existsSync(filePath)) {
+        fileData = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+      }
+    } catch {}
+  }
+
+  if (fileData !== null) {
+    memoryStore.set(key, { data: fileData, timestamp: Date.now() });
+    return fileData;
+  }
+
   return null;
 }
 
 export async function writeDataFile(key: string, data: unknown): Promise<{ success: boolean; githubSync: boolean }> {
+  // Update cache immediately on write
+  memoryStore.set(key, { data, timestamp: Date.now() });
 
   if (supabaseAdmin) {
     try {
