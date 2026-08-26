@@ -6,17 +6,11 @@ import { syncDataToGitHub, isGitHubConfigured } from '@/lib/github-sync';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
-const memoryStore = new Map<string, unknown>();
-
 function isVercel(): boolean {
   return !!process.env.VERCEL;
 }
 
 export async function readDataFile<T>(key: string): Promise<T | null> {
-  if (memoryStore.has(key)) {
-    return memoryStore.get(key) as T;
-  }
-
   if (supabaseAdmin) {
     try {
       const { data, error } = await supabaseAdmin
@@ -25,7 +19,6 @@ export async function readDataFile<T>(key: string): Promise<T | null> {
         .eq('key', key)
         .single();
       if (data && !error) {
-        memoryStore.set(key, data.data);
         return data.data as T;
       }
     } catch {}
@@ -37,7 +30,6 @@ export async function readDataFile<T>(key: string): Promise<T | null> {
   try {
     if (fs.existsSync(filePath)) {
       const content = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
-      memoryStore.set(key, content);
       return content;
     }
   } catch {}
@@ -45,7 +37,6 @@ export async function readDataFile<T>(key: string): Promise<T | null> {
 }
 
 export async function writeDataFile(key: string, data: unknown): Promise<{ success: boolean; githubSync: boolean }> {
-  memoryStore.set(key, data);
 
   if (supabaseAdmin) {
     try {

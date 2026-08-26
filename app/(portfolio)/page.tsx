@@ -1,4 +1,7 @@
 import { fetchGitHubProfile, fetchGitHubContributions } from "@/lib/github";
+
+export const dynamic = 'force-dynamic';
+
 import Hero from "@/components/sections/Hero";
 import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";

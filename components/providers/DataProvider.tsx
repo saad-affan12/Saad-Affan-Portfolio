@@ -29,7 +29,7 @@ export function DataProvider({
 
   const refreshData = useCallback(async () => {
     try {
-      const res = await fetch('/api/data');
+      const res = await fetch('/api/data', { cache: 'no-store' });
       if (res.ok) {
         const all = await res.json();
         setData(prev => ({ ...prev, ...all }));

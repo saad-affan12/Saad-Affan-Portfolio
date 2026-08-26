@@ -1,8 +1,28 @@
 "use client";
-
+import { useData } from "@/hooks/useData";
 import { motion } from "framer-motion";
 
 export default function ProfileImage({ className = "" }: { className?: string }) {
+  const personalInfo = useData('hero', {
+    name: '',
+    shortName: '',
+    initials: '',
+    tagline: '',
+    role: '',
+    description: '',
+    email: '',
+    location: '',
+    birthDate: '',
+    github: '',
+    linkedin: '',
+    instagram: '',
+    portfolio: '',
+    repo: '',
+    resume: '',
+    image: '/img/saad.png',
+    availability: '',
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
@@ -18,14 +38,14 @@ export default function ProfileImage({ className = "" }: { className?: string })
         >
           <div className="absolute inset-0 size-full rounded-full border-2 border-border overflow-hidden [backface-visibility:hidden]">
             <img
-              src="/img/saad.png"
-              alt="Mohammed Saad Affan A"
+              src={personalInfo.image || "/img/saad.png"}
+              alt={personalInfo.name || "Mohammed Saad Affan A"}
               className="size-full object-cover"
             />
             <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-foreground/5" />
           </div>
           <div className="absolute inset-0 size-full rounded-full border-2 border-accent/30 bg-card flex items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
-            <span className="text-2xl sm:text-3xl font-bold text-gradient-blue">MSA</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gradient-blue">{personalInfo.initials || "MSA"}</span>
           </div>
         </motion.div>
         <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-accent/10 to-[#8b5cf6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />

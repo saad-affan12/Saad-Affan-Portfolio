@@ -3,6 +3,8 @@ import { DATA_FILES, type DataKey } from '@/lib/types';
 import { readDataFile, readAllDataFiles, writeDataFile } from '@/lib/data-store';
 import { isGitHubConfigured, validateGitHubConfig } from '@/lib/github-sync';
 
+export const dynamic = 'force-dynamic';
+
 function isValidKey(key: string): key is DataKey {
   return key in DATA_FILES;
 }
