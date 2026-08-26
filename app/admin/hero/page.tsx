@@ -12,6 +12,7 @@ export default function HeroEditor() {
   const hero = useData('hero');
   const refresh = useRefreshData();
   const [form, setForm] = useState<Hero | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (hero) setForm({ ...hero });
@@ -20,13 +21,22 @@ export default function HeroEditor() {
   if (!form) return <div className="text-gray-500 text-sm">Loading...</div>;
 
   const handleSave = async () => {
-    const res = await fetch('/api/data?key=hero', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
-    if (!res.ok) throw new Error('Failed to save');
-    await refresh();
+    setError(null);
+    try {
+      const res = await fetch('/api/data?key=hero', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to save');
+      }
+      await refresh();
+    } catch (err: any) {
+      setError(err.message || 'Failed to save changes');
+      throw err;
+    }
   };
 
   const update = <K extends keyof Hero>(key: K, value: Hero[K]) => {
@@ -63,6 +73,12 @@ export default function HeroEditor() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <ImageUpload label="Profile Image" value={form.image} onChange={(url) => update('image', url)} />
       </div>
+
+      {error && (
+        <div className="py-2.5 px-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+          {error}
+        </div>
+      )}
 
       <div className="flex items-center gap-3 pt-2">
         <SaveButton onSave={handleSave} />
