@@ -1,6 +1,11 @@
 {
   "welcomeMessage": "MSA Terminal v2.0 — Type 'help' for available commands",
-  "initialCommands": ["whoami", "skills", "projects", "socials"],
+  "initialCommands": [
+    "whoami",
+    "skills",
+    "projects",
+    "socials"
+  ],
   "commandHelp": {
     "about": "Display profile information",
     "skills": "List technical skills",
