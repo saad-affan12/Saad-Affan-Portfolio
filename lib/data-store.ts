@@ -25,8 +25,9 @@ export async function readDataFile<T>(key: string): Promise<T | null> {
   }
 
   let fileData: T | null = null;
+  const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
 
-  if (supabaseAdmin) {
+  if (supabaseAdmin && !isBuildPhase) {
     try {
       const { data, error } = await supabaseAdmin
         .from('portfolio_data')

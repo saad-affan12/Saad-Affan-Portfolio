@@ -23,6 +23,7 @@ export async function fetchGitHubProfile(): Promise<GitHubProfile | null> {
   try {
     const res = await fetch("https://api.github.com/users/saad-affan12", {
       next: { revalidate: 21600 },
+      signal: AbortSignal.timeout(3000),
     } as RequestInit & { next?: { revalidate: number } });
 
     if (!res.ok) {
@@ -49,6 +50,7 @@ export async function fetchGitHubContributions(): Promise<ContributionsResponse 
   try {
     const res = await fetch("https://github-contributions-api.jogruber.de/v4/saad-affan12", {
       next: { revalidate: 21600 },
+      signal: AbortSignal.timeout(3000),
     } as RequestInit & { next?: { revalidate: number } });
 
     if (!res.ok) {
